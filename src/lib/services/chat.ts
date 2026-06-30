@@ -18,10 +18,11 @@ export interface ChatMessage {
   userId: string;
   userName: string;
   userPhotoURL: string | null;
+  userRole?: string;
   createdAt: Timestamp | null;
 }
 
-export const sendMessage = async (text: string, userId: string, userName: string, userPhotoURL: string | null) => {
+export const sendMessage = async (text: string, userId: string, userName: string, userPhotoURL: string | null, userRole?: string) => {
   if (!text.trim()) return;
   
   try {
@@ -31,6 +32,7 @@ export const sendMessage = async (text: string, userId: string, userName: string
       userId,
       userName,
       userPhotoURL,
+      userRole: userRole || "member",
       createdAt: serverTimestamp(),
     });
   } catch (error) {

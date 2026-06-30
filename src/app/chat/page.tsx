@@ -33,7 +33,8 @@ export default function ChatPage() {
         newMessage, 
         user.uid, 
         userProfile?.name || user.displayName || "Anonymous Builder", 
-        userProfile?.photoURL || user.photoURL
+        userProfile?.photoURL || user.photoURL,
+        userProfile?.role || "member"
       );
       setNewMessage("");
     } catch (error) {
@@ -81,7 +82,12 @@ export default function ChatPage() {
                 </div>
                 
                 <div className={`flex flex-col ${isMe ? 'items-end' : 'items-start'} max-w-[75%]`}>
-                  <span className={`text-[10px] text-text-muted mb-1 ${isMe ? 'mr-1' : 'ml-1'}`}>{msg.userName}</span>
+                  <span className={`text-[10px] text-text-muted mb-1 ${isMe ? 'mr-1' : 'ml-1'} flex items-baseline gap-1`}>
+                    {msg.userName}
+                    {msg.userRole && msg.userRole === 'admin' && (
+                      <sub className="text-[8px] text-accent font-bold uppercase tracking-wider bg-accent/10 px-1 rounded">Core</sub>
+                    )}
+                  </span>
                   
                   <div className={`px-4 py-2 rounded-2xl text-sm ${
                     isMe 
