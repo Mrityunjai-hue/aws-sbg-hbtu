@@ -67,7 +67,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100dvh-64px)] max-w-5xl mx-auto border-x border-border-hairline bg-bg relative overflow-hidden">
+    <div className="fixed top-16 bottom-[58px] md:bottom-0 left-0 right-0 md:left-64 max-w-5xl mx-auto border-x border-border-hairline bg-bg overflow-hidden z-30 flex flex-col">
       
       {/* Subtle Abstract Radial Gradient Background */}
       <div className="absolute inset-0 pointer-events-none" style={{
@@ -84,7 +84,7 @@ export default function ChatPage() {
         </div>
 
         {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-24 md:pb-6 space-y-6 scroll-smooth">
+        <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scroll-smooth">
           {messages.length === 0 ? (
             <div className="text-center text-text-muted mt-10">No messages yet. Start the conversation!</div>
           ) : (
@@ -133,8 +133,8 @@ export default function ChatPage() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Area - Glassmorphic, with Mobile Safe Bottom Padding */}
-        <div className="p-4 pb-[100px] md:pb-6 border-t border-border-hairline bg-bg/80 backdrop-blur-md w-full">
+        {/* Input Area - Glassmorphic */}
+        <div className="p-4 border-t border-border-hairline bg-bg/80 backdrop-blur-md w-full shrink-0">
           <form onSubmit={handleSend} className="flex gap-3">
             <input
               type="text"
