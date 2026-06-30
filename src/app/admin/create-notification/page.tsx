@@ -14,6 +14,7 @@ export default function CreateNotificationPage() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
   if (!loading && userProfile?.role !== "admin") {
@@ -24,6 +25,7 @@ export default function CreateNotificationPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setSuccess(false);
     setError("");
 
     try {
@@ -33,7 +35,8 @@ export default function CreateNotificationPage() {
       });
 
       if (notifId) {
-        router.push("/notifications");
+        setSuccess(true);
+        setTimeout(() => router.push("/notifications"), 1000);
       } else {
         throw new Error("Failed to create notification.");
       }
@@ -91,8 +94,14 @@ export default function CreateNotificationPage() {
                 >
                   Cancel
                 </Button>
-                <Button type="submit" variant="primary" disabled={submitting}>
-                  {submitting ? "Sending..." : "Send Notification"}
+                <Button 
+                  type="submit" 
+                  variant="primary" 
+                  disabled={submitting}
+                  isLoading={submitting}
+                  isSuccess={success}
+                >
+                  {success ? "Sent!" : "Send Notification"}
                 </Button>
               </div>
             </form>

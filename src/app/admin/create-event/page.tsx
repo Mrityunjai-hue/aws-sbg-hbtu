@@ -18,6 +18,7 @@ export default function CreateEventPage() {
   const [dateStr, setDateStr] = useState("");
   const [description, setDescription] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
   if (!loading && userProfile?.role !== "admin") {
@@ -29,6 +30,7 @@ export default function CreateEventPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setSuccess(false);
     setError("");
 
     try {
@@ -47,7 +49,8 @@ export default function CreateEventPage() {
       });
 
       if (eventId) {
-        router.push("/events");
+        setSuccess(true);
+        setTimeout(() => router.push("/events"), 1000);
       } else {
         throw new Error("Failed to create event.");
       }
@@ -135,8 +138,14 @@ export default function CreateEventPage() {
                 >
                   Cancel
                 </Button>
-                <Button type="submit" variant="primary" disabled={submitting}>
-                  {submitting ? "Creating..." : "Create Event"}
+                <Button 
+                  type="submit" 
+                  variant="primary" 
+                  disabled={submitting}
+                  isLoading={submitting}
+                  isSuccess={success}
+                >
+                  {success ? "Created!" : "Create Event"}
                 </Button>
               </div>
             </form>
