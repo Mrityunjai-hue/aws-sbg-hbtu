@@ -40,17 +40,17 @@ export default function TeamPage() {
         <span className="material-symbols-outlined text-[14px]">chevron_right</span>
         <span>Community</span>
         <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-        <span className="text-text">Core Team</span>
+        <span className="text-text">Heroes</span>
       </div>
 
       {/* Hero Section */}
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 mb-24 border-b border-border-hairline pb-20">
         <div className="flex-1">
           <h1 className="mb-6 font-heading text-4xl lg:text-5xl font-bold text-text leading-[1.2]">
-            Core Team
+            Heroes
           </h1>
           <p className="text-sm text-text-muted max-w-md mb-8">
-            Connect with the leaders on campus.
+            Connect with the heroes on campus.
           </p>
           <div className="flex gap-4">
             <Link href="/join" className="bg-white text-black px-6 py-2 rounded text-sm font-bold hover:bg-gray-200 transition-colors">
@@ -78,15 +78,15 @@ export default function TeamPage() {
 
       <div className="grid lg:grid-cols-3 gap-12 mb-20">
         <div className="lg:col-span-2">
-          <h2 className="font-heading text-2xl font-bold text-text mb-6">About the team</h2>
+          <h2 className="font-heading text-2xl font-bold text-text mb-6">About the Heroes</h2>
           <p className="text-sm text-text-muted mb-4 leading-relaxed">
-            The AWS Student Builder Group Core Team is responsible for growing the community, organizing inspiring events, and championing local initiatives that matter to our peers at HBTU.
+            The AWS Student Builder Group Heroes are responsible for growing the community, organizing inspiring events, and championing local initiatives that matter to our peers at HBTU.
           </p>
           <p className="text-sm text-text-muted mb-8 leading-relaxed">
             Every group is led by dedicated student volunteers who are passionate about bringing their ideas to life with support from AWS.
           </p>
 
-          <h2 className="font-heading text-2xl font-bold text-text mb-6">Meet the Core Team</h2>
+          <h2 className="font-heading text-2xl font-bold text-text mb-6">Meet the Heroes</h2>
           
           <div className="flex flex-col border-t border-border-hairline">
             {loading ? (
@@ -114,13 +114,22 @@ export default function TeamPage() {
                       Contact <span className="material-symbols-outlined text-[16px]">open_in_new</span>
                     </a>
                     {userProfile?.role === "admin" && (
-                      <button
-                        onClick={() => handleDelete(member.id)}
-                        className="text-red-500 hover:text-red-400 p-2"
-                        title="Delete member"
-                      >
-                        <span className="material-symbols-outlined text-[18px]">delete</span>
-                      </button>
+                      <>
+                        <Link
+                          href={`/admin/edit-team-member/${member.id}`}
+                          className="text-text hover:text-accent p-2"
+                          title="Edit member"
+                        >
+                          <span className="material-symbols-outlined text-[18px]">edit</span>
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(member.id)}
+                          className="text-red-500 hover:text-red-400 p-2"
+                          title="Delete member"
+                        >
+                          <span className="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>
@@ -134,7 +143,7 @@ export default function TeamPage() {
           <div className="divide-y divide-border-hairline border-y border-border-hairline">
             <details className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between py-2 text-sm font-semibold text-text">
-                <span>Who can join the Core Team?</span>
+                <span>Who can become a Hero?</span>
                 <span className="material-symbols-outlined text-text-muted transition-transform group-open:rotate-45">add</span>
               </summary>
               <p className="pt-4 text-sm text-text-muted leading-relaxed">

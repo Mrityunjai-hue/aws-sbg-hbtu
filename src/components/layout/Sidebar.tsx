@@ -49,7 +49,7 @@ export function Sidebar() {
       title: "Community",
       icon: "diversity_3",
       items: [
-        { label: "Core Team", href: "/team" },
+        { label: "Heroes", href: "/heroes" },
         { label: "Join Us", href: "/join" },
         { label: "Global Chat", href: "/chat", authRequired: true },
       ],

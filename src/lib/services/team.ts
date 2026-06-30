@@ -1,4 +1,4 @@
-import { collection, getDocs, query, orderBy, Timestamp, addDoc, doc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, updateDoc, query, orderBy, Timestamp, addDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 export interface TeamMember {
@@ -62,6 +62,43 @@ export async function deleteTeamMember(id: string): Promise<boolean> {
     return true;
   } catch (error) {
     console.error("Failed to delete team member:", error);
+    return false;
+  }
+}
+
+export async function getTeamMember(id: string): Promise<TeamMember | null> {
+  try {
+    if (!db) throw new Error("Firebase DB not initialized");
+    
+    const docRef = doc(db, "team", id);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() } as TeamMember;
+    }
+    return null;
+  } catch (error) {
+    console.error("Failed to fetch team member:", error);
+    return null;
+  }
+}
+
+export async function updateTeamMember(id: string, data: Partial<Omit<TeamMember, "id" | "createdAt" | "initial">>): Promise<boolean> {
+  try {
+    if (!db) throw new Error("Firebase DB not initialized");
+    
+    const docRef = doc(db, "team", id);
+    const updateData: any = { ...data };
+    
+    if (data.name) {
+      updateData.initial = data.name.charAt(0).toUpperCase();
+    }
+    
+    await updateDoc(docRef, updateData);
+    
+    return true;
+  } catch (error) {
+    console.error("Failed to update team member:", error);
     return false;
   }
 }
