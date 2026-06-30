@@ -38,6 +38,13 @@ export function MobileNav() {
         <span className="material-symbols-outlined text-[24px]">person_add</span>
         <span className="text-[10px] font-medium">Join</span>
       </Link>
+      <Link
+        href="/chat"
+        className="flex flex-col items-center justify-center rounded-full px-2 py-1 text-text-muted transition-transform duration-150 active:scale-95 hover:text-accent"
+      >
+        <span className="material-symbols-outlined text-[24px]">chat</span>
+        <span className="text-[10px] font-medium">Chat</span>
+      </Link>
     </nav>
   );
 }

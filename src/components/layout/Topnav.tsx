@@ -52,7 +52,11 @@ export function Topnav() {
           )}
         </div>
 
-        <Link href="/profile" className="text-text-muted hover:text-text transition-colors flex items-center">
+        <Link href="/chat" className="text-text-muted hover:text-text transition-colors flex items-center" title="Global Chat">
+          <span className="material-symbols-outlined text-[20px]">chat</span>
+        </Link>
+
+        <Link href="/profile" className="text-text-muted hover:text-text transition-colors flex items-center" title="Settings">
           <span className="material-symbols-outlined text-[20px]">settings</span>
         </Link>
         
