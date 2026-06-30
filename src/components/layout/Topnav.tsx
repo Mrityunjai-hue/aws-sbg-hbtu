@@ -42,7 +42,7 @@ export function Topnav() {
             <span className="material-symbols-outlined text-[20px]">add</span>
           </button>
           {showAddDropdown && (
-            <div className="absolute right-0 mt-2 w-48 bg-bg-card border border-border-hairline rounded shadow-lg py-1 z-50">
+            <div className="absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-auto sm:right-0 mt-2 w-48 bg-bg-card border border-border-hairline rounded shadow-lg py-1 z-50">
               <Link href="/join" className="block px-4 py-2 text-sm text-text hover:bg-white/5" onClick={() => setShowAddDropdown(false)}>Submit an Idea</Link>
               <Link href="/events" className="block px-4 py-2 text-sm text-text hover:bg-white/5" onClick={() => setShowAddDropdown(false)}>Suggest an Event</Link>
               {userProfile?.role === 'admin' && (
