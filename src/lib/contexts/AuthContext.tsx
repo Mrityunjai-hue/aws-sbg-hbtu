@@ -9,6 +9,7 @@ export interface UserProfile {
   name?: string;
   email?: string;
   role?: "member" | "admin";
+  teamRole?: string;
   createdAt?: string;
   photoURL?: string;
   bio?: string;

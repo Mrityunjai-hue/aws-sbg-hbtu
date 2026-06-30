@@ -34,7 +34,7 @@ export default function ChatPage() {
         user.uid, 
         userProfile?.name || user.displayName || "Anonymous Builder", 
         userProfile?.photoURL || user.photoURL,
-        userProfile?.role || "member"
+        userProfile?.teamRole || userProfile?.role || "member"
       );
       setNewMessage("");
     } catch (error) {
@@ -84,8 +84,10 @@ export default function ChatPage() {
                 <div className={`flex flex-col ${isMe ? 'items-end' : 'items-start'} max-w-[75%]`}>
                   <span className={`text-[10px] text-text-muted mb-1 ${isMe ? 'mr-1' : 'ml-1'} flex items-baseline gap-1`}>
                     {msg.userName}
-                    {msg.userRole && msg.userRole === 'admin' && (
-                      <sub className="text-[8px] text-accent font-bold uppercase tracking-wider bg-accent/10 px-1 rounded">Core</sub>
+                    {msg.userRole && msg.userRole !== 'member' && (
+                      <sub className="text-[8px] text-accent font-bold uppercase tracking-wider bg-accent/10 px-1 rounded">
+                        {msg.userRole === 'admin' ? 'Core' : msg.userRole}
+                      </sub>
                     )}
                   </span>
                   
