@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { useChatNotification } from "@/lib/contexts/ChatNotificationContext";
 
 export function MobileNav() {
+  const { hasUnread } = useChatNotification();
+
   return (
     <nav className="fixed bottom-0 left-0 z-50 flex w-full items-center justify-around border-t border-border-hairline bg-bg-card px-2 py-2 md:hidden overflow-x-hidden">
       <Link
@@ -42,7 +45,12 @@ export function MobileNav() {
         href="/chat"
         className="flex flex-col items-center justify-center rounded-full px-2 py-1 text-text-muted transition-transform duration-150 active:scale-95 hover:text-accent"
       >
-        <span className="material-symbols-outlined text-[24px]">chat</span>
+        <div className="relative">
+          <span className="material-symbols-outlined text-[24px]">chat</span>
+          {hasUnread && (
+            <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse border border-bg-card" />
+          )}
+        </div>
         <span className="text-[10px] font-medium">Chat</span>
       </Link>
     </nav>

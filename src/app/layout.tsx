@@ -6,6 +6,7 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { Footer } from "@/components/layout/Footer";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { AuthProvider } from "@/lib/contexts/AuthContext";
+import { ChatNotificationProvider } from "@/lib/contexts/ChatNotificationContext";
 import { Toaster } from "sonner";
 
 const inter = Inter({
@@ -36,18 +37,20 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${spaceMono.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-bg text-text antialiased pb-20 md:pb-0">
         <AuthProvider>
-          <Topnav />
-          <div className="flex flex-1 pt-16">
-            <Sidebar />
-            <main className="flex-1 md:ml-64 w-full overflow-x-hidden min-h-[calc(100vh-64px)] flex flex-col">
-              <div className="flex-1">
-                {children}
-              </div>
-              <Footer />
-            </main>
-          </div>
-          <MobileNav />
-          <Toaster theme="dark" position="bottom-right" richColors />
+          <ChatNotificationProvider>
+            <Topnav />
+            <div className="flex flex-1 pt-16">
+              <Sidebar />
+              <main className="flex-1 md:ml-64 w-full overflow-x-hidden min-h-[calc(100vh-64px)] flex flex-col">
+                <div className="flex-1">
+                  {children}
+                </div>
+                <Footer />
+              </main>
+            </div>
+            <MobileNav />
+            <Toaster theme="dark" position="bottom-right" richColors />
+          </ChatNotificationProvider>
         </AuthProvider>
       </body>
     </html>

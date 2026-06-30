@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
+import { useChatNotification } from "@/lib/contexts/ChatNotificationContext";
 
 interface NavItem {
   label: string;
@@ -20,6 +21,7 @@ interface NavGroup {
 export function Sidebar() {
   const pathname = usePathname();
   const { user } = useAuth();
+  const { hasUnread } = useChatNotification();
 
   const navGroups: NavGroup[] = [
     {
@@ -99,6 +101,9 @@ export function Sidebar() {
                         >
                           {item.icon && <span className="material-symbols-outlined text-[20px] text-text-muted">{item.icon}</span>}
                           {item.label}
+                          {item.href === "/chat" && hasUnread && (
+                            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse ml-auto" />
+                          )}
                         </Link>
                       </li>
                     );
