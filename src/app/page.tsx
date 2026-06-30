@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
-
 export default function HomePage() {
   return (
     <div className="flex flex-col px-8 py-12 md:py-20 mx-auto max-w-7xl">
