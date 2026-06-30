@@ -55,87 +55,58 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Two Column Layout: Spotlight & Wishlist */}
+      {/* Two Column Layout: About & FAQs */}
       <div className="grid lg:grid-cols-3 gap-12">
         
-        {/* Main Column */}
+        {/* Main Column: About */}
         <div className="lg:col-span-2">
-          <h2 className="font-heading text-2xl font-bold mb-6">Learning Tracks</h2>
-          <div className="flex border-b border-border-hairline mb-6">
-            <button className="px-4 py-2 border-b-2 border-accent text-accent font-semibold text-sm">Cloud Foundations</button>
-            <button className="px-4 py-2 border-b-2 border-transparent text-text-muted hover:text-text font-semibold text-sm">Serverless</button>
-            <button className="px-4 py-2 border-b-2 border-transparent text-text-muted hover:text-text font-semibold text-sm">Machine Learning</button>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 gap-6">
-            <div className="bg-[#141d2f] border border-border-hairline overflow-hidden hover:border-accent/50 transition-colors">
-              <div className="h-40 bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center">
-                <span className="material-symbols-outlined text-5xl text-accent">cloud</span>
-              </div>
-              <div className="p-4">
-                <h3 className="font-heading font-bold mb-2">Core Infrastructure</h3>
-                <p className="text-sm text-text-muted mb-4 line-clamp-2">Master the core building blocks of AWS infrastructure, security, and networking.</p>
-                <div className="flex items-center text-xs text-text-muted">
-                  <span className="material-symbols-outlined text-[16px] mr-1">person</span> Beginner Friendly
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-[#141d2f] border border-border-hairline overflow-hidden hover:border-accent/50 transition-colors">
-              <div className="h-40 bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center">
-                <span className="material-symbols-outlined text-5xl text-accent">security</span>
-              </div>
-              <div className="p-4">
-                <h3 className="font-heading font-bold mb-2">Identity & Access</h3>
-                <p className="text-sm text-text-muted mb-4 line-clamp-2">Learn how to secure your AWS environment with IAM policies and roles.</p>
-                <div className="flex items-center text-xs text-text-muted">
-                  <span className="material-symbols-outlined text-[16px] mr-1">person</span> Intermediate
-                </div>
-              </div>
-            </div>
+          <h2 className="font-heading text-2xl font-bold mb-6 text-text">About the program</h2>
+          <div className="text-text-muted space-y-6 text-base leading-relaxed">
+            <p>
+              The AWS Student Builder Group at HBTU is a vibrant, student-led community on campus. Students come together to explore cloud technology, build innovative projects, and grow their technical skills. Membership is open to any student actively enrolled at HBTU who's ready to build their future in the cloud.
+            </p>
+            <p>
+              Our group is led by dedicated Core Team members who are passionate about bringing our community to life. With support from AWS, we are responsible for growing the group, organizing inspiring events like hackathons and workshops, and championing local initiatives that matter to our peers.
+            </p>
+            <p>
+              Ready to start your cloud journey? <Link href="/join" className="text-accent hover:underline inline-flex items-center">Apply now <span className="material-symbols-outlined text-[16px] ml-1">open_in_new</span></Link> to join the community. Check out our FAQs for more information on the program and leadership.
+            </p>
           </div>
         </div>
 
-        {/* Sidebar Column */}
+        {/* Sidebar Column: FAQs */}
         <div className="lg:col-span-1 border-t lg:border-t-0 lg:border-l border-border-hairline lg:pl-12 pt-12 lg:pt-0">
-          <div className="mb-12">
-            <h2 className="font-heading text-2xl font-bold mb-4">Upcoming Events</h2>
-            <p className="text-sm text-text-muted mb-6">
-              Mark your calendars, meet cloud builders, grow your network.
-            </p>
-            
-            <div className="bg-[#141d2f] border border-border-hairline p-6 text-center">
-              <span className="material-symbols-outlined text-4xl text-accent mb-4">event</span>
-              <h3 className="font-heading font-bold mb-2">No upcoming events</h3>
-              <p className="text-sm text-text-muted mb-4">Check back later for new workshops and meetups.</p>
-              <Link href="/events" className="text-sm text-accent hover:underline flex items-center justify-center gap-1">
-                View past events <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-              </Link>
-            </div>
-          </div>
-          
-          <div>
-            <h2 className="font-heading text-2xl font-bold mb-4">Trending topics</h2>
-            <ul className="space-y-4">
-              <li>
-                <Link href="#" className="block hover:bg-[#141d2f] p-2 -mx-2 rounded transition-colors">
-                  <span className="text-xs text-accent uppercase font-bold tracking-wider mb-1 block">AWS re:Invent</span>
-                  <span className="text-sm font-semibold text-text">Recap of the top announcements from re:Invent 2025</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="block hover:bg-[#141d2f] p-2 -mx-2 rounded transition-colors">
-                  <span className="text-xs text-accent uppercase font-bold tracking-wider mb-1 block">Generative AI</span>
-                  <span className="text-sm font-semibold text-text">Building your first Bedrock application</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="block hover:bg-[#141d2f] p-2 -mx-2 rounded transition-colors">
-                  <span className="text-xs text-accent uppercase font-bold tracking-wider mb-1 block">Serverless</span>
-                  <span className="text-sm font-semibold text-text">Optimizing AWS Lambda cold starts</span>
-                </Link>
-              </li>
-            </ul>
+          <h2 className="font-heading text-2xl font-bold mb-6 text-text">FAQs</h2>
+          <div className="space-y-4">
+            <details className="group border border-border-hairline bg-[#141d2f] rounded-md">
+              <summary className="flex cursor-pointer items-center justify-between p-4 font-semibold text-sm text-text">
+                Who can join the AWS SBG at HBTU?
+                <span className="material-symbols-outlined text-text-muted transition group-open:rotate-180">add</span>
+              </summary>
+              <div className="p-4 pt-0 text-sm text-text-muted border-t border-border-hairline border-t-white/5 mt-1 pt-3">
+                Any student currently enrolled at HBTU with an interest in cloud computing can join, regardless of their branch or year.
+              </div>
+            </details>
+
+            <details className="group border border-border-hairline bg-[#141d2f] rounded-md">
+              <summary className="flex cursor-pointer items-center justify-between p-4 font-semibold text-sm text-text">
+                Why should I join the community?
+                <span className="material-symbols-outlined text-text-muted transition group-open:rotate-180">add</span>
+              </summary>
+              <div className="p-4 pt-0 text-sm text-text-muted border-t border-border-hairline border-t-white/5 mt-1 pt-3">
+                You'll get hands-on experience with AWS, networking opportunities with industry professionals, access to exclusive workshops, and a chance to work on real-world projects.
+              </div>
+            </details>
+
+            <details className="group border border-border-hairline bg-[#141d2f] rounded-md">
+              <summary className="flex cursor-pointer items-center justify-between p-4 font-semibold text-sm text-text">
+                How do I become a core team member?
+                <span className="material-symbols-outlined text-text-muted transition group-open:rotate-180">add</span>
+              </summary>
+              <div className="p-4 pt-0 text-sm text-text-muted border-t border-border-hairline border-t-white/5 mt-1 pt-3">
+                We hold an annual recruitment drive for core team positions. Active community members who demonstrate leadership and technical skills are highly encouraged to apply!
+              </div>
+            </details>
           </div>
         </div>
 
