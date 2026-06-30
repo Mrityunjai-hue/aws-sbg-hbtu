@@ -13,6 +13,7 @@ export default function AddTeamMemberPage() {
   const router = useRouter();
   
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -33,6 +34,7 @@ export default function AddTeamMemberPage() {
     try {
       const memberId = await addTeamMember({
         name,
+        email,
         role,
         photoUrl,
       });
@@ -79,6 +81,17 @@ export default function AddTeamMemberPage() {
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-text-muted">Email (Optional)</label>
+                <Input 
+                  type="email"
+                  placeholder="e.g. aditi@example.com" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <p className="text-xs text-text-muted mt-1">Used to link their chat messages to their core team role.</p>
               </div>
 
               <div className="space-y-1">

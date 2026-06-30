@@ -3,13 +3,19 @@
 import { useEffect, useState, useRef } from "react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { subscribeToMessages, sendMessage, ChatMessage } from "@/lib/services/chat";
+import { fetchTeamMembers, TeamMember } from "@/lib/services/team";
 import { Button } from "@/components/ui/Button";
 
 export default function ChatPage() {
   const { user, userProfile, loading } = useAuth();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetchTeamMembers().then(setTeamMembers);
+  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -29,12 +35,16 @@ export default function ChatPage() {
     if (!newMessage.trim() || !user) return;
     
     try {
+      // Cross-reference user's email with team members to find their official community role
+      const coreMember = teamMembers.find(m => m.email && user.email && m.email.toLowerCase() === user.email.toLowerCase());
+      const roleToSave = coreMember?.role || userProfile?.teamRole || userProfile?.role || "member";
+
       await sendMessage(
         newMessage, 
         user.uid, 
         userProfile?.name || user.displayName || "Anonymous Builder", 
         userProfile?.photoURL || user.photoURL,
-        userProfile?.teamRole || userProfile?.role || "member"
+        roleToSave
       );
       setNewMessage("");
     } catch (error) {
