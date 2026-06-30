@@ -6,6 +6,7 @@ export interface TeamMember {
   name: string;
   role: string;
   photoUrl?: string;
+  email?: string;
   initial: string;
   createdAt: Timestamp | null;
 }

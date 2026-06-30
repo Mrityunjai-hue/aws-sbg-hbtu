@@ -25,6 +25,7 @@ export default function LoginPage() {
     setLoading(true);
     setSuccess(false);
     try {
+      if (!auth) throw new Error("Firebase Auth is not initialized.");
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const loggedInUser = result.user;

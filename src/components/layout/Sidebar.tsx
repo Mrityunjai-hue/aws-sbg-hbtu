@@ -4,11 +4,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
+interface NavItem {
+  label: string;
+  href: string;
+  icon?: string;
+  authRequired?: boolean;
+}
+
+interface NavGroup {
+  title: string;
+  icon?: string;
+  items: NavItem[];
+}
+
 export function Sidebar() {
   const pathname = usePathname();
   const { user } = useAuth();
 
-  const navGroups = [
+  const navGroups: NavGroup[] = [
     {
       title: "",
       items: [
