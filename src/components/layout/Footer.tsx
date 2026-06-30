@@ -14,9 +14,9 @@ export function Footer() {
         <Link href="#" className="text-sm font-medium text-text-muted transition-colors hover:text-accent">
           Code of Conduct
         </Link>
-        <Link href="#" className="text-sm font-medium text-text-muted transition-colors hover:text-accent">
+        <a href="mailto:aws.sbghbtu@gmail.com" className="text-sm font-medium text-text-muted transition-colors hover:text-accent">
           Contact Us
-        </Link>
+        </a>
       </div>
       
       <p className="mx-auto max-w-md text-sm text-text-muted">
