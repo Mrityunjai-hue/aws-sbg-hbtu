@@ -30,14 +30,7 @@ export function Topnav() {
       </div>
 
       <div className="hidden flex-1 items-center justify-center md:flex">
-        <div className="flex h-9 w-[400px] items-center gap-2 rounded-full border border-border-hairline bg-bg-card px-4 focus-within:border-accent">
-          <span className="material-symbols-outlined text-[18px] text-text-muted">search</span>
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full bg-transparent text-sm text-text placeholder:text-text-muted outline-none"
-          />
-        </div>
+        {/* Search bar removed to avoid confusion since it's not hooked up to a backend yet */}
       </div>
 
       <div className="flex items-center gap-4">
