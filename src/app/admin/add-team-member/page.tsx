@@ -43,7 +43,7 @@ export default function AddTeamMemberPage() {
         setSuccess(true);
         toast.success("Team member added successfully!");
         setTimeout(() => {
-          router.push("/heroes");
+          router.push("/team");
         }, 1500);
       } else {
         throw new Error("Failed to add team member.");

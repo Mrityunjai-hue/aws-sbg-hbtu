@@ -48,10 +48,10 @@ export function Header() {
           Events
         </Link>
         <Link
-          href="/heroes"
+          href="/team"
           className="flex h-16 items-center text-sm font-medium text-text transition-colors hover:text-accent"
         >
-          Heroes
+          Team
         </Link>
         <Link
           href="/join"

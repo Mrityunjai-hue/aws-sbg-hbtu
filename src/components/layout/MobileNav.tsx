@@ -30,11 +30,11 @@ export function MobileNav() {
         <span className="text-[10px] font-medium">Events</span>
       </Link>
       <Link
-        href="/heroes"
+        href="/team"
         className="flex flex-col items-center justify-center rounded-full px-2 py-1 text-text-muted transition-transform duration-150 active:scale-95 hover:text-accent"
       >
         <span className="material-symbols-outlined text-[24px]">groups</span>
-        <span className="text-[10px] font-medium">Heroes</span>
+        <span className="text-[10px] font-medium">Team</span>
       </Link>
       <Link
         href="/join"

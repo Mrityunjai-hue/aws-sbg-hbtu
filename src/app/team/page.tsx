@@ -40,17 +40,17 @@ export default function TeamPage() {
         <span className="material-symbols-outlined text-[14px]">chevron_right</span>
         <span>Community</span>
         <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-        <span className="text-text">Heroes</span>
+        <span className="text-text">Core Team</span>
       </div>
 
       {/* Hero Section */}
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 mb-24 border-b border-border-hairline pb-20">
         <div className="flex-1">
-          <h1 className="mb-6 font-heading text-4xl lg:text-5xl font-bold text-text leading-[1.2]">
-            Heroes
+          <h1 className="mb-4 font-heading text-4xl font-extrabold text-text md:text-5xl">
+            Core Team
           </h1>
-          <p className="text-sm text-text-muted max-w-md mb-8">
-            Connect with the heroes on campus.
+          <p className="mx-auto max-w-2xl text-lg text-text-muted">
+            Meet the AWS Student Builder Group core team at HBTU Kanpur.
           </p>
           <div className="flex gap-4">
             <Link href="/join" className="bg-white text-black px-6 py-2 rounded text-sm font-bold hover:bg-gray-200 transition-colors">
@@ -78,15 +78,15 @@ export default function TeamPage() {
 
       <div className="grid lg:grid-cols-3 gap-12 mb-20">
         <div className="lg:col-span-2">
-          <h2 className="font-heading text-2xl font-bold text-text mb-6">About the Heroes</h2>
-          <p className="text-sm text-text-muted mb-4 leading-relaxed">
-            The AWS Student Builder Group Heroes are responsible for growing the community, organizing inspiring events, and championing local initiatives that matter to our peers at HBTU.
-          </p>
+          <h2 className="font-heading text-2xl font-bold text-text mb-6">About the Core Team</h2>
+          <div className="prose prose-invert max-w-none text-text-muted">
+            The AWS Student Builder Group Core Team is responsible for growing the community, organizing inspiring events, and championing local initiatives that matter to our peers at HBTU.
+          </div>
           <p className="text-sm text-text-muted mb-8 leading-relaxed">
             Every group is led by dedicated student volunteers who are passionate about bringing their ideas to life with support from AWS.
           </p>
 
-          <h2 className="font-heading text-2xl font-bold text-text mb-6">Meet the Heroes</h2>
+          <h2 className="font-heading text-2xl font-bold text-text mb-6">Meet the Team</h2>
           
           <div className="flex flex-col border-t border-border-hairline">
             {loading ? (

@@ -35,11 +35,11 @@ export default function EditTeamMemberPage() {
           setPhotoUrl(member.photoUrl || "");
         } else {
           toast.error("Team member not found.");
-          router.push("/heroes");
+          router.push("/team");
         }
       } catch (err) {
         toast.error("Failed to load team member.");
-        router.push("/heroes");
+        router.push("/team");
       } finally {
         setLoading(false);
       }
@@ -70,7 +70,7 @@ export default function EditTeamMemberPage() {
         setSuccess(true);
         toast.success("Team member updated successfully!");
         setTimeout(() => {
-          router.push("/heroes");
+          router.push("/team");
         }, 1500);
       } else {
         throw new Error("Failed to update team member.");
@@ -147,8 +147,8 @@ export default function EditTeamMemberPage() {
                 <div className="flex justify-end gap-3 pt-4">
                   <Button 
                     type="button" 
-                    variant="secondary" 
-                    onClick={() => router.push("/heroes")}
+                    variant="ghost" 
+                    onClick={() => router.push("/team")}
                     disabled={submitting}
                   >
                     Cancel
