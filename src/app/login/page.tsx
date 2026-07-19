@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { auth, db } from "@/lib/firebase";
-import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button, Input } from "@/components/ui";
@@ -13,11 +12,10 @@ import { toast } from "sonner";
 export default function LoginPage() {
   const { user } = useAuth();
   const router = useRouter();
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
-  const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
@@ -36,7 +34,7 @@ export default function LoginPage() {
     try {
       if (!auth) throw new Error("Firebase Auth is not initialized.");
       await signInWithEmailAndPassword(auth, email, password);
-      
+
       setSuccess(true);
       toast.success("Successfully signed in!");
       setTimeout(() => {
@@ -51,124 +49,95 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setLoadingGoogle(true);
-    setSuccess(false);
-    setError("");
-    
-    try {
-      if (!auth) throw new Error("Firebase Auth is not initialized.");
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const loggedInUser = result.user;
-
-      // Check if user exists in db
-      const userRef = doc(db!, "users", loggedInUser.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (!userSnap.exists()) {
-        // Create new user profile
-        await setDoc(userRef, {
-          name: loggedInUser.displayName,
-          email: loggedInUser.email,
-          photoURL: loggedInUser.photoURL,
-          role: "member", // Default role
-          createdAt: serverTimestamp(),
-        });
-      }
-      
-      setSuccess(true);
-      toast.success("Successfully signed in!");
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 1000);
-    } catch (err) {
-      console.error("Google Login Error:", err);
-      setError("Failed to sign in with Google.");
-      toast.error("Failed to sign in with Google.");
-    } finally {
-      setLoadingGoogle(false);
-    }
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 py-20">
-      <div className="max-w-md w-full p-8 bg-bg-card border border-border-hairline rounded-lg shadow-lg">
-        <div className="flex justify-center mb-6">
-          <span className="font-heading text-3xl font-bold tracking-tight text-white">aws</span>
-        </div>
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-text mb-2">Welcome Builder!</h1>
-          <p className="text-text-muted">Sign in to join the community, access exclusive events, and start building.</p>
-        </div>
-        
-        {error && (
-          <div className="mb-4 rounded-md bg-red-500/10 p-3 text-sm text-red-500 text-center">
-            {error}
-          </div>
-        )}
+    <div className="relative flex flex-col items-center justify-center min-h-[70vh] px-4 py-20 overflow-hidden">
+      {/* Soft accent glow behind the card */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] rounded-full bg-accent/10 blur-3xl"
+      />
 
-        <form onSubmit={handleEmailLogin} className="space-y-4">
-          <div className="space-y-1">
-            <label className="text-sm font-medium text-text-muted">Email</label>
-            <Input 
-              type="email" 
-              placeholder="builder@hbtu.ac.in" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-sm font-medium text-text-muted">Password</label>
-            <Input 
-              type="password" 
-              placeholder="••••••••" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <Button 
-            type="submit" 
-            variant="primary" 
-            className="w-full h-11" 
-            disabled={loadingEmail || loadingGoogle}
-            isLoading={loadingEmail}
-            isSuccess={success && !loadingGoogle}
-          >
-            {(success && !loadingGoogle) ? "Welcome!" : "Sign In"}
-          </Button>
-        </form>
-
-        <div className="relative my-6">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-border-hairline"></div>
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="bg-bg-card px-2 text-text-muted">Or continue with</span>
-          </div>
+      <div className="relative max-w-md w-full bg-bg-card border border-border-hairline rounded-lg shadow-xl shadow-accent/5 overflow-hidden">
+        {/* Pixel accent strip echoing the brand logo */}
+        <div aria-hidden className="flex h-1.5">
+          <div className="flex-1 bg-accent" />
+          <div className="w-10 bg-accent/60" />
+          <div className="w-10 bg-accent/30" />
+          <div className="w-10 bg-accent/10" />
         </div>
 
-        <Button 
-          type="button"
-          variant="secondary"
-          onClick={handleGoogleLogin} 
-          className="w-full h-11"
-          disabled={loadingEmail || loadingGoogle}
-          isLoading={loadingGoogle}
-          isSuccess={success && loadingGoogle}
-        >
-          {success && loadingGoogle ? "Welcome!" : "Google"}
-        </Button>
+        <div className="p-8 sm:p-10">
+          <div className="flex justify-center mb-6">
+            <div className="flex items-baseline gap-2 font-heading">
+              <span className="text-3xl font-bold tracking-tight text-text">aws</span>
+              <span className="text-3xl font-bold tracking-tight text-accent">sbg</span>
+            </div>
+          </div>
 
-        <div className="mt-6 text-center text-sm text-text-muted">
-          Don't have an account?{" "}
-          <Link href="/signup" className="font-semibold text-accent hover:underline">
-            Sign up
-          </Link>
+          <div className="text-center mb-8">
+            <h1 className="font-heading text-2xl font-bold text-text mb-2">Welcome Builder!</h1>
+            <p className="text-sm text-text-muted leading-relaxed">
+              Sign in to join the community, access exclusive events, and start building.
+            </p>
+          </div>
+
+          {error && (
+            <div className="mb-4 rounded-md border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-500 text-center">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleEmailLogin} className="space-y-5">
+            <div className="space-y-1.5">
+              <label htmlFor="login-email" className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+                Email
+              </label>
+              <Input
+                id="login-email"
+                type="email"
+                placeholder="builder@hbtu.ac.in"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+                className="h-11"
+                required
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label htmlFor="login-password" className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+                Password
+              </label>
+              <Input
+                id="login-password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                className="h-11"
+                required
+              />
+            </div>
+
+            <Button
+              type="submit"
+              variant="primary"
+              className="w-full h-11 font-semibold shadow-lg shadow-accent/25"
+              disabled={loadingEmail}
+              isLoading={loadingEmail}
+              isSuccess={success}
+            >
+              {success ? "Welcome!" : "Sign In"}
+            </Button>
+          </form>
+
+          <div className="mt-8 pt-6 border-t border-border-hairline text-center text-sm text-text-muted">
+            Don't have an account?{" "}
+            <Link href="/signup" className="font-semibold text-accent hover:underline">
+              Sign up
+            </Link>
+          </div>
         </div>
       </div>
     </div>
