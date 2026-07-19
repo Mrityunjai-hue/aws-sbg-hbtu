@@ -78,7 +78,7 @@ export default function HomePage() {
         <div className="lg:col-span-1 border-t lg:border-t-0 lg:border-l border-border-hairline lg:pl-12 pt-12 lg:pt-0">
           <h2 className="font-heading text-2xl font-bold mb-6 text-text">FAQs</h2>
           <div className="space-y-4">
-            <details className="group border border-border-hairline bg-[#141d2f] rounded-md">
+            <details className="group border border-border-hairline bg-bg-card rounded-md">
               <summary className="flex cursor-pointer items-center justify-between p-4 font-semibold text-sm text-text">
                 Who can join the AWS SBG at HBTU?
                 <span className="material-symbols-outlined text-text-muted transition group-open:rotate-180">add</span>
@@ -88,7 +88,7 @@ export default function HomePage() {
               </div>
             </details>
 
-            <details className="group border border-border-hairline bg-[#141d2f] rounded-md">
+            <details className="group border border-border-hairline bg-bg-card rounded-md">
               <summary className="flex cursor-pointer items-center justify-between p-4 font-semibold text-sm text-text">
                 Why should I join the community?
                 <span className="material-symbols-outlined text-text-muted transition group-open:rotate-180">add</span>
@@ -98,7 +98,7 @@ export default function HomePage() {
               </div>
             </details>
 
-            <details className="group border border-border-hairline bg-[#141d2f] rounded-md">
+            <details className="group border border-border-hairline bg-bg-card rounded-md">
               <summary className="flex cursor-pointer items-center justify-between p-4 font-semibold text-sm text-text">
                 How do I become a core team member?
                 <span className="material-symbols-outlined text-text-muted transition group-open:rotate-180">add</span>

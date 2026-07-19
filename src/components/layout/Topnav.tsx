@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { auth } from "@/lib/firebase";
@@ -12,6 +12,22 @@ export function Topnav() {
   const router = useRouter();
   const [showAddDropdown, setShowAddDropdown] = useState(false);
   const [showAppsDropdown, setShowAppsDropdown] = useState(false);
+  const [isLight, setIsLight] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      setIsLight(true);
+      document.documentElement.classList.add("light");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextIsLight = !isLight;
+    setIsLight(nextIsLight);
+    document.documentElement.classList.toggle("light", nextIsLight);
+    localStorage.setItem("theme", nextIsLight ? "light" : "dark");
+  };
 
   const handleLogout = async () => {
     if (auth) {
@@ -21,10 +37,10 @@ export function Topnav() {
   };
 
   return (
-    <header className="fixed top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border-hairline bg-[#0F1420] px-4">
+    <header className="fixed top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border-hairline bg-[var(--topnav-bg)] px-4">
       <div className="flex items-center gap-4 md:w-64">
         <Link href="/" className="flex items-center gap-1 transition-opacity hover:opacity-80">
-          <span className="font-sans text-2xl font-black tracking-tighter text-white mr-1" style={{ fontFamily: 'Arial, sans-serif' }}>aws</span>
+          <span className="font-sans text-2xl font-black tracking-tighter text-text mr-1" style={{ fontFamily: 'Arial, sans-serif' }}>aws</span>
           <span className="text-[10px] uppercase font-bold text-text-muted mt-2 border-l border-border-hairline pl-1.5 leading-none">Builder<br/>Group</span>
         </Link>
       </div>
@@ -59,6 +75,14 @@ export function Topnav() {
         <Link href="/profile" className="text-text-muted hover:text-text transition-colors flex items-center" title="Settings">
           <span className="material-symbols-outlined text-[20px]">settings</span>
         </Link>
+
+        <button
+          onClick={toggleTheme}
+          className="text-text-muted hover:text-text transition-colors flex items-center"
+          title={isLight ? "Switch to dark theme" : "Switch to light theme"}
+        >
+          <span className="material-symbols-outlined text-[20px]">{isLight ? "dark_mode" : "light_mode"}</span>
+        </button>
         
         <div className="relative hidden sm:block">
           <button 
@@ -90,11 +114,11 @@ export function Topnav() {
         </div>
         
         {!loading && user ? (
-          <button onClick={handleLogout} className="h-8 px-4 text-xs font-semibold rounded bg-white text-[#0F1420] hover:bg-gray-200 border-none transition-colors">
+          <button onClick={handleLogout} className="h-8 px-4 text-xs font-semibold rounded bg-text text-bg hover:opacity-90 border-none transition-opacity">
             Sign out
           </button>
         ) : (
-          <Link href="/login" className="inline-flex items-center justify-center h-8 px-4 text-xs font-semibold rounded bg-white text-[#0F1420] hover:bg-gray-200 border-none transition-colors">
+          <Link href="/login" className="inline-flex items-center justify-center h-8 px-4 text-xs font-semibold rounded bg-text text-bg hover:opacity-90 border-none transition-opacity">
             Sign in
           </Link>
         )}
