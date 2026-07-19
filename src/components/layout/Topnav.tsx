@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { auth } from "@/lib/firebase";
@@ -13,6 +13,34 @@ export function Topnav() {
   const [showAddDropdown, setShowAddDropdown] = useState(false);
   const [showAppsDropdown, setShowAppsDropdown] = useState(false);
   const [isLight, setIsLight] = useState(false);
+  const addDropdownRef = useRef<HTMLDivElement>(null);
+  const appsDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showAddDropdown && !showAppsDropdown) return;
+
+    const closeDropdowns = () => {
+      setShowAddDropdown(false);
+      setShowAppsDropdown(false);
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        !addDropdownRef.current?.contains(target) &&
+        !appsDropdownRef.current?.contains(target)
+      ) {
+        closeDropdowns();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", closeDropdowns, true);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", closeDropdowns, true);
+    };
+  }, [showAddDropdown, showAppsDropdown]);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -50,10 +78,15 @@ export function Topnav() {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="relative">
-          <button 
+        <div className="relative" ref={addDropdownRef}>
+          <button
             onClick={() => { setShowAddDropdown(!showAddDropdown); setShowAppsDropdown(false); }}
-            className="text-text-muted hover:text-text transition-colors flex items-center"
+            aria-expanded={showAddDropdown}
+            className={`flex items-center rounded p-1 transition-colors ${
+              showAddDropdown
+                ? "bg-accent/15 text-accent"
+                : "text-text-muted hover:text-text"
+            }`}
           >
             <span className="material-symbols-outlined text-[20px]">add</span>
           </button>
@@ -84,10 +117,15 @@ export function Topnav() {
           <span className="material-symbols-outlined text-[20px]">{isLight ? "dark_mode" : "light_mode"}</span>
         </button>
         
-        <div className="relative hidden sm:block">
-          <button 
+        <div className="relative hidden sm:block" ref={appsDropdownRef}>
+          <button
             onClick={() => { setShowAppsDropdown(!showAppsDropdown); setShowAddDropdown(false); }}
-            className="text-text-muted hover:text-text transition-colors flex items-center"
+            aria-expanded={showAppsDropdown}
+            className={`flex items-center rounded p-1 transition-colors ${
+              showAppsDropdown
+                ? "bg-accent/15 text-accent"
+                : "text-text-muted hover:text-text"
+            }`}
           >
             <span className="material-symbols-outlined text-[20px]">grid_view</span>
           </button>
