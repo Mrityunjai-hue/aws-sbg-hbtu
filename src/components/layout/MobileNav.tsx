@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { useChatNotification } from "@/lib/contexts/ChatNotificationContext";
 
+/**
+ * Fixed bottom tab bar for mobile (hidden at md and up).
+ *
+ * Provides quick links to the main sections with evenly-spaced items,
+ * safe-area inset padding for gesture-bar phones, and an unread badge
+ * on the chat tab.
+ */
 export function MobileNav() {
   const { hasUnread } = useChatNotification();
 

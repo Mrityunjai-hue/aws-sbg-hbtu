@@ -19,6 +19,14 @@ interface NavGroup {
   items: NavItem[];
 }
 
+/**
+ * Fixed left sidebar navigation (desktop only, hidden below md).
+ *
+ * Groups links under collapsible headers (Learn, Connect, Community) that
+ * are expanded by default and toggle on click. Auth-gated items (Dashboard,
+ * Global Chat) render only for signed-in users, and the chat link shows an
+ * unread indicator.
+ */
 export function Sidebar() {
   const pathname = usePathname();
   const { user } = useAuth();

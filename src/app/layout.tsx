@@ -34,7 +34,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceMono.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${spaceMono.variable} h-full`} suppressHydrationWarning>
+      <head>
+        {/* Apply the saved theme before first paint to avoid a dark-theme
+            flash for light-mode users. Runs synchronously, before hydration. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("theme")==="light")document.documentElement.classList.add("light")}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col bg-bg text-text antialiased pb-20 md:pb-0">
         <AuthProvider>
           <ChatNotificationProvider>

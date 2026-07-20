@@ -7,6 +7,14 @@ import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
+/**
+ * Fixed top navigation bar shown on every page.
+ *
+ * Renders the brand logo, quick-action dropdowns (Add, Apps), chat and
+ * theme-toggle buttons, and either a Sign in link or the signed-in user's
+ * profile avatar dropdown (Manage Profile, Dashboard, Sign out). All
+ * dropdowns close on outside click or scroll.
+ */
 export function Topnav() {
   const { user, userProfile, loading } = useAuth();
   const router = useRouter();
@@ -46,12 +54,10 @@ export function Topnav() {
     };
   }, [showAddDropdown, showAppsDropdown, showProfileDropdown]);
 
+  // Sync toggle state with the theme class applied pre-hydration by the
+  // inline script in layout.tsx (which prevents a dark-theme flash).
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-      setIsLight(true);
-      document.documentElement.classList.add("light");
-    }
+    setIsLight(document.documentElement.classList.contains("light"));
   }, []);
 
   const toggleTheme = () => {
@@ -84,8 +90,10 @@ export function Topnav() {
       <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
         <div className="relative" ref={addDropdownRef}>
           <button
-            onClick={() => { setShowAddDropdown(!showAddDropdown); setShowAppsDropdown(false); }}
+            onClick={() => { setShowAddDropdown(!showAddDropdown); setShowAppsDropdown(false); setShowProfileDropdown(false); }}
             aria-expanded={showAddDropdown}
+            aria-label="Add"
+            title="Add"
             className={`flex items-center rounded p-1 transition-colors ${
               showAddDropdown
                 ? "bg-accent/15 text-accent"
@@ -113,14 +121,17 @@ export function Topnav() {
           onClick={toggleTheme}
           className="text-text-muted hover:text-text transition-colors flex items-center"
           title={isLight ? "Switch to dark theme" : "Switch to light theme"}
+          aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
         >
           <span className="material-symbols-outlined text-[20px]">{isLight ? "dark_mode" : "light_mode"}</span>
         </button>
         
         <div className="relative hidden sm:block" ref={appsDropdownRef}>
           <button
-            onClick={() => { setShowAppsDropdown(!showAppsDropdown); setShowAddDropdown(false); }}
+            onClick={() => { setShowAppsDropdown(!showAppsDropdown); setShowAddDropdown(false); setShowProfileDropdown(false); }}
             aria-expanded={showAppsDropdown}
+            aria-label="Apps"
+            title="Apps"
             className={`flex items-center rounded p-1 transition-colors ${
               showAppsDropdown
                 ? "bg-accent/15 text-accent"

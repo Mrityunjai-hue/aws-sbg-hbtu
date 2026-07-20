@@ -9,6 +9,13 @@ import Link from "next/link";
 import { Button, Input } from "@/components/ui";
 import { toast } from "sonner";
 
+/**
+ * Email/password login page.
+ *
+ * Signs the user in via Firebase Auth and redirects to the dashboard on
+ * success (or immediately if already signed in). Shows inline and toast
+ * feedback for failed attempts.
+ */
 export default function LoginPage() {
   const { user } = useAuth();
   const router = useRouter();
@@ -133,7 +140,7 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-8 pt-6 border-t border-border-hairline text-center text-sm text-text-muted">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/signup" className="font-semibold text-accent hover:underline">
               Sign up
             </Link>
