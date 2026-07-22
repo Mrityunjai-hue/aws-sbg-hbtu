@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
@@ -18,10 +19,23 @@ interface NavGroup {
   items: NavItem[];
 }
 
+/**
+ * Fixed left sidebar navigation (desktop only, hidden below md).
+ *
+ * Groups links under collapsible headers (Learn, Connect, Community) that
+ * are expanded by default and toggle on click. Auth-gated items (Dashboard,
+ * Global Chat) render only for signed-in users, and the chat link shows an
+ * unread indicator.
+ */
 export function Sidebar() {
   const pathname = usePathname();
   const { user } = useAuth();
   const { hasUnread } = useChatNotification();
+  const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
+
+  const toggleGroup = (title: string) => {
+    setCollapsedGroups((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
 
   const navGroups: NavGroup[] = [
     {
@@ -73,15 +87,29 @@ export function Sidebar() {
 
             if (visibleItems.length === 0) return null;
 
+            const isCollapsed = group.title ? collapsedGroups[group.title] : false;
+
             return (
               <div key={idx} className="flex flex-col">
                 {group.title && (
-                  <div className="flex items-center gap-3 px-6 py-2 text-sm font-semibold text-text hover:bg-white/5 cursor-pointer transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => toggleGroup(group.title)}
+                    aria-expanded={!isCollapsed}
+                    className="flex w-full items-center gap-3 px-6 py-2 text-sm font-semibold text-text hover:bg-white/5 cursor-pointer transition-colors"
+                  >
                     {group.icon && <span className="material-symbols-outlined text-[20px] text-text-muted">{group.icon}</span>}
                     {group.title}
-                    <span className="material-symbols-outlined ml-auto text-[18px] text-text-muted">expand_more</span>
-                  </div>
+                    <span
+                      className={`material-symbols-outlined ml-auto text-[18px] text-text-muted transition-transform ${
+                        isCollapsed ? "-rotate-90" : ""
+                      }`}
+                    >
+                      expand_more
+                    </span>
+                  </button>
                 )}
+                {!isCollapsed && (
                 <ul className="flex flex-col">
                   {visibleItems.map((item) => {
                     const isActive = pathname === item.href;
@@ -109,6 +137,7 @@ export function Sidebar() {
                     );
                   })}
                 </ul>
+                )}
               </div>
             );
           })}

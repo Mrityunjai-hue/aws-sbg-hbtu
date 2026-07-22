@@ -4,16 +4,41 @@
 @tailwind utilities;
 
 @layer base {
+  /* Theme tokens as RGB channels so Tailwind opacity modifiers keep working */
+  :root {
+    --color-bg: 17 24 39;
+    --color-bg-card: 31 41 55;
+    --color-border-hairline: 55 65 81;
+    --color-text: 249 250 251;
+    --color-text-muted: 156 163 175;
+    --color-accent: 184 116 250;
+    --color-accent-hover: 168 85 247;
+    --grid-line: rgba(255, 255, 255, 0.03);
+    --topnav-bg: #0F1420;
+  }
+
+  :root.light {
+    --color-bg: 249 250 251;
+    --color-bg-card: 255 255 255;
+    --color-border-hairline: 209 213 219;
+    --color-text: 17 24 39;
+    --color-text-muted: 75 85 99;
+    --color-accent: 147 51 234;
+    --color-accent-hover: 126 34 206;
+    --grid-line: rgba(0, 0, 0, 0.04);
+    --topnav-bg: #ffffff;
+  }
+
   body {
     background-color: theme('colors.bg');
     color: theme('colors.text');
     /* Generous body line height requested in design */
     line-height: 1.6;
-    
+
     /* Subtle grid background pattern */
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 }

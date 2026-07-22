@@ -53,7 +53,7 @@ export default function EventsPage() {
         <h2 className="font-heading text-2xl font-bold text-text mb-6">Community events</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {/* Static informational cards to match the design */}
-          <div className="bg-[#141d2f] border border-border-hairline p-6 hover:border-accent/50 transition-colors">
+          <div className="bg-bg-card border border-border-hairline p-6 hover:border-accent/50 transition-colors">
             <h3 className="font-heading font-bold text-lg mb-3">AWS Builder Loft</h3>
             <p className="text-sm text-text-muted mb-6">Meet and learn with other builders at industry-expert sessions, hands-on workshops, and community-driven events.</p>
             <Link href="#" className="text-sm font-semibold text-text hover:underline flex items-center gap-1">
@@ -61,7 +61,7 @@ export default function EventsPage() {
             </Link>
           </div>
           
-          <div className="bg-[#141d2f] border border-border-hairline p-6 hover:border-accent/50 transition-colors">
+          <div className="bg-bg-card border border-border-hairline p-6 hover:border-accent/50 transition-colors">
             <h3 className="font-heading font-bold text-lg mb-3">AWS User Group events</h3>
             <p className="text-sm text-text-muted mb-6">Technical sessions and workshops for builders to learn about AWS services and best practices from AWS Partners and experts.</p>
             <Link href="#" className="text-sm font-semibold text-text hover:underline flex items-center gap-1">
@@ -69,7 +69,7 @@ export default function EventsPage() {
             </Link>
           </div>
 
-          <div className="bg-[#141d2f] border border-border-hairline p-6 hover:border-accent/50 transition-colors">
+          <div className="bg-bg-card border border-border-hairline p-6 hover:border-accent/50 transition-colors">
             <h3 className="font-heading font-bold text-lg mb-3">AWS Student Builder events</h3>
             <p className="text-sm text-text-muted mb-6">Student-led events on campus that offer ways to explore cloud technology, build innovative projects, and grow.</p>
             <Link href="#" className="text-sm font-semibold text-text hover:underline flex items-center gap-1">
