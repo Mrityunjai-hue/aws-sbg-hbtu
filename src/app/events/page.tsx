@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function EventsPage() {
   return (
-    <div className="px-8 py-12 md:py-20 mx-auto max-w-7xl">
+    <div className="px-4 sm:px-8 py-8 md:py-20 mx-auto max-w-7xl">
       {/* Breadcrumb */}
-      <div className="flex items-center text-xs font-semibold text-text-muted mb-8 space-x-2">
+      <div className="flex items-center text-xs font-semibold text-text-muted mb-8 space-x-2 overflow-x-auto whitespace-nowrap">
         <Link href="/" className="hover:text-text hover:underline transition-all">AWS Builder Center</Link>
         <span className="material-symbols-outlined text-[14px]">chevron_right</span>
         <span>Connect</span>
@@ -14,9 +14,9 @@ export default function EventsPage() {
       </div>
 
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 mb-24 border-b border-border-hairline pb-20">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-24 mb-16 md:mb-24 border-b border-border-hairline pb-12 md:pb-20">
         <div className="flex-1">
-          <h1 className="mb-4 font-heading text-4xl lg:text-5xl font-bold text-text">Events</h1>
+          <h1 className="mb-4 font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-text">Events</h1>
           <p className="text-sm text-text-muted max-w-md">
             Mark your calendars, meet cloud builders, grow your network.
           </p>
@@ -26,25 +26,25 @@ export default function EventsPage() {
         <div className="flex-1 flex justify-start lg:justify-end">
           <div className="grid grid-cols-5 grid-rows-3 gap-0">
             {/* Row 1 */}
-            <div className="w-12 h-12"></div>
-            <div className="w-12 h-12"></div>
-            <div className="w-12 h-12 bg-pink-200"></div>
-            <div className="w-12 h-12 bg-pink-200"></div>
-            <div className="w-12 h-12 bg-blue-300"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-pink-200"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-pink-200"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-blue-300"></div>
             
             {/* Row 2 */}
-            <div className="w-12 h-12"></div>
-            <div className="w-12 h-12 bg-pink-200"></div>
-            <div className="w-12 h-12 bg-pink-200"></div>
-            <div className="w-12 h-12"></div>
-            <div className="w-12 h-12"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-pink-200"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-pink-200"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12"></div>
             
             {/* Row 3 */}
-            <div className="w-12 h-12 bg-rose-400"></div>
-            <div className="w-12 h-12 bg-rose-400"></div>
-            <div className="w-12 h-12 bg-purple-300"></div>
-            <div className="w-12 h-12 bg-purple-300"></div>
-            <div className="w-12 h-12"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-rose-400"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-rose-400"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-purple-300"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12 bg-purple-300"></div>
+            <div className="w-7 h-7 sm:w-12 sm:h-12"></div>
           </div>
         </div>
       </div>

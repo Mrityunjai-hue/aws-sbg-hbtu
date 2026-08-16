@@ -5,6 +5,7 @@ import { Topnav } from "@/components/layout/Topnav";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Footer } from "@/components/layout/Footer";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { FlashNotificationBanner } from "@/components/ui/FlashNotificationBanner";
 import { AuthProvider } from "@/lib/contexts/AuthContext";
 import { ChatNotificationProvider } from "@/lib/contexts/ChatNotificationContext";
 import { Toaster } from "sonner";
@@ -48,6 +49,7 @@ export default function RootLayout({
         <AuthProvider>
           <ChatNotificationProvider>
             <Topnav />
+            <FlashNotificationBanner />
             <div className="flex flex-1 pt-16">
               <Sidebar />
               <main className="flex-1 md:ml-64 w-full overflow-x-hidden min-h-[calc(100vh-64px)] flex flex-col">
