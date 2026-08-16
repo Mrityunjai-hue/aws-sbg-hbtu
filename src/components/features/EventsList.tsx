@@ -10,6 +10,11 @@ export function EventsList({ maxItems }: { maxItems?: number }) {
   const { userProfile } = useAuth();
   const [events, setEvents] = useState<EventRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({});
+
+  const toggleExpand = (id: string) => {
+    setExpandedIds((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
 
   useEffect(() => {
     async function loadEvents() {
@@ -63,6 +68,14 @@ export function EventsList({ maxItems }: { maxItems?: number }) {
             : `https://${event.linkUrl}`
           : null;
 
+        const isExpanded = !!expandedIds[event.id];
+        const isLongDescription = (event.description?.length || 0) > 150;
+        const displayText = isLongDescription && !isExpanded
+          ? `${event.description?.slice(0, 150)}...`
+          : event.description;
+
+        const buttonText = event.linkText || "Learn more";
+
         return (
           <div
             key={event.id}
@@ -96,9 +109,20 @@ export function EventsList({ maxItems }: { maxItems?: number }) {
               </h3>
 
               {event.description && (
-                <p className="text-sm text-text-muted mb-6">
-                  {event.description}
-                </p>
+                <div className="mb-6">
+                  <p className="text-sm text-text-muted whitespace-pre-line">
+                    {displayText}
+                  </p>
+                  {isLongDescription && (
+                    <button
+                      type="button"
+                      onClick={() => toggleExpand(event.id)}
+                      className="mt-2 text-xs font-semibold text-accent hover:underline focus:outline-none"
+                    >
+                      {isExpanded ? "Show less" : "Show more"}
+                    </button>
+                  )}
+                </div>
               )}
             </div>
 
@@ -110,11 +134,11 @@ export function EventsList({ maxItems }: { maxItems?: number }) {
                   rel="noopener noreferrer"
                   className="text-sm font-semibold text-text hover:text-accent hover:underline flex items-center gap-1 inline-flex"
                 >
-                  Find upcoming events <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  {buttonText} <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </a>
               ) : (
                 <span className="text-sm font-semibold text-text-muted flex items-center gap-1">
-                  Find upcoming events <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  {buttonText} <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </span>
               )}
             </div>

@@ -18,6 +18,7 @@ export default function CreateEventPage() {
   const [dateStr, setDateStr] = useState("");
   const [description, setDescription] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
+  const [linkText, setLinkText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -48,6 +49,7 @@ export default function CreateEventPage() {
         date: Timestamp.fromDate(dateObj),
         description,
         linkUrl,
+        linkText,
       });
 
       if (eventId) {
@@ -131,13 +133,23 @@ export default function CreateEventPage() {
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-text-muted">Event Link / URL (Optional)</label>
-                <Input 
-                  placeholder="https://..." 
-                  value={linkUrl}
-                  onChange={(e) => setLinkUrl(e.target.value)}
-                />
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-text-muted">Event Link / URL (Optional)</label>
+                  <Input 
+                    placeholder="https://..." 
+                    value={linkUrl}
+                    onChange={(e) => setLinkUrl(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-text-muted">Link Button Text (Optional)</label>
+                  <Input 
+                    placeholder="Register Now, Learn More, Join Bootcamp" 
+                    value={linkText}
+                    onChange={(e) => setLinkText(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div className="flex justify-end gap-3 pt-4">
