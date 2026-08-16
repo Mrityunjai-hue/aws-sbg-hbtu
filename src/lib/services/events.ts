@@ -10,6 +10,7 @@ export interface EventRecord {
   description?: string;
   linkUrl?: string;
   linkText?: string;
+  createdAt?: Timestamp;
 }
 
 export async function fetchEvents(maxItems?: number): Promise<EventRecord[]> {
@@ -20,14 +21,7 @@ export async function fetchEvents(maxItems?: number): Promise<EventRecord[]> {
     }
     
     const eventsRef = collection(db, "events");
-    
-    let q = query(eventsRef, orderBy("date", "asc"));
-    
-    if (maxItems) {
-      q = query(eventsRef, orderBy("date", "asc"), limit(maxItems));
-    }
-    
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocs(eventsRef);
     const events: EventRecord[] = [];
     
     snapshot.forEach((doc) => {
@@ -41,8 +35,28 @@ export async function fetchEvents(maxItems?: number): Promise<EventRecord[]> {
         description: data.description,
         linkUrl: data.linkUrl,
         linkText: data.linkText,
+        createdAt: data.createdAt,
       });
     });
+    
+    // Sort recently added events on top (newest createdAt/date first)
+    events.sort((a, b) => {
+      const timeA = a.createdAt
+        ? a.createdAt.toMillis()
+        : a.date instanceof Timestamp
+        ? a.date.toMillis()
+        : new Date(a.date).getTime() || 0;
+      const timeB = b.createdAt
+        ? b.createdAt.toMillis()
+        : b.date instanceof Timestamp
+        ? b.date.toMillis()
+        : new Date(b.date).getTime() || 0;
+      return timeB - timeA;
+    });
+    
+    if (maxItems) {
+      return events.slice(0, maxItems);
+    }
     
     return events;
   } catch (error) {
