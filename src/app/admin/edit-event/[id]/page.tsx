@@ -20,6 +20,7 @@ export default function EditEventPage() {
   const [dateStr, setDateStr] = useState("");
   const [description, setDescription] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
+  const [linkText, setLinkText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [loadingEvent, setLoadingEvent] = useState(true);
@@ -41,6 +42,7 @@ export default function EditEventPage() {
           setTime(event.time || "");
           setDescription(event.description || "");
           setLinkUrl(event.linkUrl || "");
+          setLinkText(event.linkText || "");
           
           if (event.date) {
             const jsDate = event.date instanceof Timestamp ? event.date.toDate() : new Date(event.date);
@@ -77,6 +79,7 @@ export default function EditEventPage() {
         date: Timestamp.fromDate(dateObj),
         description,
         linkUrl,
+        linkText,
       });
 
       if (success) {
@@ -167,13 +170,23 @@ export default function EditEventPage() {
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-text-muted">Event Link / URL (Optional)</label>
-                <Input 
-                  placeholder="https://..." 
-                  value={linkUrl}
-                  onChange={(e) => setLinkUrl(e.target.value)}
-                />
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-text-muted">Event Link / URL (Optional)</label>
+                  <Input 
+                    placeholder="https://..." 
+                    value={linkUrl}
+                    onChange={(e) => setLinkUrl(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-text-muted">Link Button Text (Optional)</label>
+                  <Input 
+                    placeholder="Register Now, Learn More, Join Bootcamp" 
+                    value={linkText}
+                    onChange={(e) => setLinkText(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div className="flex justify-end gap-3 pt-4">

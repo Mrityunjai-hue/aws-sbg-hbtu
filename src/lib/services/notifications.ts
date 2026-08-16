@@ -1,4 +1,4 @@
-import { collection, getDocs, query, orderBy, Timestamp, addDoc } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, Timestamp, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 export interface NotificationRecord {
@@ -44,5 +44,36 @@ export async function createNotification(data: Omit<NotificationRecord, "id" | "
   } catch (error) {
     console.error("Failed to create notification:", error);
     return null;
+  }
+}
+
+export async function getNotificationById(id: string): Promise<NotificationRecord | null> {
+  try {
+    if (!db) throw new Error("Firebase DB not initialized");
+    
+    const docRef = doc(db, "notifications", id);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() } as NotificationRecord;
+    }
+    return null;
+  } catch (error) {
+    console.error("Failed to fetch notification by id:", error);
+    return null;
+  }
+}
+
+export async function updateNotification(id: string, data: Partial<Omit<NotificationRecord, "id" | "createdAt">>): Promise<boolean> {
+  try {
+    if (!db) throw new Error("Firebase DB not initialized");
+    
+    const docRef = doc(db, "notifications", id);
+    await updateDoc(docRef, data);
+    
+    return true;
+  } catch (error) {
+    console.error("Failed to update notification:", error);
+    return false;
   }
 }

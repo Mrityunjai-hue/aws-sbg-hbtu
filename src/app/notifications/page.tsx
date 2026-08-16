@@ -3,8 +3,11 @@
 import { useEffect, useState } from "react";
 import { fetchNotifications, NotificationRecord } from "@/lib/services/notifications";
 import { Card } from "@/components/ui";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import Link from "next/link";
 
 export default function NotificationsPage() {
+  const { userProfile } = useAuth();
   const [notifications, setNotifications] = useState<NotificationRecord[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,8 +50,18 @@ export default function NotificationsPage() {
                 <Card key={notif.id} className="p-6 transition-colors hover:border-border-hairline/80">
                   <div className="flex flex-col justify-between md:flex-row md:items-center">
                     <div>
-                      <h3 className="font-heading text-xl font-bold text-text">{notif.title}</h3>
-                      <p className="mt-2 text-sm text-text-muted">{notif.message}</p>
+                      <div className="flex items-center gap-3">
+                        <h3 className="font-heading text-xl font-bold text-text">{notif.title}</h3>
+                        {userProfile?.role === "admin" && (
+                          <Link
+                            href={`/admin/edit-notification/${notif.id}`}
+                            className="rounded px-2.5 py-0.5 text-xs font-semibold text-accent border border-accent/50 hover:bg-accent/10 transition-colors"
+                          >
+                            Edit
+                          </Link>
+                        )}
+                      </div>
+                      <p className="mt-2 text-sm text-text-muted whitespace-pre-line">{notif.message}</p>
                     </div>
                     {dateString && (
                       <span className="mt-4 text-xs font-medium text-text-muted md:mt-0 whitespace-nowrap">
