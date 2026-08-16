@@ -95,40 +95,52 @@ export function FlashNotificationBanner() {
     <AnimatePresence>
       {visible && alert && (
         <motion.div
-          initial={{ opacity: 0, y: -20, scale: 0.95 }}
+          initial={{ opacity: 0, y: -20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -20, scale: 0.95 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed top-20 left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-md z-50 pointer-events-auto"
+          exit={{ opacity: 0, y: -15, scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 450, damping: 30 }}
+          className="fixed top-20 left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 sm:w-auto z-50 pointer-events-auto flex justify-center"
         >
-          <div className="flex items-center justify-between gap-3 rounded-xl border border-accent/40 bg-[#141d2f]/95 p-3.5 shadow-2xl backdrop-blur-md text-text">
+          <div className="relative overflow-hidden flex items-center gap-3 rounded-full border border-accent/40 bg-[#0d1527]/90 px-4 py-2.5 shadow-[0_4px_24px_rgba(255,153,0,0.18)] backdrop-blur-xl text-text max-w-full sm:max-w-lg">
+            {/* Live Glowing Pulse Beacon */}
+            <div className="relative flex h-2.5 w-2.5 shrink-0 items-center justify-center">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+            </div>
+
+            {/* Clickable Content Link */}
             <Link
               href={alert.link}
               onClick={handleDismiss}
-              className="flex flex-1 items-center gap-2.5 min-w-0 group"
+              className="flex items-center gap-2 min-w-0 group"
             >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent">
-                <span className="material-symbols-outlined text-[16px]">
-                  {alert.type === "event" ? "event" : "campaign"}
-                </span>
+              <span className="font-mono text-[10px] font-bold text-accent tracking-widest uppercase shrink-0">
+                AWS // {alert.type === "event" ? "EVENT" : "UPDATE"}
               </span>
-              <div className="flex flex-col min-w-0">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-accent">
-                  {alert.type === "event" ? "New Event" : "New Announcement"}
-                </span>
-                <p className="text-xs font-semibold text-text truncate group-hover:underline">
-                  {alert.title}
-                </p>
-              </div>
+              <span className="text-xs font-semibold text-text truncate max-w-[180px] sm:max-w-[260px] group-hover:underline">
+                {alert.title.replace(/^(Upcoming Event:|Announcement:)\s*/, "")}
+              </span>
+              <span className="material-symbols-outlined text-[15px] text-text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0">
+                arrow_forward
+              </span>
             </Link>
 
+            {/* Manual Dismiss Button */}
             <button
               onClick={handleDismiss}
-              aria-label="Dismiss alert"
-              className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-text-muted hover:bg-white/10 hover:text-text transition-colors"
+              aria-label="Dismiss notification"
+              className="ml-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-text-muted hover:bg-white/10 hover:text-text transition-colors"
             >
-              <span className="material-symbols-outlined text-[16px]">close</span>
+              <span className="material-symbols-outlined text-[14px]">close</span>
             </button>
+
+            {/* Shrinking Micro Progress Bar */}
+            <motion.div
+              initial={{ width: "100%" }}
+              animate={{ width: "0%" }}
+              transition={{ duration: 6, ease: "linear" }}
+              className="absolute bottom-0 left-6 right-6 h-[2px] bg-gradient-to-r from-accent via-purple-400 to-pink-500 rounded-full"
+            />
           </div>
         </motion.div>
       )}
