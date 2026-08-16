@@ -78,7 +78,7 @@ export function FlashNotificationBanner() {
 
     // Auto-vanish after 6 seconds so it doesn't irritate viewers
     const timer = setTimeout(() => {
-      handleDismiss();
+      setVisible(false);
     }, 6000);
 
     return () => clearTimeout(timer);
@@ -95,11 +95,11 @@ export function FlashNotificationBanner() {
     <AnimatePresence>
       {visible && alert && (
         <motion.div
-          initial={{ opacity: 0, y: -25, scale: 0.95 }}
+          initial={{ opacity: 0, y: -20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -25, scale: 0.95 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-          className="fixed top-18 left-1/2 -translate-x-1/2 z-50 w-[calc(100vw-2rem)] max-w-md pointer-events-auto"
+          exit={{ opacity: 0, y: -20, scale: 0.95 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="fixed top-20 left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-md z-50 pointer-events-auto"
         >
           <div className="flex items-center justify-between gap-3 rounded-xl border border-accent/40 bg-[#141d2f]/95 p-3.5 shadow-2xl backdrop-blur-md text-text">
             <Link
