@@ -17,6 +17,7 @@ export default function CreateEventPage() {
   const [time, setTime] = useState("");
   const [dateStr, setDateStr] = useState("");
   const [description, setDescription] = useState("");
+  const [linkUrl, setLinkUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -46,6 +47,7 @@ export default function CreateEventPage() {
         time,
         date: Timestamp.fromDate(dateObj),
         description,
+        linkUrl,
       });
 
       if (eventId) {
@@ -126,6 +128,15 @@ export default function CreateEventPage() {
                   placeholder="Details about the event..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-text-muted">Event Link / URL (Optional)</label>
+                <Input 
+                  placeholder="https://..." 
+                  value={linkUrl}
+                  onChange={(e) => setLinkUrl(e.target.value)}
                 />
               </div>
 
