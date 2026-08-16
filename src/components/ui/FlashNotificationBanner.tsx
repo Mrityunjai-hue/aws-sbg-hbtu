@@ -99,9 +99,9 @@ export function FlashNotificationBanner() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -15, scale: 0.9 }}
           transition={{ type: "spring", stiffness: 450, damping: 30 }}
-          className="fixed top-20 left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 sm:w-auto z-50 pointer-events-auto flex justify-center"
+          className="fixed top-20 left-3 right-3 sm:left-1/2 sm:-translate-x-1/2 sm:w-auto z-50 pointer-events-auto flex justify-center max-w-2xl mx-auto"
         >
-          <div className="relative overflow-hidden flex items-center gap-3 rounded-full border border-accent/40 bg-[#0d1527]/90 px-4 py-2.5 shadow-[0_4px_24px_rgba(255,153,0,0.18)] backdrop-blur-xl text-text max-w-full sm:max-w-lg">
+          <div className="relative overflow-hidden flex items-center justify-between gap-2.5 sm:gap-3.5 rounded-full border border-accent/40 bg-[#0d1527]/95 px-3.5 sm:px-5 py-2.5 shadow-[0_4px_24px_rgba(255,153,0,0.22)] backdrop-blur-xl text-text w-full sm:w-auto max-w-full">
             {/* Live Glowing Pulse Beacon */}
             <div className="relative flex h-2.5 w-2.5 shrink-0 items-center justify-center">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
@@ -112,15 +112,15 @@ export function FlashNotificationBanner() {
             <Link
               href={alert.link}
               onClick={handleDismiss}
-              className="flex items-center gap-2 min-w-0 group"
+              className="flex flex-1 sm:flex-none items-center gap-2 min-w-0 group"
             >
-              <span className="font-mono text-[10px] font-bold text-accent tracking-widest uppercase shrink-0">
-                AWS // {alert.type === "event" ? "EVENT" : "UPDATE"}
+              <span className="font-mono text-[9px] sm:text-[10px] font-bold text-accent tracking-wider uppercase shrink-0 bg-accent/15 px-2 py-0.5 rounded-full border border-accent/30">
+                {alert.type === "event" ? "EVENT" : "ANNOUNCEMENT"}
               </span>
-              <span className="text-xs font-semibold text-text truncate max-w-[180px] sm:max-w-[260px] group-hover:underline">
+              <span className="text-xs sm:text-sm font-semibold text-text truncate group-hover:underline max-w-[220px] sm:max-w-[420px]">
                 {alert.title.replace(/^(Upcoming Event:|Announcement:)\s*/, "")}
               </span>
-              <span className="material-symbols-outlined text-[15px] text-text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0">
+              <span className="material-symbols-outlined text-[15px] text-accent group-hover:translate-x-1 transition-all shrink-0">
                 arrow_forward
               </span>
             </Link>
@@ -129,7 +129,7 @@ export function FlashNotificationBanner() {
             <button
               onClick={handleDismiss}
               aria-label="Dismiss notification"
-              className="ml-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-text-muted hover:bg-white/10 hover:text-text transition-colors"
+              className="ml-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-text-muted hover:bg-white/10 hover:text-text transition-colors"
             >
               <span className="material-symbols-outlined text-[14px]">close</span>
             </button>
