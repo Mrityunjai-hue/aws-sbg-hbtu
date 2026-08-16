@@ -8,6 +8,7 @@ export interface EventRecord {
   type: string; // e.g. "Workshop", "Talk"
   time: string; // e.g. "4:00 PM IST"
   description?: string;
+  linkUrl?: string;
 }
 
 export async function fetchEvents(maxItems?: number): Promise<EventRecord[]> {
@@ -37,6 +38,7 @@ export async function fetchEvents(maxItems?: number): Promise<EventRecord[]> {
         type: data.type,
         time: data.time,
         description: data.description,
+        linkUrl: data.linkUrl,
       });
     });
     

@@ -19,6 +19,7 @@ export default function EditEventPage() {
   const [time, setTime] = useState("");
   const [dateStr, setDateStr] = useState("");
   const [description, setDescription] = useState("");
+  const [linkUrl, setLinkUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [loadingEvent, setLoadingEvent] = useState(true);
@@ -39,6 +40,7 @@ export default function EditEventPage() {
           setType(event.type || "");
           setTime(event.time || "");
           setDescription(event.description || "");
+          setLinkUrl(event.linkUrl || "");
           
           if (event.date) {
             const jsDate = event.date instanceof Timestamp ? event.date.toDate() : new Date(event.date);
@@ -74,6 +76,7 @@ export default function EditEventPage() {
         time,
         date: Timestamp.fromDate(dateObj),
         description,
+        linkUrl,
       });
 
       if (success) {
@@ -161,6 +164,15 @@ export default function EditEventPage() {
                   placeholder="Details about the event..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-text-muted">Event Link / URL (Optional)</label>
+                <Input 
+                  placeholder="https://..." 
+                  value={linkUrl}
+                  onChange={(e) => setLinkUrl(e.target.value)}
                 />
               </div>
 
