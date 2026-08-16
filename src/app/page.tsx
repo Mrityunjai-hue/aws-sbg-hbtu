@@ -1,20 +1,20 @@
 import Link from "next/link";
 export default function HomePage() {
   return (
-    <div className="flex flex-col px-8 py-12 md:py-20 mx-auto max-w-7xl">
+    <div className="flex flex-col px-4 sm:px-8 py-8 md:py-20 mx-auto max-w-7xl">
       {/* Hero Section */}
-      <section className="flex flex-col-reverse lg:flex-row gap-12 lg:gap-24 mb-24">
+      <section className="flex flex-col-reverse lg:flex-row gap-8 lg:gap-24 mb-16 md:mb-24">
         <div className="flex-1 flex flex-col justify-center">
-          <h1 className="font-sans text-5xl md:text-7xl font-extrabold leading-[1.1] text-text mb-6">
+          <h1 className="font-sans text-3xl sm:text-5xl md:text-7xl font-extrabold leading-[1.15] text-text mb-4 sm:mb-6">
             Your ideas.<br />
             Your community.<br />
             Your AWS SBG.
           </h1>
-          <p className="text-lg text-text-muted mb-8 max-w-xl">
+          <p className="text-base sm:text-lg text-text-muted mb-6 sm:mb-8 max-w-xl">
             Connect with builders who understand your journey. Explore cloud technology, build innovative projects, and grow your technical skills. Your cloud journey starts here at HBTU.
           </p>
           <div>
-            <Link href="/join" className="inline-flex items-center justify-center rounded px-6 py-3 font-bold bg-white text-[#0F1420] hover:bg-gray-200 transition-colors">
+            <Link href="/join" className="inline-flex items-center justify-center rounded px-6 py-3 font-bold bg-white text-[#0F1420] hover:bg-gray-200 transition-colors w-full sm:w-auto">
               Join the community
             </Link>
           </div>
@@ -22,35 +22,35 @@ export default function HomePage() {
 
         {/* Pixel Art Graphic */}
         <div className="flex-1 flex items-center justify-center lg:justify-end">
-          <div className="grid grid-cols-6 grid-rows-4 gap-0 border border-border-hairline/50 p-6 opacity-90" style={{ backgroundImage: 'linear-gradient(to right, #374151 1px, transparent 1px), linear-gradient(to bottom, #374151 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+          <div className="grid grid-cols-6 grid-rows-4 gap-0 border border-border-hairline/50 p-3 sm:p-6 opacity-90" style={{ backgroundImage: 'linear-gradient(to right, #374151 1px, transparent 1px), linear-gradient(to bottom, #374151 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
             {/* Row 1 */}
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-500"></div>
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-pink-400 to-purple-500"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
             {/* Row 2 */}
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-500"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-500"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600"></div>
-            <div className="w-10 h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-pink-500 to-rose-500"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-indigo-500"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-400 to-blue-600"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
             {/* Row 3 */}
-            <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-600"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-pink-600 to-purple-600"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-700"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800"></div>
-            <div className="w-10 h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-rose-500 to-pink-600"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-pink-600 to-purple-600"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-600 to-indigo-600"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-indigo-600 to-blue-700"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-600 to-blue-800"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
             {/* Row 4 */}
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-700 to-purple-900"></div>
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10"></div>
-            <div className="w-10 h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-700 to-purple-900"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
           </div>
         </div>
       </section>

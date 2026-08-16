@@ -103,7 +103,7 @@ export function Topnav() {
             <span className="material-symbols-outlined text-[20px]">add</span>
           </button>
           {showAddDropdown && (
-            <div className="absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-auto sm:right-0 mt-2 w-48 bg-bg-card border border-border-hairline rounded shadow-lg py-1 z-50">
+            <div className="absolute right-0 sm:right-0 mt-2 w-48 max-w-[calc(100vw-1.5rem)] bg-bg-card border border-border-hairline rounded shadow-lg py-1 z-50">
               <Link href="/join" className="block px-4 py-2 text-sm text-text hover:bg-white/5" onClick={() => setShowAddDropdown(false)}>Submit an Idea</Link>
               <Link href="/events" className="block px-4 py-2 text-sm text-text hover:bg-white/5" onClick={() => setShowAddDropdown(false)}>Suggest an Event</Link>
               {userProfile?.role === 'admin' && (
@@ -141,7 +141,7 @@ export function Topnav() {
             <span className="material-symbols-outlined text-[20px]">grid_view</span>
           </button>
           {showAppsDropdown && (
-            <div className="absolute right-0 mt-2 w-64 bg-bg-card border border-border-hairline rounded shadow-lg p-4 z-50 grid grid-cols-2 gap-4">
+            <div className="absolute right-0 mt-2 w-64 max-w-[calc(100vw-1.5rem)] bg-bg-card border border-border-hairline rounded shadow-lg p-4 z-50 grid grid-cols-2 gap-4">
               <a href="https://aws.amazon.com/console/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-2 hover:bg-white/5 rounded text-center transition-colors">
                 <span className="material-symbols-outlined text-accent text-2xl">cloud</span>
                 <span className="text-xs text-text">AWS Console</span>
@@ -188,7 +188,7 @@ export function Topnav() {
               )}
             </button>
             {showProfileDropdown && (
-              <div className="absolute right-0 mt-2 w-48 bg-bg-card border border-border-hairline rounded shadow-lg py-1 z-50">
+              <div className="absolute right-0 mt-2 w-48 max-w-[calc(100vw-1.5rem)] bg-bg-card border border-border-hairline rounded shadow-lg py-1 z-50">
                 <div className="px-4 py-2 border-b border-border-hairline">
                   <p className="text-sm font-semibold text-text truncate">{userProfile?.name || user.displayName || "Builder"}</p>
                   <p className="text-xs text-text-muted truncate">{user.email}</p>

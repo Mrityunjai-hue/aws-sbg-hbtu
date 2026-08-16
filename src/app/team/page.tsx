@@ -33,9 +33,9 @@ export default function TeamPage() {
   };
 
   return (
-    <div className="px-8 py-12 md:py-20 mx-auto max-w-7xl">
+    <div className="px-4 sm:px-8 py-8 md:py-20 mx-auto max-w-7xl">
       {/* Breadcrumb */}
-      <div className="flex items-center text-xs font-semibold text-text-muted mb-8 space-x-2">
+      <div className="flex items-center text-xs font-semibold text-text-muted mb-8 space-x-2 overflow-x-auto whitespace-nowrap">
         <Link href="/" className="hover:text-text hover:underline transition-all">AWS Builder Center</Link>
         <span className="material-symbols-outlined text-[14px]">chevron_right</span>
         <span>Community</span>
@@ -44,19 +44,19 @@ export default function TeamPage() {
       </div>
 
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 mb-24 border-b border-border-hairline pb-20">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-24 mb-16 md:mb-24 border-b border-border-hairline pb-12 md:pb-20">
         <div className="flex-1">
-          <h1 className="mb-4 font-heading text-4xl font-extrabold text-text md:text-5xl">
+          <h1 className="mb-4 font-heading text-3xl sm:text-4xl font-extrabold text-text md:text-5xl">
             Core Team
           </h1>
-          <p className="mx-auto max-w-2xl text-lg text-text-muted">
+          <p className="max-w-2xl text-base sm:text-lg text-text-muted mb-6">
             Meet the AWS Student Builder Group core team at HBTU Kanpur.
           </p>
-          <div className="flex gap-4">
-            <Link href="/join" className="bg-white text-black px-6 py-2 rounded text-sm font-bold hover:bg-gray-200 transition-colors">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <Link href="/join" className="bg-white text-black px-6 py-2.5 rounded text-sm font-bold hover:bg-gray-200 transition-colors text-center">
               Join the Team
             </Link>
-            <Link href="/about" className="border border-white text-white px-6 py-2 rounded text-sm font-bold hover:bg-white/10 transition-colors">
+            <Link href="/about" className="border border-white text-white px-6 py-2.5 rounded text-sm font-bold hover:bg-white/10 transition-colors text-center">
               About the Group <span className="material-symbols-outlined text-[14px] align-middle ml-1">open_in_new</span>
             </Link>
           </div>
@@ -64,19 +64,19 @@ export default function TeamPage() {
 
         {/* Pixel Graphic */}
         <div className="flex-1 flex justify-start lg:justify-end">
-          <div className="grid grid-cols-6 grid-rows-6 gap-0 border border-border-hairline/50 p-6" style={{ backgroundImage: 'linear-gradient(to right, #374151 1px, transparent 1px), linear-gradient(to bottom, #374151 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+          <div className="grid grid-cols-6 grid-rows-6 gap-0 border border-border-hairline/50 p-4 sm:p-6" style={{ backgroundImage: 'linear-gradient(to right, #374151 1px, transparent 1px), linear-gradient(to bottom, #374151 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
             {/* Outline of a chip / processor */}
-            <div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div>
-            <div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8 bg-purple-500"></div>
-            <div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8 bg-purple-500"></div>
-            <div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8 bg-purple-500"></div>
-            <div className="w-8 h-8"></div><div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8 bg-purple-500"></div><div className="w-8 h-8"></div>
-            <div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div><div className="w-8 h-8"></div>
+            <div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div>
+            <div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div>
+            <div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div>
+            <div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div>
+            <div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div>
+            <div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div><div className="w-6 h-6 sm:w-8 sm:h-8"></div>
           </div>
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-12 mb-20">
+      <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 mb-20">
         <div className="lg:col-span-2">
           <h2 className="font-heading text-2xl font-bold text-text mb-6">About the Core Team</h2>
           <div className="prose prose-invert max-w-none text-text-muted">
@@ -95,9 +95,9 @@ export default function TeamPage() {
               <div className="py-6 text-center text-text-muted text-sm">No team members added yet.</div>
             ) : (
               teamMembers.map((member) => (
-                <div key={member.id} className="flex items-center justify-between py-6 border-b border-border-hairline hover:bg-white/5 transition-colors px-4 -mx-4 rounded">
+                <div key={member.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 sm:py-6 border-b border-border-hairline hover:bg-white/5 transition-colors px-3 sm:px-4 rounded">
                   <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded bg-bg-card overflow-hidden flex items-center justify-center text-accent font-bold">
+                    <div className="h-10 w-10 shrink-0 rounded bg-bg-card overflow-hidden flex items-center justify-center text-accent font-bold">
                       {member.photoUrl ? (
                         <img src={member.photoUrl} alt={member.name} className="h-full w-full object-cover" />
                       ) : (
@@ -109,27 +109,27 @@ export default function TeamPage() {
                       <p className="text-xs text-text-muted">{member.role}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <a href={`mailto:${member.email}`} className="text-sm font-semibold text-text hover:underline flex items-center gap-1">
+                  <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-border-hairline/50">
+                    <a href={`mailto:${member.email}`} className="text-xs sm:text-sm font-semibold text-text hover:underline flex items-center gap-1">
                       Contact <span className="material-symbols-outlined text-[16px]">open_in_new</span>
                     </a>
                     {userProfile?.role === "admin" && (
-                      <>
+                      <div className="flex items-center gap-1">
                         <Link
                           href={`/admin/edit-team-member/${member.id}`}
-                          className="text-text hover:text-accent p-2"
+                          className="text-text hover:text-accent p-1.5"
                           title="Edit member"
                         >
                           <span className="material-symbols-outlined text-[18px]">edit</span>
                         </Link>
                         <button
                           onClick={() => handleDelete(member.id)}
-                          className="text-red-500 hover:text-red-400 p-2"
+                          className="text-red-500 hover:text-red-400 p-1.5"
                           title="Delete member"
                         >
                           <span className="material-symbols-outlined text-[18px]">delete</span>
                         </button>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>
