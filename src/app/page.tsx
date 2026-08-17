@@ -1,4 +1,14 @@
 import Link from "next/link";
+import { SOCIAL_LINKS } from "@/lib/constants/socials";
+import { 
+  MeetupIcon, 
+  LinkedInIcon, 
+  WhatsAppIcon, 
+  InstagramIcon, 
+  GitHubIcon, 
+  TwitterIcon 
+} from "@/components/ui/SocialIcons";
+
 export default function HomePage() {
   return (
     <div className="flex flex-col px-4 sm:px-8 py-8 md:py-20 mx-auto max-w-7xl">
@@ -13,10 +23,19 @@ export default function HomePage() {
           <p className="text-base sm:text-lg text-text-muted mb-6 sm:mb-8 max-w-xl">
             Connect with builders who understand your journey. Explore cloud technology, build innovative projects, and grow your technical skills. Your cloud journey starts here at HBTU.
           </p>
-          <div>
+          <div className="flex flex-wrap gap-4 items-center">
             <Link href="/join" className="inline-flex items-center justify-center rounded px-6 py-3 font-bold bg-white text-[#0F1420] hover:bg-gray-200 transition-colors w-full sm:w-auto">
               Join the community
             </Link>
+            <a 
+              href={SOCIAL_LINKS.meetup.url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center gap-2 rounded px-5 py-3 font-semibold border border-border-hairline bg-bg-card text-text hover:border-[#ED1C40] hover:text-[#ED1C40] transition-colors w-full sm:w-auto justify-center"
+            >
+              <MeetupIcon className="w-5 h-5 text-[#ED1C40]" />
+              <span>Meetup Group</span>
+            </a>
           </div>
         </div>
 
@@ -52,6 +71,106 @@ export default function HomePage() {
             <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
             <div className="w-8 h-8 sm:w-10 sm:h-10"></div>
           </div>
+        </div>
+      </section>
+
+      {/* Social Platforms Highlight Section */}
+      <section className="mb-20">
+        <div className="text-center mb-10">
+          <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-text mb-3">Connect Across Our Platforms</h2>
+          <p className="text-text-muted max-w-xl mx-auto text-sm sm:text-base">
+            Stay plugged in with our latest meetups, professional updates, project repositories, and student discussions.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Meetup Card */}
+          <a
+            href={SOCIAL_LINKS.meetup.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col p-6 rounded-xl border border-border-hairline bg-bg-card hover:border-[#ED1C40] transition-all hover:-translate-y-1 shadow-md"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-[#ED1C40]/10 flex items-center justify-center text-[#ED1C40] group-hover:scale-110 transition-transform">
+                <MeetupIcon className="w-6 h-6" />
+              </div>
+              <span className="material-symbols-outlined text-text-muted group-hover:text-[#ED1C40] transition-colors">open_in_new</span>
+            </div>
+            <h3 className="font-heading text-lg font-bold text-text mb-1 group-hover:text-[#ED1C40] transition-colors">Meetup Group</h3>
+            <p className="text-xs text-text-muted leading-relaxed flex-1">
+              RSVP to upcoming cloud workshops, speaker sessions, and community meetups.
+            </p>
+            <div className="mt-4 pt-3 border-t border-border-hairline/40 text-xs font-semibold text-[#ED1C40]">
+              Join Meetup →
+            </div>
+          </a>
+
+          {/* LinkedIn Card */}
+          <a
+            href={SOCIAL_LINKS.linkedin.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col p-6 rounded-xl border border-border-hairline bg-bg-card hover:border-[#0A66C2] transition-all hover:-translate-y-1 shadow-md"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-[#0A66C2]/10 flex items-center justify-center text-[#0A66C2] group-hover:scale-110 transition-transform">
+                <LinkedInIcon className="w-6 h-6" />
+              </div>
+              <span className="material-symbols-outlined text-text-muted group-hover:text-[#0A66C2] transition-colors">open_in_new</span>
+            </div>
+            <h3 className="font-heading text-lg font-bold text-text mb-1 group-hover:text-[#0A66C2] transition-colors">LinkedIn Company Page</h3>
+            <p className="text-xs text-text-muted leading-relaxed flex-1">
+              Follow official announcements, career opportunities, and member achievements.
+            </p>
+            <div className="mt-4 pt-3 border-t border-border-hairline/40 text-xs font-semibold text-[#0A66C2]">
+              Follow LinkedIn →
+            </div>
+          </a>
+
+          {/* WhatsApp Card */}
+          <a
+            href={SOCIAL_LINKS.whatsapp.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col p-6 rounded-xl border border-border-hairline bg-bg-card hover:border-[#25D366] transition-all hover:-translate-y-1 shadow-md"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 transition-transform">
+                <WhatsAppIcon className="w-6 h-6" />
+              </div>
+              <span className="material-symbols-outlined text-text-muted group-hover:text-[#25D366] transition-colors">open_in_new</span>
+            </div>
+            <h3 className="font-heading text-lg font-bold text-text mb-1 group-hover:text-[#25D366] transition-colors">WhatsApp Community</h3>
+            <p className="text-xs text-text-muted leading-relaxed flex-1">
+              Chat directly with members, share quick doubts, and get real-time alerts.
+            </p>
+            <div className="mt-4 pt-3 border-t border-border-hairline/40 text-xs font-semibold text-[#25D366]">
+              Join Chat →
+            </div>
+          </a>
+
+          {/* Instagram / GitHub Combo Card */}
+          <a
+            href={SOCIAL_LINKS.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col p-6 rounded-xl border border-border-hairline bg-bg-card hover:border-[#E4405F] transition-all hover:-translate-y-1 shadow-md"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-[#E4405F]/10 flex items-center justify-center text-[#E4405F] group-hover:scale-110 transition-transform">
+                <InstagramIcon className="w-6 h-6" />
+              </div>
+              <span className="material-symbols-outlined text-text-muted group-hover:text-[#E4405F] transition-colors">open_in_new</span>
+            </div>
+            <h3 className="font-heading text-lg font-bold text-text mb-1 group-hover:text-[#E4405F] transition-colors">Instagram Spotlights</h3>
+            <p className="text-xs text-text-muted leading-relaxed flex-1">
+              Catch behind-the-scenes moments, event reels, student features, and stories.
+            </p>
+            <div className="mt-4 pt-3 border-t border-border-hairline/40 text-xs font-semibold text-[#E4405F]">
+              Follow @aws_sbg_hbtu →
+            </div>
+          </a>
         </div>
       </section>
 

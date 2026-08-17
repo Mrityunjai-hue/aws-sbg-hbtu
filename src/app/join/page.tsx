@@ -6,6 +6,8 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { SOCIAL_LINKS } from "@/lib/constants/socials";
+import { MeetupIcon, LinkedInIcon, WhatsAppIcon } from "@/components/ui/SocialIcons";
 
 export default function JoinPage() {
   const [name, setName] = useState("");
@@ -127,32 +129,45 @@ export default function JoinPage() {
             </div>
             
             <h1 className="mb-4 font-heading text-4xl font-extrabold text-text">Welcome to the Club!</h1>
-            <p className="text-lg text-text-muted mb-10">
-              Your application has been received. To complete your onboarding and stay up-to-date, please complete the next two steps:
+            <p className="text-lg text-text-muted mb-8">
+              Your application has been received. To complete your onboarding and stay up-to-date, please connect with us:
             </p>
 
             <div className="space-y-4">
               <a 
-                href="https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1" 
+                href={SOCIAL_LINKS.meetup.url} 
+                target="_blank" 
+                rel="noreferrer"
+                className="group flex items-center justify-between w-full bg-[#ED1C40] hover:bg-[#c91433] text-white p-4 rounded-xl font-bold transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-red-500/20"
+              >
+                <div className="flex items-center gap-3">
+                  <MeetupIcon className="w-6 h-6 fill-current" />
+                  <span>Join our Meetup Group</span>
+                </div>
+                <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+              </a>
+
+              <a 
+                href={SOCIAL_LINKS.whatsapp.url} 
                 target="_blank" 
                 rel="noreferrer"
                 className="group flex items-center justify-between w-full bg-[#25D366] hover:bg-[#1DA851] text-white p-4 rounded-xl font-bold transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-green-500/20"
               >
                 <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[24px]">forum</span>
+                  <WhatsAppIcon className="w-6 h-6 fill-current" />
                   <span>Join our WhatsApp Community</span>
                 </div>
                 <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
               </a>
 
               <a 
-                href="https://www.linkedin.com/company/awssbghbtu/" 
+                href={SOCIAL_LINKS.linkedin.url} 
                 target="_blank" 
                 rel="noreferrer"
                 className="group flex items-center justify-between w-full bg-[#0A66C2] hover:bg-[#084e96] text-white p-4 rounded-xl font-bold transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-500/20"
               >
                 <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[24px]">work</span>
+                  <LinkedInIcon className="w-6 h-6 fill-current" />
                   <span>Follow us on LinkedIn</span>
                 </div>
                 <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
