@@ -1,0 +1,51 @@
+{
+  "headerSticky": "fixed",
+  "headerZIndex": "100",
+  "navItems": [
+    {
+      "text": "SCD '26\nLIVE",
+      "href": "/student-community-day",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-[#8E35EA] dark:text-[#AD5CFF] hover:bg-[#AD5CFF]/10"
+    },
+    {
+      "text": "About",
+      "href": "/about",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-on-surface-variant hover:text-on-background hover:bg-on-background/5"
+    },
+    {
+      "text": "Projects",
+      "href": "/projects",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-on-surface-variant hover:text-on-background hover:bg-on-background/5"
+    },
+    {
+      "text": "Events",
+      "href": "/events",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-on-surface-variant hover:text-on-background hover:bg-on-background/5"
+    },
+    {
+      "text": "Challenges",
+      "href": "/challenges",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-on-surface-variant hover:text-on-background hover:bg-on-background/5"
+    },
+    {
+      "text": "Team",
+      "href": "/team",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-on-surface-variant hover:text-on-background hover:bg-on-background/5"
+    },
+    {
+      "text": "Blog",
+      "href": "/blog",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-on-surface-variant hover:text-on-background hover:bg-on-background/5"
+    },
+    {
+      "text": "Gallery",
+      "href": "/gallery",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-on-surface-variant hover:text-on-background hover:bg-on-background/5"
+    },
+    {
+      "text": "Contact",
+      "href": "/contact",
+      "className": "relative text-xs font-mono font-bold py-1.5 px-2.5 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none text-on-surface-variant hover:text-on-background hover:bg-on-background/5"
+    }
+  ]
+}

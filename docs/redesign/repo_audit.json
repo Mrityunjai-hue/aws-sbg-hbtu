@@ -1,0 +1,315 @@
+{
+  "totalRoutes": 21,
+  "routes": [
+    {
+      "file": "about/page.tsx",
+      "route": "/about"
+    },
+    {
+      "file": "admin/add-team-member/page.tsx",
+      "route": "/admin/add-team-member"
+    },
+    {
+      "file": "admin/create-event/page.tsx",
+      "route": "/admin/create-event"
+    },
+    {
+      "file": "admin/create-notification/page.tsx",
+      "route": "/admin/create-notification"
+    },
+    {
+      "file": "admin/edit-event/[id]/page.tsx",
+      "route": "/admin/edit-event/[id]"
+    },
+    {
+      "file": "admin/edit-notification/[id]/page.tsx",
+      "route": "/admin/edit-notification/[id]"
+    },
+    {
+      "file": "admin/edit-team-member/[id]/page.tsx",
+      "route": "/admin/edit-team-member/[id]"
+    },
+    {
+      "file": "chat/page.tsx",
+      "route": "/chat"
+    },
+    {
+      "file": "dashboard/edit-profile/page.tsx",
+      "route": "/dashboard/edit-profile"
+    },
+    {
+      "file": "dashboard/page.tsx",
+      "route": "/dashboard"
+    },
+    {
+      "file": "events/page.tsx",
+      "route": "/events"
+    },
+    {
+      "file": "join/page.tsx",
+      "route": "/join"
+    },
+    {
+      "file": "layout.tsx",
+      "route": "/layout.tsx"
+    },
+    {
+      "file": "login/page.tsx",
+      "route": "/login"
+    },
+    {
+      "file": "notifications/page.tsx",
+      "route": "/notifications"
+    },
+    {
+      "file": "page.tsx",
+      "route": "/"
+    },
+    {
+      "file": "profile/page.tsx",
+      "route": "/profile"
+    },
+    {
+      "file": "signup/page.tsx",
+      "route": "/signup"
+    },
+    {
+      "file": "styleguide/page.tsx",
+      "route": "/styleguide"
+    },
+    {
+      "file": "team/page.tsx",
+      "route": "/team"
+    },
+    {
+      "file": "tracks/page.tsx",
+      "route": "/tracks"
+    }
+  ],
+  "totalComponents": 13,
+  "components": [
+    {
+      "componentPath": "auth/ProtectedRoute.tsx",
+      "exports": [
+        "export function ProtectedRoute"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 31
+    },
+    {
+      "componentPath": "features/EventsList.tsx",
+      "exports": [
+        "export function EventsList"
+      ],
+      "usesFirebase": true,
+      "usesFramerMotion": false,
+      "lineCount": 151
+    },
+    {
+      "componentPath": "layout/Footer.tsx",
+      "exports": [
+        "export function Footer"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 124
+    },
+    {
+      "componentPath": "layout/Header.tsx",
+      "exports": [
+        "export function Header"
+      ],
+      "usesFirebase": true,
+      "usesFramerMotion": false,
+      "lineCount": 86
+    },
+    {
+      "componentPath": "layout/MobileNav.tsx",
+      "exports": [
+        "export function MobileNav"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 68
+    },
+    {
+      "componentPath": "layout/Sidebar.tsx",
+      "exports": [
+        "export function Sidebar"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 188
+    },
+    {
+      "componentPath": "layout/Topnav.tsx",
+      "exports": [
+        "export function Topnav"
+      ],
+      "usesFirebase": true,
+      "usesFramerMotion": false,
+      "lineCount": 223
+    },
+    {
+      "componentPath": "ui/Badge.tsx",
+      "exports": [
+        "export function Badge"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 23
+    },
+    {
+      "componentPath": "ui/Button.tsx",
+      "exports": [
+        "export function Button"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 45
+    },
+    {
+      "componentPath": "ui/Card.tsx",
+      "exports": [
+        "export function Card"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 17
+    },
+    {
+      "componentPath": "ui/FlashNotificationBanner.tsx",
+      "exports": [
+        "export function FlashNotificationBanner"
+      ],
+      "usesFirebase": true,
+      "usesFramerMotion": true,
+      "lineCount": 150
+    },
+    {
+      "componentPath": "ui/Input.tsx",
+      "exports": [
+        "export const Input"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 20
+    },
+    {
+      "componentPath": "ui/SocialIcons.tsx",
+      "exports": [
+        "export function MeetupIcon",
+        "export function LinkedInIcon",
+        "export function WhatsAppIcon",
+        "export function InstagramIcon",
+        "export function GitHubIcon",
+        "export function TwitterIcon",
+        "export function EmailIcon",
+        "export function GetSocialIcon",
+        "export function SocialIconsBar"
+      ],
+      "usesFirebase": false,
+      "usesFramerMotion": false,
+      "lineCount": 118
+    }
+  ],
+  "libSummary": [
+    {
+      "path": "constants/socials.ts",
+      "isFirebase": false,
+      "isChatService": true,
+      "lines": 71
+    },
+    {
+      "path": "contexts/AuthContext.tsx",
+      "isFirebase": true,
+      "isChatService": true,
+      "lines": 78
+    },
+    {
+      "path": "contexts/ChatNotificationContext.tsx",
+      "isFirebase": true,
+      "isChatService": true,
+      "lines": 80
+    },
+    {
+      "path": "firebase.ts",
+      "isFirebase": true,
+      "isChatService": true,
+      "lines": 27
+    },
+    {
+      "path": "services/chat.ts",
+      "isFirebase": true,
+      "isChatService": true,
+      "lines": 67
+    },
+    {
+      "path": "services/events.ts",
+      "isFirebase": true,
+      "isChatService": true,
+      "lines": 115
+    },
+    {
+      "path": "services/notifications.ts",
+      "isFirebase": true,
+      "isChatService": true,
+      "lines": 80
+    },
+    {
+      "path": "services/team.ts",
+      "isFirebase": true,
+      "isChatService": true,
+      "lines": 105
+    },
+    {
+      "path": "services/users.ts",
+      "isFirebase": true,
+      "isChatService": true,
+      "lines": 16
+    }
+  ],
+  "envVars": {
+    "example": [
+      "NEXT_PUBLIC_FIREBASE_API_KEY",
+      "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN",
+      "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+      "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET",
+      "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID",
+      "NEXT_PUBLIC_FIREBASE_APP_ID"
+    ],
+    "localExists": true
+  },
+  "styling": {
+    "tailwindConfigLines": 43,
+    "globalsCssLines": 53
+  },
+  "fragileAreas": [
+    {
+      "area": "Firebase Initialization & Client SDK",
+      "location": "src/lib/firebase/config.ts",
+      "risk": "SSR vs client hydration errors; must ensure db is initialized once and environment variables are present."
+    },
+    {
+      "area": "Join Community Form Submission",
+      "location": "src/app/join/page.tsx",
+      "risk": "Writes directly to Firestore collection (\"members\" or \"join_requests\"). Any prop mismatch or field removal breaks signup pipeline."
+    },
+    {
+      "area": "Chat Assistant / API Endpoint",
+      "location": "src/app/chat/page.tsx & src/lib/services/chat.ts",
+      "risk": "Chat state management, streaming/API calls, API keys. Must remain fully functional with zero interruption."
+    },
+    {
+      "area": "Mobile Bottom Navigation vs Island Shell",
+      "location": "src/components/layout/MobileNav.tsx",
+      "risk": "Current site uses a fixed bottom bar. The reference uses a top header with mobile drawer. Must transition cleanly without breaking mobile routing."
+    },
+    {
+      "area": "Next.js 14 App Router Dynamic Routes",
+      "location": "src/app/admin/edit-notification/[id]/page.tsx",
+      "risk": "Admin and notifications routes must be preserved intact without route conflict."
+    }
+  ]
+}

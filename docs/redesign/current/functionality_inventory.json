@@ -1,0 +1,50 @@
+{
+  "/": {
+    "formsCount": 0,
+    "forms": [],
+    "hasChatContainer": false,
+    "hasThemeToggle": true,
+    "hasMobileBottomNav": true,
+    "firebaseMarkers": false
+  },
+  "/join": {
+    "formsCount": 1,
+    "forms": [
+      {
+        "action": "https://aws-sbg-hbtu.vercel.app/join",
+        "method": "get",
+        "inputs": [
+          {
+            "name": "",
+            "type": "text",
+            "placeholder": "John Doe",
+            "required": false
+          },
+          {
+            "name": "",
+            "type": "email",
+            "placeholder": "student@hbtu.ac.in",
+            "required": false
+          },
+          {
+            "name": "",
+            "type": "select-one",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "hasChatContainer": false,
+    "hasThemeToggle": true,
+    "hasMobileBottomNav": true,
+    "firebaseMarkers": false
+  },
+  "/chat": {
+    "formsCount": 0,
+    "forms": [],
+    "hasChatContainer": false,
+    "hasThemeToggle": true,
+    "hasMobileBottomNav": true,
+    "firebaseMarkers": false
+  }
+}
