@@ -10,7 +10,7 @@ async function sleep(ms) {
 }
 
 async function runChallengesVerification() {
-  console.log('--- Testing 14-Day AWS Challenge End-to-End Flow ---');
+  console.log('--- Testing 15-Module AWS Challenge End-to-End Flow ---');
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 
@@ -25,15 +25,30 @@ async function runChallengesVerification() {
     });
     console.log('  ✓ Landing page captured');
 
-    // 2. Open and test Registration Modal
-    console.log('[Step 2] Testing Student Registration Modal...');
-    const registerBtn = await page.$('button:has-text("Register")');
+    // Test expanding syllabus breakdown on Module 6 (Storage)
+    console.log('[Step 2] Testing Collapsible Syllabus Breakdown...');
+    const syllabusButtons = await page.$$('button:has-text("Syllabus Breakdown")');
+    if (syllabusButtons.length > 0) {
+      await syllabusButtons[0].click(); // Expand Module 1
+      if (syllabusButtons.length >= 6) {
+        await syllabusButtons[5].click(); // Expand Module 6 Storage
+      }
+      await page.waitForTimeout(400);
+      await page.screenshot({
+        path: path.join(OUT_DIR, '02_syllabus_breakdown_expanded.png'),
+      });
+      console.log('  ✓ Module syllabus breakdown expanded cleanly');
+    }
+
+    // 3. Open and test Registration Modal
+    console.log('[Step 3] Testing Student Registration Modal...');
+    const registerBtn = await page.$('button:has-text("Register for Challenge")');
     if (!registerBtn) throw new Error('Register button not found');
     await registerBtn.click();
     await page.waitForTimeout(500);
 
     await page.screenshot({
-      path: path.join(OUT_DIR, '02_registration_modal.png'),
+      path: path.join(OUT_DIR, '03_registration_modal.png'),
     });
 
     // Fill form
@@ -47,59 +62,59 @@ async function runChallengesVerification() {
     await page.waitForTimeout(800);
 
     await page.screenshot({
-      path: path.join(OUT_DIR, '03_registered_hud.png'),
+      path: path.join(OUT_DIR, '04_registered_hud.png'),
     });
     console.log('  ✓ Registered successfully and personal HUD displayed');
 
-    // 3. Open Day 1 Quiz Modal
-    console.log('[Step 3] Testing Anti-Cheat Module Verification Quiz...');
-    const verifyBtn = await page.$('button:has-text("Verify & Claim Pts")');
-    if (!verifyBtn) throw new Error('Verify & Claim Pts button not found');
+    // 4. Open Module Assessment Quiz Modal
+    console.log('[Step 4] Testing Anti-Cheat Module Verification Assessment...');
+    const verifyBtn = await page.$('button:has-text("Verify Assessment")');
+    if (!verifyBtn) throw new Error('Verify Assessment button not found');
     await verifyBtn.click();
     await page.waitForTimeout(500);
 
     await page.screenshot({
-      path: path.join(OUT_DIR, '04_quiz_modal_open.png'),
+      path: path.join(OUT_DIR, '05_quiz_modal_open.png'),
     });
 
     const dialog = await page.$('[role="dialog"]');
-    if (!dialog) throw new Error('Quiz modal dialog not found');
+    if (!dialog) throw new Error('Assessment modal dialog not found');
 
-    // Select correct option (Hybrid Cloud - Option C)
-    const optionC = await dialog.$('button:has-text("Hybrid Cloud")');
-    if (!optionC) throw new Error('Option C (Hybrid Cloud) not found');
+    // Select correct option (Hybrid Cloud Deployment)
+    const optionC = await dialog.$('button:has-text("Hybrid Cloud Deployment")');
+    if (!optionC) throw new Error('Option (Hybrid Cloud Deployment) not found');
     await optionC.click();
     await page.waitForTimeout(300);
 
-    const submitQuizBtn = await dialog.$('button:has-text("Verify & Claim")');
-    if (!submitQuizBtn) throw new Error('Submit quiz button not found');
+    const submitQuizBtn = await dialog.$('button:has-text("Verify Assessment & Submit")');
+    if (!submitQuizBtn) throw new Error('Submit assessment button not found');
     await submitQuizBtn.click();
 
     // Wait for submission to resolve and Done button to appear
     const doneBtn = await page.waitForSelector('[role="dialog"] button:has-text("Done")', { timeout: 6000 });
     await page.screenshot({
-      path: path.join(OUT_DIR, '05_quiz_success.png'),
+      path: path.join(OUT_DIR, '06_quiz_success.png'),
     });
-    console.log('  ✓ Quiz answered correctly and +150 Points awarded');
+    console.log('  ✓ Assessment passed and +150 Points awarded');
 
     await doneBtn.click();
     await page.waitForTimeout(600);
 
-    // 4. Test Live Leaderboard Tab
-    console.log('[Step 4] Testing Celebratory Leaderboard Podium...');
-    const leaderboardTab = await page.$('button:has-text("Live Leaderboard")');
+    // 5. Test Live Leaderboard Standings Tab
+    console.log('[Step 5] Testing Architectural Leaderboard Standings...');
+    const leaderboardTab = await page.$('button:has-text("Official Leaderboard Standings")');
     if (!leaderboardTab) throw new Error('Leaderboard tab not found');
     await leaderboardTab.click();
     await page.waitForTimeout(600);
 
     await page.screenshot({
-      path: path.join(OUT_DIR, '06_leaderboard_podium.png'),
+      path: path.join(OUT_DIR, '07_leaderboard_podium.png'),
     });
-    console.log('  ✓ Top 3 podium, Top 5 callouts, and student rankings verified');
+    console.log('  ✓ Top 3 cybernetic pedestals, Top 5 callouts, and student rankings verified');
 
-    // 5. Test Roadmap Viewer Modal
-    console.log('[Step 5] Testing Certification Roadmap Guide Modal...');
-    const roadmapTab = await page.$('button:has-text("Certification Roadmap")');
+    // 6. Test Roadmap Viewer Modal
+    console.log('[Step 6] Testing Certification Roadmap Guide Modal...');
+    const roadmapTab = await page.$('button:has-text("Certification Roadmap Guide")');
     if (!roadmapTab) throw new Error('Roadmap tab not found');
     await roadmapTab.click();
     await page.waitForTimeout(600);
@@ -109,12 +124,12 @@ async function runChallengesVerification() {
       await openViewerBtn.click();
       await page.waitForTimeout(500);
       await page.screenshot({
-        path: path.join(OUT_DIR, '07_roadmap_modal_open.png'),
+        path: path.join(OUT_DIR, '08_roadmap_modal_open.png'),
       });
       console.log('  ✓ Roadmap interactive viewer opened');
     }
 
-    console.log('\n=== ALL 14-DAY AWS CHALLENGE VERIFICATION STEPS PASSED! ===');
+    console.log('\n=== ALL 15-MODULE AWS CHALLENGE VERIFICATION STEPS PASSED! ===');
   } finally {
     await browser.close();
   }

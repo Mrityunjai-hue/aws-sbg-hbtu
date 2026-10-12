@@ -238,7 +238,7 @@ export function ChallengeRegisterModal({
               disabled={isSubmitting}
               className="btn-3d-aws px-6 py-2.5 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-2 disabled:opacity-50"
             >
-              {isSubmitting ? "Registering..." : "Confirm Registration 🔥"}
+              {isSubmitting ? "Registering..." : "Confirm Registration"}
             </button>
           </div>
         </form>

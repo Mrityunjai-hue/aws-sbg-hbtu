@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { ChallengeDayModule } from "@/data/challenges";
 
 interface DayModuleCardProps {
@@ -18,6 +18,8 @@ export function DayModuleCard({
   isRegistered,
   onPromptRegister,
 }: DayModuleCardProps) {
+  const [showSections, setShowSections] = useState(false);
+
   const handleVerifyClick = () => {
     if (!isRegistered) {
       onPromptRegister();
@@ -28,31 +30,31 @@ export function DayModuleCard({
 
   return (
     <div
-      className={`relative rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between border ${
+      className={`group relative rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between border ${
         isCompleted
           ? "bg-gradient-to-br from-emerald-950/20 via-surface-low to-surface-lowest border-emerald-500/40 shadow-lg shadow-emerald-500/5"
-          : "bg-surface-low/80 hover:bg-surface-low border-outline hover:border-primary-accent/40 shadow-md"
+          : "bg-surface-low/90 hover:bg-surface-low border-outline hover:border-primary-accent/50 shadow-md hover:-translate-y-1 hover:shadow-xl"
       }`}
     >
       <div>
         {/* Top Tag Row */}
         <div className="flex items-center justify-between gap-3 pb-3 border-b border-outline/70">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <span
-              className={`h-8 w-8 rounded-xl font-mono font-black text-xs flex items-center justify-center border ${
+              className={`h-9 w-9 rounded-xl font-mono font-black text-xs flex items-center justify-center border transition-colors ${
                 isCompleted
                   ? "bg-emerald-500 text-black border-emerald-400"
-                  : "bg-surface-lowest text-primary-accent border-primary-accent/30"
+                  : "bg-surface-lowest text-primary-accent border-primary-accent/30 group-hover:border-primary-accent group-hover:bg-primary-accent/10"
               }`}
             >
-              D{module.day}
+              M{module.moduleNumber}
             </span>
             <div>
               <span className="text-xs font-mono font-bold text-on-background">
                 {module.dateStr}
               </span>
               <span className="block text-[10px] font-mono text-on-surface-variant">
-                ~{module.estimatedMinutes} mins
+                Est. {module.estimatedMinutes} mins
               </span>
             </div>
           </div>
@@ -73,13 +75,10 @@ export function DayModuleCard({
 
         {/* Title & Description */}
         <div className="mt-4 space-y-2">
-          <h3 className="font-extrabold text-base text-on-background leading-snug">
+          <h3 className="font-extrabold text-base text-on-background leading-snug group-hover:text-primary-accent transition-colors">
             {module.title}
           </h3>
-          <p className="text-xs font-mono text-secondary-accent">
-            {module.skillBuilderCourseName}
-          </p>
-          <p className="text-xs text-on-surface-variant leading-relaxed">
+          <p className="text-xs text-on-surface-variant leading-relaxed line-clamp-3">
             {module.summary}
           </p>
         </div>
@@ -95,6 +94,36 @@ export function DayModuleCard({
             </span>
           ))}
         </div>
+
+        {/* Collapsible Detailed Syllabus Breakdown */}
+        {module.sections && module.sections.length > 0 && (
+          <div className="mt-4 pt-3 border-t border-outline/50">
+            <button
+              type="button"
+              onClick={() => setShowSections(!showSections)}
+              className="w-full flex items-center justify-between text-[11px] font-mono text-on-surface-variant hover:text-on-background transition-colors py-1"
+            >
+              <span className="flex items-center gap-1.5 font-bold">
+                <span className="material-symbols-outlined text-sm text-primary-accent">menu_book</span>
+                <span>Syllabus Breakdown ({module.sections.length} Lessons)</span>
+              </span>
+              <span className="material-symbols-outlined text-sm">
+                {showSections ? "expand_less" : "expand_more"}
+              </span>
+            </button>
+
+            {showSections && (
+              <ul className="mt-2 space-y-1 pl-2 border-l border-outline/80 text-[11px] font-mono text-on-surface-variant animate-fadeIn">
+                {module.sections.map((sec, sIdx) => (
+                  <li key={sIdx} className="flex items-start gap-1.5 py-0.5">
+                    <span className="text-primary-accent/80 font-bold shrink-0">{sIdx + 1}.</span>
+                    <span className="leading-snug">{sec}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Action Footer */}
@@ -103,7 +132,7 @@ export function DayModuleCard({
           href={module.skillBuilderUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs font-mono text-on-surface-variant hover:text-secondary-accent transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-mono text-on-surface-variant hover:text-secondary-accent transition-colors"
         >
           <span className="material-symbols-outlined text-sm">school</span>
           <span>Study on Skill Builder</span>
@@ -122,7 +151,7 @@ export function DayModuleCard({
             onClick={handleVerifyClick}
             className="btn-3d-aws px-4 py-2 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-1.5"
           >
-            <span>Verify & Claim Pts</span>
+            <span>Verify Assessment</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </button>
         )}

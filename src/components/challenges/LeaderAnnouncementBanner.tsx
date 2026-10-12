@@ -101,7 +101,7 @@ export function LeaderAnnouncementBanner({
           ) : (
             <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold">
               <span className="material-symbols-outlined text-sm">check_circle</span>
-              <span>You Are Registered! Challenge Ready 🔥</span>
+              <span>Registration Verified · Challenge Ready</span>
             </div>
           )}
         </div>

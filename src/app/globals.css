@@ -172,4 +172,60 @@
     border-width: 1px;
     border-color: var(--outline-color);
   }
+
+  /* Keyframes & High-End Challenge Animations */
+  @keyframes goldGlow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(255, 153, 0, 0.25), 0 0 45px rgba(255, 153, 0, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 38px rgba(255, 153, 0, 0.45), 0 0 70px rgba(255, 153, 0, 0.22);
+    }
+  }
+
+  @keyframes purpleGlow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(173, 92, 255, 0.25), 0 0 45px rgba(173, 92, 255, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 38px rgba(173, 92, 255, 0.45), 0 0 70px rgba(173, 92, 255, 0.22);
+    }
+  }
+
+  @keyframes pulseSubtle {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.92;
+    }
+    50% {
+      transform: scale(1.02);
+      opacity: 1;
+    }
+  }
+
+  @keyframes floatSubtle {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .animate-gold-glow {
+    animation: goldGlow 3.5s ease-in-out infinite;
+  }
+
+  .animate-purple-glow {
+    animation: purpleGlow 3.5s ease-in-out infinite;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulseSubtle 3s ease-in-out infinite;
+  }
+
+  .animate-float-subtle {
+    animation: floatSubtle 4s ease-in-out infinite;
+  }
 }
+

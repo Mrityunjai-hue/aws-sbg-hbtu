@@ -54,8 +54,8 @@ export function ModuleQuizModal({
       setFeedback({
         status: "correct",
         message: result.alreadyCompleted
-          ? `Module already verified! ${result.explanation}`
-          : `🎉 Excellent! Correct answer verified. +${result.pointsAwarded} points awarded to your profile! ${result.explanation}`,
+          ? `Module assessment already verified. ${result.explanation}`
+          : `Assessment verified successfully. +${result.pointsAwarded} points credited to your profile. ${result.explanation}`,
         points: result.pointsAwarded,
       });
       onVerifiedSuccess();
@@ -199,7 +199,7 @@ export function ModuleQuizModal({
             <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-300 text-xs font-mono leading-relaxed space-y-2">
               <div className="flex items-center gap-2 font-bold text-sm">
                 <span className="material-symbols-outlined text-lg">check_circle</span>
-                <span>Module Verified & Streak Extended! 🔥</span>
+                <span>Assessment Verified · Streak Extended</span>
               </div>
               <p>{feedback.message}</p>
             </div>
@@ -226,8 +226,8 @@ export function ModuleQuizModal({
         <div className="mt-6 pt-4 flex items-center justify-between gap-3 border-t border-outline">
           <div className="text-[11px] font-mono text-on-surface-variant">
             {feedback.status === "correct"
-              ? "Verified successfully!"
-              : "Answering correctly earns +150 Points and maintains your streak"}
+              ? "Verified successfully."
+              : "Answering correctly earns verification points and maintains your daily streak."}
           </div>
 
           <div className="flex items-center gap-3">
@@ -245,7 +245,7 @@ export function ModuleQuizModal({
                 onClick={handleVerify}
                 className="btn-3d-aws px-6 py-2.5 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-2 disabled:opacity-50"
               >
-                {isSubmitting ? "Verifying..." : "Verify & Claim +150 Pts →"}
+                {isSubmitting ? "Verifying..." : "Verify Assessment & Submit"}
               </button>
             ) : (
               <button

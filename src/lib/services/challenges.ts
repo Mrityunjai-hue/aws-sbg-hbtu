@@ -211,7 +211,7 @@ export const ChallengeService = {
         points: currentState.totalPoints,
         streakDays: currentState.currentStreak,
         completedDays: currentState.completedDays,
-        badge: "Priority Builder",
+        badge: "Priority Member",
         avatarMonogram: monogram || "ME",
       };
 
@@ -249,7 +249,7 @@ export const ChallengeService = {
               points: d.totalPoints || 0,
               streakDays: d.streakDays || 0,
               completedDays: d.completedDays || [],
-              badge: "Priority Builder",
+              badge: "Priority Member",
               avatarMonogram: monogram,
             });
           }
@@ -267,11 +267,11 @@ export const ChallengeService = {
 
     // Re-assign badges based on new ranking
     return roster.map((student, idx) => {
-      let badge: LeaderboardStudent["badge"] = "Priority Builder";
-      if (idx === 0) badge = "Voucher Winner (Top 1)";
-      else if (idx === 1) badge = "Voucher Winner (Top 2)";
-      else if (idx === 2) badge = "Voucher Winner (Top 3)";
-      else if (idx < 5) badge = "Top 5 Finalist";
+      let badge: LeaderboardStudent["badge"] = "Priority Member";
+      if (idx === 0) badge = "Voucher Candidate Rank 1";
+      else if (idx === 1) badge = "Voucher Candidate Rank 2";
+      else if (idx === 2) badge = "Voucher Candidate Rank 3";
+      else if (idx < 5) badge = "Merit Finalist";
 
       return {
         ...student,
