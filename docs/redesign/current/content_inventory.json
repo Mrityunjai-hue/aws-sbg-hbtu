@@ -1,0 +1,965 @@
+{
+  "/": {
+    "route": "/",
+    "title": "AWS Student Builder Group — HBTU Kanpur",
+    "metaDesc": "Learn, build, and ship cloud-powered projects together.",
+    "sections": [
+      {
+        "sectionIndex": 1,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Your ideas.\nYour community.\nYour AWS SBG."
+          },
+          {
+            "tag": "H2",
+            "text": "Connect Across Our Platforms"
+          },
+          {
+            "tag": "H3",
+            "text": "Meetup Group"
+          },
+          {
+            "tag": "H3",
+            "text": "LinkedIn Company Page"
+          },
+          {
+            "tag": "H3",
+            "text": "WhatsApp Community"
+          },
+          {
+            "tag": "H3",
+            "text": "Instagram Spotlights"
+          },
+          {
+            "tag": "H2",
+            "text": "About the program"
+          },
+          {
+            "tag": "H2",
+            "text": "FAQs"
+          }
+        ],
+        "paragraphs": [
+          "Connect with builders who understand your journey. Explore cloud technology, build innovative projects, and grow your technical skills. Your cloud journey starts here at HBTU.",
+          "Stay plugged in with our latest meetups, professional updates, project repositories, and student discussions.",
+          "RSVP to upcoming cloud workshops, speaker sessions, and community meetups.",
+          "Follow official announcements, career opportunities, and member achievements.",
+          "Chat directly with members, share quick doubts, and get real-time alerts.",
+          "Catch behind-the-scenes moments, event reels, student features, and stories.",
+          "The AWS Student Builder Group at HBTU is a vibrant, student-led community on campus. Students come together to explore cloud technology, build innovative projects, and grow their technical skills. Membership is open to any student actively enrolled at HBTU who's ready to build their future in the cloud.",
+          "Our group is led by dedicated Core Team members who are passionate about bringing our community to life. With support from AWS, we are responsible for growing the group, organizing inspiring events like hackathons and workshops, and championing local initiatives that matter to our peers.",
+          "Ready to start your cloud journey? Apply now\nopen_in_new\n to join the community. Check out our FAQs for more information on the program and leadership."
+        ],
+        "links": [
+          {
+            "text": "Join the community",
+            "href": "https://aws-sbg-hbtu.vercel.app/join",
+            "external": false
+          },
+          {
+            "text": "Meetup Group",
+            "href": "https://www.meetup.com/aws-student-builder-group-hbtu/",
+            "external": true
+          },
+          {
+            "text": "open_in_new\nMeetup Group\n\nRSVP to upcoming cloud workshops, speaker sessions, and community meetups.\n\nJoin Meetup →",
+            "href": "https://www.meetup.com/aws-student-builder-group-hbtu/",
+            "external": true
+          },
+          {
+            "text": "open_in_new\nLinkedIn Company Page\n\nFollow official announcements, career opportunities, and member achievements.\n\nFollow LinkedIn →",
+            "href": "https://www.linkedin.com/company/awssbghbtu/",
+            "external": true
+          },
+          {
+            "text": "open_in_new\nWhatsApp Community\n\nChat directly with members, share quick doubts, and get real-time alerts.\n\nJoin Chat →",
+            "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1",
+            "external": true
+          },
+          {
+            "text": "open_in_new\nInstagram Spotlights\n\nCatch behind-the-scenes moments, event reels, student features, and stories.\n\nFollow @aws_sbg_hbtu →",
+            "href": "https://www.instagram.com/aws_sbg_hbtu/",
+            "external": true
+          },
+          {
+            "text": "Apply now\nopen_in_new",
+            "href": "https://aws-sbg-hbtu.vercel.app/join",
+            "external": false
+          }
+        ],
+        "buttons": []
+      },
+      {
+        "sectionIndex": 2,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Your ideas.\nYour community.\nYour AWS SBG."
+          }
+        ],
+        "paragraphs": [
+          "Connect with builders who understand your journey. Explore cloud technology, build innovative projects, and grow your technical skills. Your cloud journey starts here at HBTU."
+        ],
+        "links": [
+          {
+            "text": "Join the community",
+            "href": "https://aws-sbg-hbtu.vercel.app/join",
+            "external": false
+          },
+          {
+            "text": "Meetup Group",
+            "href": "https://www.meetup.com/aws-student-builder-group-hbtu/",
+            "external": true
+          }
+        ],
+        "buttons": []
+      },
+      {
+        "sectionIndex": 3,
+        "headings": [
+          {
+            "tag": "H2",
+            "text": "Connect Across Our Platforms"
+          },
+          {
+            "tag": "H3",
+            "text": "Meetup Group"
+          },
+          {
+            "tag": "H3",
+            "text": "LinkedIn Company Page"
+          },
+          {
+            "tag": "H3",
+            "text": "WhatsApp Community"
+          },
+          {
+            "tag": "H3",
+            "text": "Instagram Spotlights"
+          }
+        ],
+        "paragraphs": [
+          "Stay plugged in with our latest meetups, professional updates, project repositories, and student discussions.",
+          "RSVP to upcoming cloud workshops, speaker sessions, and community meetups.",
+          "Follow official announcements, career opportunities, and member achievements.",
+          "Chat directly with members, share quick doubts, and get real-time alerts.",
+          "Catch behind-the-scenes moments, event reels, student features, and stories."
+        ],
+        "links": [
+          {
+            "text": "open_in_new\nMeetup Group\n\nRSVP to upcoming cloud workshops, speaker sessions, and community meetups.\n\nJoin Meetup →",
+            "href": "https://www.meetup.com/aws-student-builder-group-hbtu/",
+            "external": true
+          },
+          {
+            "text": "open_in_new\nLinkedIn Company Page\n\nFollow official announcements, career opportunities, and member achievements.\n\nFollow LinkedIn →",
+            "href": "https://www.linkedin.com/company/awssbghbtu/",
+            "external": true
+          },
+          {
+            "text": "open_in_new\nWhatsApp Community\n\nChat directly with members, share quick doubts, and get real-time alerts.\n\nJoin Chat →",
+            "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1",
+            "external": true
+          },
+          {
+            "text": "open_in_new\nInstagram Spotlights\n\nCatch behind-the-scenes moments, event reels, student features, and stories.\n\nFollow @aws_sbg_hbtu →",
+            "href": "https://www.instagram.com/aws_sbg_hbtu/",
+            "external": true
+          }
+        ],
+        "buttons": []
+      },
+      {
+        "sectionIndex": 4,
+        "headings": [],
+        "paragraphs": [],
+        "links": [],
+        "buttons": []
+      }
+    ],
+    "footer": {
+      "text": "AWS Student Builder Group\n\nHARCOURT BUTLER TECHNICAL UNIVERSITY, KANPUR\n\nCONNECT WITH US\n\nMeetup\nLinkedIn\nWhatsApp\nInstagram\nGitHub\nX (Twitter)\nEmail Us\nHome\nEvents & Workshops\nCore Team\nJoin Group\n\n© 2026 AWS Student Builder Group, HBTU Kanpur. Built for Builders.",
+      "links": [
+        {
+          "text": "Meetup",
+          "href": "https://www.meetup.com/aws-student-builder-group-hbtu/"
+        },
+        {
+          "text": "LinkedIn",
+          "href": "https://www.linkedin.com/company/awssbghbtu/"
+        },
+        {
+          "text": "WhatsApp",
+          "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1"
+        },
+        {
+          "text": "Instagram",
+          "href": "https://www.instagram.com/aws_sbg_hbtu/"
+        },
+        {
+          "text": "GitHub",
+          "href": "https://github.com/aws-sbg-hbtu"
+        },
+        {
+          "text": "X (Twitter)",
+          "href": "https://x.com/aws_sbg_hbtu"
+        },
+        {
+          "text": "Email Us",
+          "href": "mailto:aws.sbghbtu@gmail.com"
+        },
+        {
+          "text": "Home",
+          "href": "https://aws-sbg-hbtu.vercel.app/"
+        },
+        {
+          "text": "Events & Workshops",
+          "href": "https://aws-sbg-hbtu.vercel.app/events"
+        },
+        {
+          "text": "Core Team",
+          "href": "https://aws-sbg-hbtu.vercel.app/team"
+        },
+        {
+          "text": "Join Group",
+          "href": "https://aws-sbg-hbtu.vercel.app/join"
+        }
+      ]
+    }
+  },
+  "/about": {
+    "route": "/about",
+    "title": "AWS Student Builder Group — HBTU Kanpur",
+    "metaDesc": "Learn, build, and ship cloud-powered projects together.",
+    "sections": [
+      {
+        "sectionIndex": 1,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "About Us"
+          },
+          {
+            "tag": "H2",
+            "text": "Our Mission"
+          },
+          {
+            "tag": "H3",
+            "text": "Why Cloud?"
+          }
+        ],
+        "paragraphs": [
+          "We are the AWS Student Builder Group at HBTU Kanpur, empowering students to innovate on the cloud.",
+          "AWS Student Builder Groups are vibrant, student-led communities on post-secondary school campuses. Students come together to explore cloud technology, build innovative projects, and grow their technical skills.",
+          "We aim to bridge the gap between academia and industry by organizing hackathons, study groups, and hands-on workshops that leverage Amazon Web Services.",
+          "Cloud computing is the backbone of modern applications. By mastering AWS early, you position yourself at the forefront of technological innovation."
+        ],
+        "links": [],
+        "buttons": []
+      },
+      {
+        "sectionIndex": 2,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "About Us"
+          },
+          {
+            "tag": "H2",
+            "text": "Our Mission"
+          },
+          {
+            "tag": "H3",
+            "text": "Why Cloud?"
+          }
+        ],
+        "paragraphs": [
+          "We are the AWS Student Builder Group at HBTU Kanpur, empowering students to innovate on the cloud.",
+          "AWS Student Builder Groups are vibrant, student-led communities on post-secondary school campuses. Students come together to explore cloud technology, build innovative projects, and grow their technical skills.",
+          "We aim to bridge the gap between academia and industry by organizing hackathons, study groups, and hands-on workshops that leverage Amazon Web Services.",
+          "Cloud computing is the backbone of modern applications. By mastering AWS early, you position yourself at the forefront of technological innovation."
+        ],
+        "links": [],
+        "buttons": []
+      },
+      {
+        "sectionIndex": 3,
+        "headings": [],
+        "paragraphs": [],
+        "links": [],
+        "buttons": []
+      }
+    ],
+    "footer": {
+      "text": "AWS Student Builder Group\n\nHARCOURT BUTLER TECHNICAL UNIVERSITY, KANPUR\n\nCONNECT WITH US\n\nMeetup\nLinkedIn\nWhatsApp\nInstagram\nGitHub\nX (Twitter)\nEmail Us\nHome\nEvents & Workshops\nCore Team\nJoin Group\n\n© 2026 AWS Student Builder Group, HBTU Kanpur. Built for Builders.",
+      "links": [
+        {
+          "text": "Meetup",
+          "href": "https://www.meetup.com/aws-student-builder-group-hbtu/"
+        },
+        {
+          "text": "LinkedIn",
+          "href": "https://www.linkedin.com/company/awssbghbtu/"
+        },
+        {
+          "text": "WhatsApp",
+          "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1"
+        },
+        {
+          "text": "Instagram",
+          "href": "https://www.instagram.com/aws_sbg_hbtu/"
+        },
+        {
+          "text": "GitHub",
+          "href": "https://github.com/aws-sbg-hbtu"
+        },
+        {
+          "text": "X (Twitter)",
+          "href": "https://x.com/aws_sbg_hbtu"
+        },
+        {
+          "text": "Email Us",
+          "href": "mailto:aws.sbghbtu@gmail.com"
+        },
+        {
+          "text": "Home",
+          "href": "https://aws-sbg-hbtu.vercel.app/"
+        },
+        {
+          "text": "Events & Workshops",
+          "href": "https://aws-sbg-hbtu.vercel.app/events"
+        },
+        {
+          "text": "Core Team",
+          "href": "https://aws-sbg-hbtu.vercel.app/team"
+        },
+        {
+          "text": "Join Group",
+          "href": "https://aws-sbg-hbtu.vercel.app/join"
+        }
+      ]
+    }
+  },
+  "/tracks": {
+    "route": "/tracks",
+    "title": "AWS Student Builder Group — HBTU Kanpur",
+    "metaDesc": "Learn, build, and ship cloud-powered projects together.",
+    "sections": [
+      {
+        "sectionIndex": 1,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Learning Tracks"
+          },
+          {
+            "tag": "H2",
+            "text": "Cloud Foundations"
+          },
+          {
+            "tag": "H2",
+            "text": "Serverless Applications"
+          },
+          {
+            "tag": "H2",
+            "text": "Machine Learning"
+          }
+        ],
+        "paragraphs": [
+          "Architected paths for technical mastery",
+          "Master the core building blocks of AWS infrastructure, security, and networking. Perfect for beginners looking to prepare for the Cloud Practitioner certification.",
+          "Build and scale modern applications without managing servers or infrastructure. Focus on writing code that serves your users seamlessly.",
+          "Unlock predictive power with Amazon SageMaker and Generative AI tools. Train models and implement AI services into your apps."
+        ],
+        "links": [],
+        "buttons": [
+          "Start Track",
+          "Start Track",
+          "Start Track"
+        ]
+      },
+      {
+        "sectionIndex": 2,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Learning Tracks"
+          },
+          {
+            "tag": "H2",
+            "text": "Cloud Foundations"
+          },
+          {
+            "tag": "H2",
+            "text": "Serverless Applications"
+          },
+          {
+            "tag": "H2",
+            "text": "Machine Learning"
+          }
+        ],
+        "paragraphs": [
+          "Architected paths for technical mastery",
+          "Master the core building blocks of AWS infrastructure, security, and networking. Perfect for beginners looking to prepare for the Cloud Practitioner certification.",
+          "Build and scale modern applications without managing servers or infrastructure. Focus on writing code that serves your users seamlessly.",
+          "Unlock predictive power with Amazon SageMaker and Generative AI tools. Train models and implement AI services into your apps."
+        ],
+        "links": [],
+        "buttons": [
+          "Start Track",
+          "Start Track",
+          "Start Track"
+        ]
+      },
+      {
+        "sectionIndex": 3,
+        "headings": [],
+        "paragraphs": [],
+        "links": [],
+        "buttons": []
+      }
+    ],
+    "footer": {
+      "text": "AWS Student Builder Group\n\nHARCOURT BUTLER TECHNICAL UNIVERSITY, KANPUR\n\nCONNECT WITH US\n\nMeetup\nLinkedIn\nWhatsApp\nInstagram\nGitHub\nX (Twitter)\nEmail Us\nHome\nEvents & Workshops\nCore Team\nJoin Group\n\n© 2026 AWS Student Builder Group, HBTU Kanpur. Built for Builders.",
+      "links": [
+        {
+          "text": "Meetup",
+          "href": "https://www.meetup.com/aws-student-builder-group-hbtu/"
+        },
+        {
+          "text": "LinkedIn",
+          "href": "https://www.linkedin.com/company/awssbghbtu/"
+        },
+        {
+          "text": "WhatsApp",
+          "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1"
+        },
+        {
+          "text": "Instagram",
+          "href": "https://www.instagram.com/aws_sbg_hbtu/"
+        },
+        {
+          "text": "GitHub",
+          "href": "https://github.com/aws-sbg-hbtu"
+        },
+        {
+          "text": "X (Twitter)",
+          "href": "https://x.com/aws_sbg_hbtu"
+        },
+        {
+          "text": "Email Us",
+          "href": "mailto:aws.sbghbtu@gmail.com"
+        },
+        {
+          "text": "Home",
+          "href": "https://aws-sbg-hbtu.vercel.app/"
+        },
+        {
+          "text": "Events & Workshops",
+          "href": "https://aws-sbg-hbtu.vercel.app/events"
+        },
+        {
+          "text": "Core Team",
+          "href": "https://aws-sbg-hbtu.vercel.app/team"
+        },
+        {
+          "text": "Join Group",
+          "href": "https://aws-sbg-hbtu.vercel.app/join"
+        }
+      ]
+    }
+  },
+  "/events": {
+    "route": "/events",
+    "title": "AWS Student Builder Group — HBTU Kanpur",
+    "metaDesc": "Learn, build, and ship cloud-powered projects together.",
+    "sections": [
+      {
+        "sectionIndex": 1,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Events"
+          },
+          {
+            "tag": "H2",
+            "text": "Community events"
+          },
+          {
+            "tag": "H3",
+            "text": "AWS Builder Loft"
+          },
+          {
+            "tag": "H3",
+            "text": "AWS User Group events"
+          },
+          {
+            "tag": "H3",
+            "text": "AWS Student Builder events"
+          },
+          {
+            "tag": "H2",
+            "text": "HBTU Upcoming Events"
+          },
+          {
+            "tag": "H3",
+            "text": "Introduction to AWS Cloud"
+          },
+          {
+            "tag": "H3",
+            "text": "AWS SBG HBTU x Byte Stack Bootcamp — AWS Cloud Practitioner / Cyber Security Fundamentals"
+          }
+        ],
+        "paragraphs": [
+          "Mark your calendars, meet cloud builders, grow your network.",
+          "Meet and learn with other builders at industry-expert sessions, hands-on workshops, and community-driven events.",
+          "Technical sessions and workshops for builders to learn about AWS services and best practices from AWS Partners and experts.",
+          "Student-led events on campus that offer ways to explore cloud technology, build innovative projects, and grow.",
+          "AWS Student Builder Group — First Offline Event!\n\nOur first offline AWS event is happening on 22nd August 2026!\n\n☁️ Introduction to AWS Cloud\n📅 22 A...",
+          "A mentorship-driven bootcamp run in collaboration with Byte Stack, designed to take participants from fundamentals to job-ready skills in either cloud..."
+        ],
+        "links": [
+          {
+            "text": "AWS Builder Center",
+            "href": "https://aws-sbg-hbtu.vercel.app/",
+            "external": false
+          },
+          {
+            "text": "Find upcoming events\narrow_forward",
+            "href": "https://aws-sbg-hbtu.vercel.app/events#",
+            "external": false
+          },
+          {
+            "text": "Find upcoming events\narrow_forward",
+            "href": "https://aws-sbg-hbtu.vercel.app/events#",
+            "external": false
+          },
+          {
+            "text": "Find upcoming events\narrow_forward",
+            "href": "https://aws-sbg-hbtu.vercel.app/events#",
+            "external": false
+          },
+          {
+            "text": "Regiter for Ticket [Free]\narrow_forward",
+            "href": "https://%20https//tinyurl.com/3t9zva34",
+            "external": true
+          },
+          {
+            "text": "Form Link\narrow_forward",
+            "href": "https://forms.gle/XmeFi58ejHwgUbrW8",
+            "external": true
+          }
+        ],
+        "buttons": [
+          "Show more",
+          "Show more"
+        ]
+      },
+      {
+        "sectionIndex": 2,
+        "headings": [],
+        "paragraphs": [],
+        "links": [],
+        "buttons": []
+      }
+    ],
+    "footer": {
+      "text": "AWS Student Builder Group\n\nHARCOURT BUTLER TECHNICAL UNIVERSITY, KANPUR\n\nCONNECT WITH US\n\nMeetup\nLinkedIn\nWhatsApp\nInstagram\nGitHub\nX (Twitter)\nEmail Us\nHome\nEvents & Workshops\nCore Team\nJoin Group\n\n© 2026 AWS Student Builder Group, HBTU Kanpur. Built for Builders.",
+      "links": [
+        {
+          "text": "Meetup",
+          "href": "https://www.meetup.com/aws-student-builder-group-hbtu/"
+        },
+        {
+          "text": "LinkedIn",
+          "href": "https://www.linkedin.com/company/awssbghbtu/"
+        },
+        {
+          "text": "WhatsApp",
+          "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1"
+        },
+        {
+          "text": "Instagram",
+          "href": "https://www.instagram.com/aws_sbg_hbtu/"
+        },
+        {
+          "text": "GitHub",
+          "href": "https://github.com/aws-sbg-hbtu"
+        },
+        {
+          "text": "X (Twitter)",
+          "href": "https://x.com/aws_sbg_hbtu"
+        },
+        {
+          "text": "Email Us",
+          "href": "mailto:aws.sbghbtu@gmail.com"
+        },
+        {
+          "text": "Home",
+          "href": "https://aws-sbg-hbtu.vercel.app/"
+        },
+        {
+          "text": "Events & Workshops",
+          "href": "https://aws-sbg-hbtu.vercel.app/events"
+        },
+        {
+          "text": "Core Team",
+          "href": "https://aws-sbg-hbtu.vercel.app/team"
+        },
+        {
+          "text": "Join Group",
+          "href": "https://aws-sbg-hbtu.vercel.app/join"
+        }
+      ]
+    }
+  },
+  "/team": {
+    "route": "/team",
+    "title": "AWS Student Builder Group — HBTU Kanpur",
+    "metaDesc": "Learn, build, and ship cloud-powered projects together.",
+    "sections": [
+      {
+        "sectionIndex": 1,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Core Team"
+          },
+          {
+            "tag": "H2",
+            "text": "About the Core Team"
+          },
+          {
+            "tag": "H2",
+            "text": "Meet the Team"
+          },
+          {
+            "tag": "H3",
+            "text": "Devesh Kumar"
+          },
+          {
+            "tag": "H3",
+            "text": "Mrityunjai Sachan"
+          },
+          {
+            "tag": "H3",
+            "text": "Devanshi Saxena"
+          },
+          {
+            "tag": "H3",
+            "text": "Vismay Katiyar"
+          },
+          {
+            "tag": "H3",
+            "text": "Prakhar Mishra"
+          },
+          {
+            "tag": "H3",
+            "text": "Samvrit Tiwari"
+          },
+          {
+            "tag": "H2",
+            "text": "FAQs"
+          }
+        ],
+        "paragraphs": [
+          "Meet the AWS Student Builder Group core team at HBTU Kanpur.",
+          "Every group is led by dedicated student volunteers who are passionate about bringing their ideas to life with support from AWS.",
+          "Captain",
+          "Technical Lead",
+          "Partnership and Outreach Lead",
+          "Content and Branding Lead",
+          "Management Lead",
+          "Community and Engagement Lead"
+        ],
+        "links": [
+          {
+            "text": "AWS Builder Center",
+            "href": "https://aws-sbg-hbtu.vercel.app/",
+            "external": false
+          },
+          {
+            "text": "Join the Team",
+            "href": "https://aws-sbg-hbtu.vercel.app/join",
+            "external": false
+          },
+          {
+            "text": "About the Group open_in_new",
+            "href": "https://aws-sbg-hbtu.vercel.app/about",
+            "external": false
+          },
+          {
+            "text": "Contact\nopen_in_new",
+            "href": "mailto:kumardevesh0108@gmail.com",
+            "external": true
+          },
+          {
+            "text": "Contact\nopen_in_new",
+            "href": "mailto:230137008@hbtu.ac.in",
+            "external": true
+          },
+          {
+            "text": "Contact\nopen_in_new",
+            "href": "mailto:undefined",
+            "external": true
+          },
+          {
+            "text": "Contact\nopen_in_new",
+            "href": "mailto:undefined",
+            "external": true
+          },
+          {
+            "text": "Contact\nopen_in_new",
+            "href": "mailto:230137009@hbtu.ac.in",
+            "external": true
+          },
+          {
+            "text": "Contact\nopen_in_new",
+            "href": "mailto:samvrittiwari9150@gmail.com",
+            "external": true
+          }
+        ],
+        "buttons": []
+      },
+      {
+        "sectionIndex": 2,
+        "headings": [],
+        "paragraphs": [],
+        "links": [],
+        "buttons": []
+      }
+    ],
+    "footer": {
+      "text": "AWS Student Builder Group\n\nHARCOURT BUTLER TECHNICAL UNIVERSITY, KANPUR\n\nCONNECT WITH US\n\nMeetup\nLinkedIn\nWhatsApp\nInstagram\nGitHub\nX (Twitter)\nEmail Us\nHome\nEvents & Workshops\nCore Team\nJoin Group\n\n© 2026 AWS Student Builder Group, HBTU Kanpur. Built for Builders.",
+      "links": [
+        {
+          "text": "Meetup",
+          "href": "https://www.meetup.com/aws-student-builder-group-hbtu/"
+        },
+        {
+          "text": "LinkedIn",
+          "href": "https://www.linkedin.com/company/awssbghbtu/"
+        },
+        {
+          "text": "WhatsApp",
+          "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1"
+        },
+        {
+          "text": "Instagram",
+          "href": "https://www.instagram.com/aws_sbg_hbtu/"
+        },
+        {
+          "text": "GitHub",
+          "href": "https://github.com/aws-sbg-hbtu"
+        },
+        {
+          "text": "X (Twitter)",
+          "href": "https://x.com/aws_sbg_hbtu"
+        },
+        {
+          "text": "Email Us",
+          "href": "mailto:aws.sbghbtu@gmail.com"
+        },
+        {
+          "text": "Home",
+          "href": "https://aws-sbg-hbtu.vercel.app/"
+        },
+        {
+          "text": "Events & Workshops",
+          "href": "https://aws-sbg-hbtu.vercel.app/events"
+        },
+        {
+          "text": "Core Team",
+          "href": "https://aws-sbg-hbtu.vercel.app/team"
+        },
+        {
+          "text": "Join Group",
+          "href": "https://aws-sbg-hbtu.vercel.app/join"
+        }
+      ]
+    }
+  },
+  "/join": {
+    "route": "/join",
+    "title": "AWS Student Builder Group — HBTU Kanpur",
+    "metaDesc": "Learn, build, and ship cloud-powered projects together.",
+    "sections": [
+      {
+        "sectionIndex": 1,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Join the Group"
+          },
+          {
+            "tag": "H2",
+            "text": "Membership Form"
+          }
+        ],
+        "paragraphs": [
+          "Take the first step towards building the future on AWS."
+        ],
+        "links": [],
+        "buttons": [
+          "Submit Application"
+        ]
+      },
+      {
+        "sectionIndex": 2,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Join the Group"
+          },
+          {
+            "tag": "H2",
+            "text": "Membership Form"
+          }
+        ],
+        "paragraphs": [
+          "Take the first step towards building the future on AWS."
+        ],
+        "links": [],
+        "buttons": [
+          "Submit Application"
+        ]
+      },
+      {
+        "sectionIndex": 3,
+        "headings": [],
+        "paragraphs": [],
+        "links": [],
+        "buttons": []
+      }
+    ],
+    "footer": {
+      "text": "AWS Student Builder Group\n\nHARCOURT BUTLER TECHNICAL UNIVERSITY, KANPUR\n\nCONNECT WITH US\n\nMeetup\nLinkedIn\nWhatsApp\nInstagram\nGitHub\nX (Twitter)\nEmail Us\nHome\nEvents & Workshops\nCore Team\nJoin Group\n\n© 2026 AWS Student Builder Group, HBTU Kanpur. Built for Builders.",
+      "links": [
+        {
+          "text": "Meetup",
+          "href": "https://www.meetup.com/aws-student-builder-group-hbtu/"
+        },
+        {
+          "text": "LinkedIn",
+          "href": "https://www.linkedin.com/company/awssbghbtu/"
+        },
+        {
+          "text": "WhatsApp",
+          "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1"
+        },
+        {
+          "text": "Instagram",
+          "href": "https://www.instagram.com/aws_sbg_hbtu/"
+        },
+        {
+          "text": "GitHub",
+          "href": "https://github.com/aws-sbg-hbtu"
+        },
+        {
+          "text": "X (Twitter)",
+          "href": "https://x.com/aws_sbg_hbtu"
+        },
+        {
+          "text": "Email Us",
+          "href": "mailto:aws.sbghbtu@gmail.com"
+        },
+        {
+          "text": "Home",
+          "href": "https://aws-sbg-hbtu.vercel.app/"
+        },
+        {
+          "text": "Events & Workshops",
+          "href": "https://aws-sbg-hbtu.vercel.app/events"
+        },
+        {
+          "text": "Core Team",
+          "href": "https://aws-sbg-hbtu.vercel.app/team"
+        },
+        {
+          "text": "Join Group",
+          "href": "https://aws-sbg-hbtu.vercel.app/join"
+        }
+      ]
+    }
+  },
+  "/chat": {
+    "route": "/chat",
+    "title": "AWS Student Builder Group — HBTU Kanpur",
+    "metaDesc": "Learn, build, and ship cloud-powered projects together.",
+    "sections": [
+      {
+        "sectionIndex": 1,
+        "headings": [
+          {
+            "tag": "H2",
+            "text": "Global Chat"
+          }
+        ],
+        "paragraphs": [
+          "Join the community conversation, share ideas, and connect with other builders."
+        ],
+        "links": [],
+        "buttons": [
+          "Sign in to Chat"
+        ]
+      },
+      {
+        "sectionIndex": 2,
+        "headings": [],
+        "paragraphs": [],
+        "links": [],
+        "buttons": []
+      }
+    ],
+    "footer": {
+      "text": "AWS Student Builder Group\n\nHARCOURT BUTLER TECHNICAL UNIVERSITY, KANPUR\n\nCONNECT WITH US\n\nMeetup\nLinkedIn\nWhatsApp\nInstagram\nGitHub\nX (Twitter)\nEmail Us\nHome\nEvents & Workshops\nCore Team\nJoin Group\n\n© 2026 AWS Student Builder Group, HBTU Kanpur. Built for Builders.",
+      "links": [
+        {
+          "text": "Meetup",
+          "href": "https://www.meetup.com/aws-student-builder-group-hbtu/"
+        },
+        {
+          "text": "LinkedIn",
+          "href": "https://www.linkedin.com/company/awssbghbtu/"
+        },
+        {
+          "text": "WhatsApp",
+          "href": "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1"
+        },
+        {
+          "text": "Instagram",
+          "href": "https://www.instagram.com/aws_sbg_hbtu/"
+        },
+        {
+          "text": "GitHub",
+          "href": "https://github.com/aws-sbg-hbtu"
+        },
+        {
+          "text": "X (Twitter)",
+          "href": "https://x.com/aws_sbg_hbtu"
+        },
+        {
+          "text": "Email Us",
+          "href": "mailto:aws.sbghbtu@gmail.com"
+        },
+        {
+          "text": "Home",
+          "href": "https://aws-sbg-hbtu.vercel.app/"
+        },
+        {
+          "text": "Events & Workshops",
+          "href": "https://aws-sbg-hbtu.vercel.app/events"
+        },
+        {
+          "text": "Core Team",
+          "href": "https://aws-sbg-hbtu.vercel.app/team"
+        },
+        {
+          "text": "Join Group",
+          "href": "https://aws-sbg-hbtu.vercel.app/join"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,652 @@
+{
+  "/": {
+    "route": "/",
+    "title": "AWS Student Builder Group GEU | Premier Cloud & AI Community",
+    "sectionsCount": 9,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "relative w-full selection:bg-[var(--color-primary)] selection:text-white min-h-screen font-sans overflow-x-hidden text-on-background transition-colors duration-300",
+        "heading": "Where student builders\nSHIP\ntogether.",
+        "snippet": "AWS SCD 2026 Graphic Era, Dehradun • 31 Oct → Where student builders SHIP together.  Graphic Era's official student builder community. Learn AWS, AI &",
+        "display": "block",
+        "cardsCount": 53,
+        "buttonsCount": 4
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "relative w-full min-h-[85vh] sm:min-h-[calc(100vh-4.5rem)] flex flex-col items-center justify-center pt-20 xs:pt-24 sm:pt-28 pb-14 xs:pb-16 sm:pb-20 z-10 text-center px-4 sm:px-6 overflow-hidden",
+        "heading": "Where student builders\nSHIP\ntogether.",
+        "snippet": "AWS SCD 2026 Graphic Era, Dehradun • 31 Oct → Where student builders SHIP together.  Graphic Era's official student builder community. Learn AWS, AI &",
+        "display": "flex",
+        "cardsCount": 6,
+        "buttonsCount": 2
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "py-10 sm:py-16 relative z-20 border-t border-outline/60 bg-surface-container-low/20 backdrop-blur-md overflow-hidden",
+        "heading": "Building is Better Together",
+        "snippet": "BUILD & SHIP 01 — THE COMMUNITY Building is Better Together  Four practical pillars powering every workshop, hackathon, and cloud sprint at Graphic Er",
+        "display": "block",
+        "cardsCount": 4,
+        "buttonsCount": 0
+      },
+      {
+        "index": 4,
+        "id": "scd-spotlight",
+        "className": "py-16 sm:py-24 relative border-t border-outline bg-surface-container-low/60 backdrop-blur-md overflow-hidden",
+        "heading": "AWS STUDENT COMMUNITY DAY 2026",
+        "snippet": "NORTH INDIA'S FLAGSHIP SUMMIT • 31 OCTOBER 2026 AWS STUDENT COMMUNITY DAY 2026  Uttarakhand's 1st official AWS Student Conclave at Graphic Era Univers",
+        "display": "block",
+        "cardsCount": 21,
+        "buttonsCount": 1
+      },
+      {
+        "index": 5,
+        "id": "",
+        "className": "py-24 sm:py-32 relative overflow-hidden",
+        "heading": "WHY BUILD WITH US?",
+        "snippet": "EMPOWER • BUILD • SHIP • SCALE aws lambda deploy --prod 200 OK • Live Production EMPOWERING STUDENT ENGINEERS WHY BUILD WITH US?  We provide a structu",
+        "display": "block",
+        "cardsCount": 8,
+        "buttonsCount": 0
+      },
+      {
+        "index": 6,
+        "id": "",
+        "className": "py-14 sm:py-20 relative border-y border-purple-200/60 dark:border-purple-950/40 bg-gradient-to-b from-[#f8f5ff] via-[#f2eaff] to-[#f8f5ff] dark:from-[#090615] dark:via-[#0e0922] dark:to-[#090615] transition-colors duration-300 overflow-hidden",
+        "heading": "GET AWS CERTIFIED",
+        "snippet": "COMMUNITY RESOURCE GET AWS CERTIFIED  From zero to certified in 21 days — a structured, free CLF-C02 syllabus sprint curated for GEU builders.  CLF-C0",
+        "display": "block",
+        "cardsCount": 3,
+        "buttonsCount": 1
+      },
+      {
+        "index": 7,
+        "id": "",
+        "className": "py-14 sm:py-20 relative border-y border-emerald-500/20 bg-surface-container-low/40 dark:bg-zinc-950/40 backdrop-blur-md overflow-hidden",
+        "heading": "DataCamp × AWS SBG GEU",
+        "snippet": "COMMUNITY UPSKILLING GRANT Curated Cohorts · Graphic Era University DataCamp × AWS SBG GEU  Through the DataCamp Donates initiative, the AWS Student B",
+        "display": "block",
+        "cardsCount": 1,
+        "buttonsCount": 0
+      },
+      {
+        "index": 8,
+        "id": "",
+        "className": "py-12 sm:py-20 md:py-24 relative border-t border-outline/60 bg-surface-container-low/30 overflow-hidden",
+        "heading": "GRAPHIC ERA (DEEMED TO BE UNIVERSITY)",
+        "snippet": "Our Host Institution & Innovation Ground GRAPHIC ERA (DEEMED TO BE UNIVERSITY)  Recognized as India’s First GenAI-Powered Campus in strategic collabor",
+        "display": "block",
+        "cardsCount": 7,
+        "buttonsCount": 0
+      },
+      {
+        "index": 9,
+        "id": "",
+        "className": "py-12 sm:py-20 relative border-t border-zinc-200 dark:border-zinc-800 bg-[#fcfcfd] dark:bg-[#070709] transition-colors duration-300 overflow-hidden overflow-x-clip",
+        "heading": "Pawan Joshi",
+        "snippet": "Pawan Joshi  FOUNDER & GROUP LEAD  AWS Student Builder Group • GEU  VIEW BUILDER PROFILE → MESSAGE FROM THE LEAD “Graphic Era gave us the platform to ",
+        "display": "block",
+        "cardsCount": 3,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/about": {
+    "route": "/about",
+    "title": "About Us | AWS Student Builder Group GEU",
+    "sectionsCount": 6,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "flex-1 text-on-background min-h-screen font-sans events-page site-container",
+        "heading": "Engineers by day.\nCloud builders by night.",
+        "snippet": "Engineers by day. Cloud builders by night.  Fostering an active ecosystem of cloud builders at Graphic Era University — turning fundamental concepts i",
+        "display": "flex",
+        "cardsCount": 13,
+        "buttonsCount": 0
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "events-hero",
+        "heading": "Engineers by day.\nCloud builders by night.",
+        "snippet": "Engineers by day. Cloud builders by night.  Fostering an active ecosystem of cloud builders at Graphic Era University — turning fundamental concepts i",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "events-content",
+        "heading": "Pioneering student-led cloud engineering",
+        "snippet": "01  OUR IDENTITY  Pioneering student-led cloud engineering  An elite community of student software architects, cloud engineers, and AI developers at G",
+        "display": "block",
+        "cardsCount": 5,
+        "buttonsCount": 0
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "events-content",
+        "heading": "Architected for engineering impact",
+        "snippet": "02  MISSION PILLARS  Architected for engineering impact  Our core pillars guide every workshop, learning sprint, and production project we launch.  PI",
+        "display": "block",
+        "cardsCount": 5,
+        "buttonsCount": 0
+      },
+      {
+        "index": 5,
+        "id": "",
+        "className": "events-content",
+        "heading": "Steered by builders",
+        "snippet": "03  GROUP LEADERSHIP  Steered by builders  The faculty coordinators and student leads steering the AWS Student Builder Group at GEU.  FACULTY COORDINA",
+        "display": "block",
+        "cardsCount": 3,
+        "buttonsCount": 0
+      },
+      {
+        "index": 6,
+        "id": "",
+        "className": "events-cta",
+        "heading": "Ready to ship real software with us?",
+        "snippet": "START YOUR BUILDER JOURNEY  Ready to ship real software with us?  Join Graphic Era's premier student community powered by AWS.  Join Community",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/projects": {
+    "route": "/projects",
+    "title": "Student Cloud & AI Projects & Active R&D — AWS SBG GEU",
+    "sectionsCount": 7,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "flex-1 text-on-background min-h-screen font-sans events-page site-container",
+        "heading": "BUILT BY BUILDERS. SHIPPED TO CLOUD.",
+        "snippet": "BUILT BY BUILDERS. SHIPPED TO CLOUD.  Real production architectures, autonomous AI agents, and cloud utilities engineered at Graphic Era University.  ",
+        "display": "flex",
+        "cardsCount": 43,
+        "buttonsCount": 10
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "events-hero pt-20 sm:pt-24 pb-8 sm:pb-12 text-center",
+        "heading": "BUILT BY BUILDERS. SHIPPED TO CLOUD.",
+        "snippet": "BUILT BY BUILDERS. SHIPPED TO CLOUD.  Real production architectures, autonomous AI agents, and cloud utilities engineered at Graphic Era University.  ",
+        "display": "flex",
+        "cardsCount": 5,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "building-now",
+        "className": "py-14 sm:py-20 border-t border-outline/60 bg-surface-container-lowest/40 relative overflow-hidden",
+        "heading": "Active Initiatives Building on AWS",
+        "snippet": "ENGINEERING LAB · OPEN BUILDER ROLES Active Initiatives Building on AWS  Led by Pawan Joshi and the AWS SBG GEU core team. We are currently recruiting",
+        "display": "block",
+        "cardsCount": 8,
+        "buttonsCount": 0
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "py-4 sm:py-6 border-t border-outline",
+        "heading": "",
+        "snippet": "ALL CLOUD AI & AGENTS CLOUD PLATFORMS COLLABORATION DEVELOPER TOOLS",
+        "display": "block",
+        "cardsCount": 6,
+        "buttonsCount": 5
+      },
+      {
+        "index": 5,
+        "id": "",
+        "className": "pb-16 sm:pb-24",
+        "heading": "AWS Signal",
+        "snippet": "Autonomous Cloud AI Architecture → AWS Signal  Autonomous cloud intelligence radar evaluating AWS announcements on a 5-pillar impact scale with Dori v",
+        "display": "block",
+        "cardsCount": 14,
+        "buttonsCount": 0
+      },
+      {
+        "index": 6,
+        "id": "submit-project",
+        "className": "py-16 sm:py-24 border-t border-outline/70 relative overflow-hidden bg-surface-container-low/40",
+        "heading": "Submit Your Project to the Showcase",
+        "snippet": "Submit Your Project to the Showcase  Built something on AWS, serverless, or generative AI? Submit your system architecture for verification and spotli",
+        "display": "block",
+        "cardsCount": 9,
+        "buttonsCount": 5
+      },
+      {
+        "index": 7,
+        "id": "",
+        "className": "py-12 border-t border-outline text-center",
+        "heading": "VERIFIED COMMUNITY OPERATIONS",
+        "snippet": "VERIFIED COMMUNITY OPERATIONS  Explore the verified facts matrix and independent community records.  VERIFIED FACTS MATRIX →",
+        "display": "block",
+        "cardsCount": 1,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/events": {
+    "route": "/events",
+    "title": "Events & Engineering Sprints | AWS Student Builder Group GEU",
+    "sectionsCount": 5,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "flex-1 text-on-background min-h-screen font-sans events-page site-container",
+        "heading": "Build together.\nLearn by shipping.",
+        "snippet": "Build together. Learn by shipping.  From first cloud concepts to production-minded hackathons and sprints, our community programmes turn curiosity int",
+        "display": "flex",
+        "cardsCount": 36,
+        "buttonsCount": 15
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "events-hero",
+        "heading": "Build together.\nLearn by shipping.",
+        "snippet": "Build together. Learn by shipping.  From first cloud concepts to production-minded hackathons and sprints, our community programmes turn curiosity int",
+        "display": "flex",
+        "cardsCount": 3,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "relative overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-[#AD5CFF]/35 bg-surface-container-low/70 hover:border-[#AD5CFF]/60 p-4 sm:p-7 transition-all duration-200 shadow-sm group",
+        "heading": "AWS Student Community Day Dehradun 2026",
+        "snippet": "UPCOMING AWS Student Community Day Dehradun 2026  The largest student cloud conclave in North India. 600+ builders gathering at Graphic Era University",
+        "display": "block",
+        "cardsCount": 5,
+        "buttonsCount": 0
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "space-y-4",
+        "heading": "All Community Programmes",
+        "snippet": "All Community Programmes  Showing 10 programmes  All Programmes Upcoming & Active Flagship Summits Challenges & Sprints Technical Workshops UPCOMING F",
+        "display": "block",
+        "cardsCount": 25,
+        "buttonsCount": 15
+      },
+      {
+        "index": 5,
+        "id": "",
+        "className": "relative overflow-hidden rounded-2xl sm:rounded-3xl border border-outline/70 bg-surface-container-low/70 p-4 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-sm",
+        "heading": "Have an idea for our next session or hackathon?",
+        "snippet": "KEEP BUILDING WITH US  Have an idea for our next session or hackathon?  Propose a technical workshop, bring a project to showcase, or collaborate on a",
+        "display": "flex",
+        "cardsCount": 1,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/challenges": {
+    "route": "/challenges",
+    "title": "Challenges & Engineering Sprints | AWS Student Builder Group GEU",
+    "sectionsCount": 6,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "flex-1 text-on-background min-h-screen font-sans events-page site-container",
+        "heading": "Solve with constraints.\nShip with purpose.",
+        "snippet": "Solve with constraints. Ship with purpose.  Explore architectural competitions, open-source hackathons, and cloud sprints hosted by the AWS Student Bu",
+        "display": "flex",
+        "cardsCount": 12,
+        "buttonsCount": 0
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "events-hero",
+        "heading": "Solve with constraints.\nShip with purpose.",
+        "snippet": "Solve with constraints. Ship with purpose.  Explore architectural competitions, open-source hackathons, and cloud sprints hosted by the AWS Student Bu",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "events-content border-2 border-emerald-500/35 dark:border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.04] via-surface-container-low to-surface-container-low hover:border-emerald-500/60 rounded-2xl sm:rounded-3xl p-4 sm:p-8 relative overflow-hidden group transition-all duration-300 shadow-sm",
+        "heading": "KIRO BUILD CHALLENGE",
+        "snippet": "CONCLUDED CONCLUDED • WINNERS ANNOUNCED KIRO BUILD CHALLENGE  An 18.5-hour online build sprint by AWS SBG GEU & PIET for solo builders or duos. 100 bu",
+        "display": "block",
+        "cardsCount": 3,
+        "buttonsCount": 0
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "events-content",
+        "heading": "The ₹0 AWS Challenge",
+        "snippet": "CONCLUDED • SEPT 2026 Architecture Ideation • ₹0 Free Tier The ₹0 AWS Challenge  Design a practical student solution strictly within a ₹0 budget using",
+        "display": "block",
+        "cardsCount": 6,
+        "buttonsCount": 0
+      },
+      {
+        "index": 5,
+        "id": "",
+        "className": "mb-12 rounded-2xl sm:rounded-3xl border-2 border-[#AD5CFF]/35 bg-gradient-to-r from-[#8E35EA]/15 via-[#AD5CFF]/10 to-[#FF9900]/10 p-5 sm:p-7 relative overflow-hidden shadow-md",
+        "heading": "AWS Student Community Day Dehradun 2026",
+        "snippet": "NORTH INDIA'S FLAGSHIP SUMMIT • OCT 31, 2026 AWS Student Community Day Dehradun 2026  Step onto North India's biggest stage. 600+ builders, access to ",
+        "display": "block",
+        "cardsCount": 1,
+        "buttonsCount": 0
+      },
+      {
+        "index": 6,
+        "id": "",
+        "className": "events-cta",
+        "heading": "Have a challenge or problem statement to propose?",
+        "snippet": "KEEP BUILDING WITH US  Have a challenge or problem statement to propose?  Partner with AWS Student Builder Group GEU to host cloud sprints, sponsor sw",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/team": {
+    "route": "/team",
+    "title": "Core Leadership & Tech Builders | AWS Student Builder Group GEU",
+    "sectionsCount": 4,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "flex-1 text-on-background min-h-screen font-sans events-page site-container",
+        "heading": "Meet the builders.\nDriving innovation at GEU.",
+        "snippet": "Meet the builders. Driving innovation at GEU.  The student software architects, developers, and faculty coordinators steering the AWS Student Builder ",
+        "display": "flex",
+        "cardsCount": 16,
+        "buttonsCount": 0
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "events-hero",
+        "heading": "Meet the builders.\nDriving innovation at GEU.",
+        "snippet": "Meet the builders. Driving innovation at GEU.  The student software architects, developers, and faculty coordinators steering the AWS Student Builder ",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "",
+        "heading": "Student Leadership Roster",
+        "snippet": "01  EXECUTIVE LEADS  Student Leadership Roster GROUP LEAD PAWAN JOSHI TECHNICAL LEAD ATISHAY JAIN EVENT & OPERATIONS LEAD TISHAR SONI MEDIA & DESIGN L",
+        "display": "block",
+        "cardsCount": 5,
+        "buttonsCount": 0
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "",
+        "heading": "Active Chapter Associates",
+        "snippet": "02  CORE TEAM  Active Chapter Associates ASSOCIATE MEHAK SETHI ASSOCIATE PRATYUSH NAUTIYAL ASSOCIATE AADYA GUPTA ASSOCIATE SALONI SHARMA ASSOCIATE KAR",
+        "display": "block",
+        "cardsCount": 11,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/blog": {
+    "route": "/blog",
+    "title": "Technical Blog & Engineering Guides | AWS Student Builder Group GEU",
+    "sectionsCount": 5,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "flex-1 text-on-background min-h-screen font-sans events-page site-container",
+        "heading": "Our Publications.\nMoments & Ideas by Builders.",
+        "snippet": "Our Publications. Moments & Ideas by Builders.  In-depth serverless blueprints, AI/ML architecture walkthroughs, and cloud certification strategies wr",
+        "display": "flex",
+        "cardsCount": 13,
+        "buttonsCount": 0
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "events-hero",
+        "heading": "Our Publications.\nMoments & Ideas by Builders.",
+        "snippet": "Our Publications. Moments & Ideas by Builders.  In-depth serverless blueprints, AI/ML architecture walkthroughs, and cloud certification strategies wr",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "events-content border border-outline/40 bg-surface-container-low hover:border-[#AD5CFF]/40 rounded-3xl p-6 sm:p-8 relative overflow-hidden group transition-colors duration-300",
+        "heading": "Building Builders, Not Just Learners",
+        "snippet": "7 min read Sep 5, 2026 Building Builders, Not Just Learners  How the AWS Student Builder Group at Graphic Era Deemed to be University was established ",
+        "display": "block",
+        "cardsCount": 2,
+        "buttonsCount": 0
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "events-content",
+        "heading": "Moments & ideas written by builders",
+        "snippet": "01  OUR PUBLICATIONS  Moments & ideas written by builders  Explore articles, architecture guides, and certification strategies written by Graphic Era ",
+        "display": "block",
+        "cardsCount": 11,
+        "buttonsCount": 0
+      },
+      {
+        "index": 5,
+        "id": "",
+        "className": "events-cta",
+        "heading": "Have a technical topic to share?",
+        "snippet": "WRITE FOR THE COMMUNITY  Have a technical topic to share?  Publish your cloud project, architecture breakdown, or lab walkthrough with AWS SBG GEU.  S",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/gallery": {
+    "route": "/gallery",
+    "title": "Community Gallery & Moments | AWS Student Builder Group GEU",
+    "sectionsCount": 4,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "flex-1 text-on-background min-h-screen font-sans events-page site-container",
+        "heading": "Visual Archives.\nMoments & Memories.",
+        "snippet": "Visual Archives. Moments & Memories.  A visual walkthrough of GenAI bootcamps, hands-on cloud labs, virtual builder masterclasses, and community momen",
+        "display": "flex",
+        "cardsCount": 10,
+        "buttonsCount": 6
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "events-hero",
+        "heading": "Visual Archives.\nMoments & Memories.",
+        "snippet": "Visual Archives. Moments & Memories.  A visual walkthrough of GenAI bootcamps, hands-on cloud labs, virtual builder masterclasses, and community momen",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "events-content",
+        "heading": "Moments that defined our journey",
+        "snippet": "01  PHOTO GALLERY  Moments that defined our journey  Browse high-resolution captures from our in-person lab bootcamps, virtual masterclasses, and inau",
+        "display": "block",
+        "cardsCount": 10,
+        "buttonsCount": 6
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "events-cta",
+        "heading": "Want to be part of our next photo recap?",
+        "snippet": "JOIN OUR NEXT EVENT  Want to be part of our next photo recap?  Register for upcoming cloud sprints, workshops, and community meetups.  Explore Upcomin",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/contact": {
+    "route": "/contact",
+    "title": "Contact Us | AWS Student Builder Group Graphic Era University",
+    "sectionsCount": 4,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "flex-1 text-on-background min-h-screen font-sans events-page site-container",
+        "heading": "Get in touch.\nLet's build together.",
+        "snippet": "Get in touch. Let's build together.  Have an idea for a workshop, want to sponsor a cloud sprint, or partner with the AWS Student Builder Group at Gra",
+        "display": "flex",
+        "cardsCount": 17,
+        "buttonsCount": 2
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "events-hero",
+        "heading": "Get in touch.\nLet's build together.",
+        "snippet": "Get in touch. Let's build together.  Have an idea for a workshop, want to sponsor a cloud sprint, or partner with the AWS Student Builder Group at Gra",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "events-content",
+        "heading": "Start a conversation with our team",
+        "snippet": "01  EXECUTIVE SUPPORT  Start a conversation with our team  Reach out directly for workshop collaborations, event hosting, partnerships, or general que",
+        "display": "block",
+        "cardsCount": 17,
+        "buttonsCount": 2
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "events-cta",
+        "heading": "Ready to start shipping real projects?",
+        "snippet": "AWS BUILDER PORTAL  Ready to start shipping real projects?  Join over 800+ student builders on the official AWS SBG Portal.  Enter Builder Portal",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      }
+    ]
+  },
+  "/code-of-conduct": {
+    "route": "/code-of-conduct",
+    "title": "Code of Conduct | AWS Student Builder Group GEU",
+    "sectionsCount": 8,
+    "sections": [
+      {
+        "index": 1,
+        "id": "",
+        "className": "relative min-h-screen text-slate-900 dark:text-slate-100 transition-colors selection:bg-[#AD5CFF]/30 selection:text-slate-950 dark:selection:text-white",
+        "heading": "AWS Community & Event Code of Conduct",
+        "snippet": "Home / Code of Conduct AWS Community & Event Code of Conduct  This Code of Conduct governs all events, technical workshops, hackathons, digital spaces",
+        "display": "block",
+        "cardsCount": 24,
+        "buttonsCount": 2
+      },
+      {
+        "index": 2,
+        "id": "",
+        "className": "space-y-4 mb-12 sm:mb-16",
+        "heading": "AWS Community & Event Code of Conduct",
+        "snippet": "AWS Community & Event Code of Conduct  This Code of Conduct governs all events, technical workshops, hackathons, digital spaces, and community activit",
+        "display": "block",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      },
+      {
+        "index": 3,
+        "id": "",
+        "className": "mb-14 space-y-5",
+        "heading": "Importance & Core Purpose",
+        "snippet": "I Importance & Core Purpose  “We firmly believe in the value and importance of an environment where all AWS community members and event participants f",
+        "display": "block",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      },
+      {
+        "index": 4,
+        "id": "",
+        "className": "mb-14 space-y-6",
+        "heading": "Expected Behavioral Standards",
+        "snippet": "II Expected Behavioral Standards  Every participant is required to understand and adhere to the following mandatory standards of personal and professi",
+        "display": "block",
+        "cardsCount": 5,
+        "buttonsCount": 0
+      },
+      {
+        "index": 5,
+        "id": "",
+        "className": "mb-14 space-y-6",
+        "heading": "Scope & Applicability",
+        "snippet": "III Scope & Applicability  “We expect all event participants (including AWS employees, attendees, vendors, sponsors, speakers, volunteers, and guests)",
+        "display": "block",
+        "cardsCount": 7,
+        "buttonsCount": 0
+      },
+      {
+        "index": 6,
+        "id": "",
+        "className": "mb-14 space-y-6",
+        "heading": "Consequences & Enforcement",
+        "snippet": "IV Consequences & Enforcement STRICT ENFORCEMENT PROTOCOL  “If we believe that you are not complying with this Code of Conduct, we may deny you entry ",
+        "display": "block",
+        "cardsCount": 4,
+        "buttonsCount": 0
+      },
+      {
+        "index": 7,
+        "id": "",
+        "className": "space-y-6",
+        "heading": "Incident Reporting & Contact",
+        "snippet": "V Incident Reporting & Contact SAFETY & REPORTING HELPDESK How to Report an Incident  If you witness or are subjected to inappropriate behavior, or ha",
+        "display": "block",
+        "cardsCount": 8,
+        "buttonsCount": 2
+      },
+      {
+        "index": 8,
+        "id": "",
+        "className": "mt-16 pt-8 border-t border-slate-200 dark:border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-slate-500 dark:text-slate-400",
+        "heading": "",
+        "snippet": "Official AWS Community Documentation AWS Global Event Code of Conduct Summit Page Contact Us",
+        "display": "flex",
+        "cardsCount": 0,
+        "buttonsCount": 0
+      }
+    ]
+  }
+}

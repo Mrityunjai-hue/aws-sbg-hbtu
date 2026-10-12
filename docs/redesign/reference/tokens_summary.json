@@ -1,0 +1,36 @@
+{
+  "fontFamilies": {
+    "body": "\"Plus Jakarta Sans\", system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "headings": "\"Plus Jakarta Sans\", system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    "navigation": "\"Plus Jakarta Sans\", system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+  },
+  "colors": {
+    "primaryAccent": "#AD5CFF",
+    "dark": {
+      "background": "rgb(9, 9, 11)",
+      "text": "rgb(244, 244, 245)"
+    },
+    "light": {
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(10, 10, 10)"
+    }
+  },
+  "containerMaxWidth": "none",
+  "cssVariablesCount": 14,
+  "keyVariables": {
+    "--bg-color": "#09090b",
+    "--text-color": "#f4f4f5",
+    "--text-muted": "#a1a1aa",
+    "--surface-color": "#09090b",
+    "--surface-dim-color": "#18181b",
+    "--surface-bright-color": "#27272a",
+    "--surface-lowest": "#09090b",
+    "--surface-low": "#18181b",
+    "--surface-container": "#27272a",
+    "--surface-high": "#3f3f46",
+    "--surface-highest": "#52525b",
+    "--outline-color": "#27272a",
+    "--outline-variant-color": "#3f3f46",
+    "--grid-color": "#ad5cff38"
+  }
+}

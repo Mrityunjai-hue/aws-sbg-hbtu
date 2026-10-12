@@ -1,63 +1,65 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { BrandLogo } from "@/components/ui/BrandLogo";
+import { MobileDrawer } from "@/components/layout/MobileDrawer";
 
 /**
- * Fixed top navigation bar shown on every page.
- *
- * Renders the brand logo, quick-action dropdowns (Add, Apps), chat and
- * theme-toggle buttons, and either a Sign in link or the signed-in user's
- * profile avatar dropdown (Manage Profile, Dashboard, Sign out). All
- * dropdowns close on outside click or scroll.
+ * Floating Island Header & Navigation Component.
+ * Exactly replicates the reference site's floating shell, pill menu,
+ * interaction states, and responsive drawer on desktop and mobile.
  */
 export function Topnav() {
   const { user, userProfile, loading } = useAuth();
   const router = useRouter();
-  const [showAddDropdown, setShowAddDropdown] = useState(false);
-  const [showAppsDropdown, setShowAppsDropdown] = useState(false);
+  const pathname = usePathname();
+
   const [isLight, setIsLight] = useState(false);
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const addDropdownRef = useRef<HTMLDivElement>(null);
-  const appsDropdownRef = useRef<HTMLDivElement>(null);
-  const profileDropdownRef = useRef<HTMLDivElement>(null);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [communityDropdownOpen, setCommunityDropdownOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  const closeMobileDrawer = useCallback(() => {
+    setMobileDrawerOpen(false);
+  }, []);
+
+  const communityRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  // Sync theme with localStorage & pre-hydration class
   useEffect(() => {
-    if (!showAddDropdown && !showAppsDropdown && !showProfileDropdown) return;
+    const isLightMode = document.documentElement.classList.contains("light");
+    setIsLight(isLightMode);
+  }, []);
 
-    const closeDropdowns = () => {
-      setShowAddDropdown(false);
-      setShowAppsDropdown(false);
-      setShowProfileDropdown(false);
+  // Scroll listener for elevation shadow
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
     };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-      if (
-        !addDropdownRef.current?.contains(target) &&
-        !appsDropdownRef.current?.contains(target) &&
-        !profileDropdownRef.current?.contains(target)
-      ) {
-        closeDropdowns();
+  // Click outside to close dropdowns
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (!communityRef.current?.contains(target)) {
+        setCommunityDropdownOpen(false);
+      }
+      if (!profileRef.current?.contains(target)) {
+        setProfileDropdownOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    window.addEventListener("scroll", closeDropdowns, true);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener("scroll", closeDropdowns, true);
-    };
-  }, [showAddDropdown, showAppsDropdown, showProfileDropdown]);
-
-  // Sync toggle state with the theme class applied pre-hydration by the
-  // inline script in layout.tsx (which prevents a dark-theme flash).
-  useEffect(() => {
-    setIsLight(document.documentElement.classList.contains("light"));
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const toggleTheme = () => {
@@ -74,149 +76,213 @@ export function Topnav() {
     }
   };
 
+  const primaryNavItems = [
+    { label: "About", href: "/about" },
+    { label: "Tracks", href: "/tracks" },
+    { label: "Events", href: "/events" },
+    { label: "Team", href: "/team" },
+  ];
+
+  const communityDropdownItems = [
+    { label: "Projects Showcase", href: "/projects" },
+    { label: "Challenges & Sprints", href: "/challenges" },
+    { label: "Tech Blog", href: "/blog" },
+    { label: "Community Gallery", href: "/gallery" },
+    { label: "Code of Conduct", href: "/code-of-conduct" },
+    { label: "Contact Us", href: "/contact" },
+  ];
+
   return (
-    <header className="fixed top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border-hairline bg-[var(--topnav-bg)] px-3 sm:px-4">
-      <div className="flex min-w-0 items-center gap-4 md:w-64">
-        <Link href="/" className="flex items-center gap-1 transition-opacity hover:opacity-80">
-          <span className="font-sans text-2xl font-black tracking-tighter text-text mr-1" style={{ fontFamily: 'Arial, sans-serif' }}>aws</span>
-          <span className="text-[10px] uppercase font-bold text-text-muted mt-2 border-l border-border-hairline pl-1.5 leading-none">Builder<br/>Group</span>
-        </Link>
-      </div>
-
-      <div className="hidden flex-1 items-center justify-center md:flex">
-        {/* Search bar removed to avoid confusion since it's not hooked up to a backend yet */}
-      </div>
-
-      <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
-        <div className="relative" ref={addDropdownRef}>
-          <button
-            onClick={() => { setShowAddDropdown(!showAddDropdown); setShowAppsDropdown(false); setShowProfileDropdown(false); }}
-            aria-expanded={showAddDropdown}
-            aria-label="Add"
-            title="Add"
-            className={`flex items-center rounded p-1 transition-colors ${
-              showAddDropdown
-                ? "bg-accent/15 text-accent"
-                : "text-text-muted hover:text-text"
-            }`}
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 w-full transition-all duration-200 px-3 sm:px-6 pt-3 pb-2 ${
+          isScrolled ? "bg-surface-lowest/80 backdrop-blur-xl border-b border-outline/50 shadow-md" : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4">
+          {/* Brand Logo & Chapter Title */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 sm:gap-3 py-1 shrink-0 select-none group"
+            aria-label="AWS Student Builder Group HBTU Home"
           >
-            <span className="material-symbols-outlined text-[20px]">add</span>
-          </button>
-          {showAddDropdown && (
-            <div className="absolute right-0 sm:right-0 mt-2 w-48 max-w-[calc(100vw-1.5rem)] bg-bg-card border border-border-hairline rounded shadow-lg py-1 z-50">
-              <Link href="/join" className="block px-4 py-2 text-sm text-text hover:bg-white/5" onClick={() => setShowAddDropdown(false)}>Submit an Idea</Link>
-              <Link href="/events" className="block px-4 py-2 text-sm text-text hover:bg-white/5" onClick={() => setShowAddDropdown(false)}>Suggest an Event</Link>
-              {userProfile?.role === 'admin' && (
-                <Link href="/admin/add-team-member" className="block px-4 py-2 text-sm text-accent hover:bg-white/5" onClick={() => setShowAddDropdown(false)}>Add Team Member</Link>
-              )}
+            <BrandLogo size="md" />
+            <div className="hidden sm:flex flex-col text-left">
+              <span className="font-extrabold text-xs sm:text-sm text-on-background uppercase tracking-tight group-hover:text-primary-accent transition-colors leading-snug">
+                AWS Student Builder Group
+              </span>
+              <span className="text-[10px] sm:text-[11px] font-mono text-on-surface-variant leading-none">
+                HBTU Kanpur Chapter
+              </span>
             </div>
-          )}
-        </div>
+          </Link>
 
-        <Link href="/chat" className="text-text-muted hover:text-text transition-colors flex items-center" title="Global Chat">
-          <span className="material-symbols-outlined text-[20px]">chat</span>
-        </Link>
-
-        <button
-          onClick={toggleTheme}
-          className="text-text-muted hover:text-text transition-colors flex items-center"
-          title={isLight ? "Switch to dark theme" : "Switch to light theme"}
-          aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
-        >
-          <span className="material-symbols-outlined text-[20px]">{isLight ? "dark_mode" : "light_mode"}</span>
-        </button>
-        
-        <div className="relative hidden sm:block" ref={appsDropdownRef}>
-          <button
-            onClick={() => { setShowAppsDropdown(!showAppsDropdown); setShowAddDropdown(false); setShowProfileDropdown(false); }}
-            aria-expanded={showAppsDropdown}
-            aria-label="Apps"
-            title="Apps"
-            className={`flex items-center rounded p-1 transition-colors ${
-              showAppsDropdown
-                ? "bg-accent/15 text-accent"
-                : "text-text-muted hover:text-text"
-            }`}
-          >
-            <span className="material-symbols-outlined text-[20px]">grid_view</span>
-          </button>
-          {showAppsDropdown && (
-            <div className="absolute right-0 mt-2 w-64 max-w-[calc(100vw-1.5rem)] bg-bg-card border border-border-hairline rounded shadow-lg p-4 z-50 grid grid-cols-2 gap-4">
-              <a href="https://aws.amazon.com/console/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-2 hover:bg-white/5 rounded text-center transition-colors">
-                <span className="material-symbols-outlined text-accent text-2xl">cloud</span>
-                <span className="text-xs text-text">AWS Console</span>
-              </a>
-              <a href="https://skillbuilder.aws/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-2 hover:bg-white/5 rounded text-center transition-colors">
-                <span className="material-symbols-outlined text-accent text-2xl">school</span>
-                <span className="text-xs text-text">Skill Builder</span>
-              </a>
-              <a href="https://aws.amazon.com/education/awseducate/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-2 hover:bg-white/5 rounded text-center transition-colors">
-                <span className="material-symbols-outlined text-accent text-2xl">menu_book</span>
-                <span className="text-xs text-text">AWS Educate</span>
-              </a>
-              <Link href="/chat" className="flex flex-col items-center gap-2 p-2 hover:bg-white/5 rounded text-center transition-colors" onClick={() => setShowAppsDropdown(false)}>
-                <span className="material-symbols-outlined text-accent text-2xl">chat</span>
-                <span className="text-xs text-text">Global Chat</span>
-              </Link>
-            </div>
-          )}
-        </div>
-        
-        {!loading && user ? (
-          <div className="relative" ref={profileDropdownRef}>
-            <button
-              onClick={() => { setShowProfileDropdown(!showProfileDropdown); setShowAddDropdown(false); setShowAppsDropdown(false); }}
-              aria-expanded={showProfileDropdown}
-              title="Profile"
-              className={`flex h-8 w-8 items-center justify-center rounded-full overflow-hidden border transition-colors ${
-                showProfileDropdown
-                  ? "border-accent ring-2 ring-accent/30"
-                  : "border-border-hairline hover:border-accent/60"
+          {/* Desktop Floating Navigation Pill (Exact Reference Pattern) */}
+          <nav className="hidden xl:flex items-center gap-1 bg-surface-low/80 border border-outline/70 backdrop-blur-lg p-1.5 rounded-xl shadow-inner mx-auto">
+            <Link
+              href="/"
+              className={`relative text-xs font-mono font-bold py-1.5 px-3 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none ${
+                pathname === "/"
+                  ? "bg-primary-accent/15 text-primary-accent border border-primary-accent/30"
+                  : "text-on-surface-variant hover:text-on-background hover:bg-surface-container/50"
               }`}
             >
-              {userProfile?.photoURL || user.photoURL ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={userProfile?.photoURL || user.photoURL || ""}
-                  alt="Profile"
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <span className="flex h-full w-full items-center justify-center bg-accent/15 text-xs font-bold text-accent">
-                  {(userProfile?.name || user.displayName || user.email || "U").charAt(0).toUpperCase()}
-                </span>
-              )}
-            </button>
-            {showProfileDropdown && (
-              <div className="absolute right-0 mt-2 w-48 max-w-[calc(100vw-1.5rem)] bg-bg-card border border-border-hairline rounded shadow-lg py-1 z-50">
-                <div className="px-4 py-2 border-b border-border-hairline">
-                  <p className="text-sm font-semibold text-text truncate">{userProfile?.name || user.displayName || "Builder"}</p>
-                  <p className="text-xs text-text-muted truncate">{user.email}</p>
-                </div>
-                <Link href="/profile" className="flex items-center gap-2 px-4 py-2 text-sm text-text hover:bg-white/5" onClick={() => setShowProfileDropdown(false)}>
-                  <span className="material-symbols-outlined text-[18px] text-text-muted">manage_accounts</span>
-                  Manage Profile
-                </Link>
-                <Link href="/dashboard" className="flex items-center gap-2 px-4 py-2 text-sm text-text hover:bg-white/5" onClick={() => setShowProfileDropdown(false)}>
-                  <span className="material-symbols-outlined text-[18px] text-text-muted">dashboard</span>
-                  Dashboard
-                </Link>
-                <button
-                  onClick={() => { setShowProfileDropdown(false); handleLogout(); }}
-                  className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-400 hover:bg-white/5 border-t border-border-hairline mt-1 pt-2"
+              Home
+            </Link>
+
+            {primaryNavItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative text-xs font-mono font-bold py-1.5 px-3 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none ${
+                    isActive
+                      ? "bg-primary-accent/15 text-primary-accent border border-primary-accent/30"
+                      : "text-on-surface-variant hover:text-on-background hover:bg-surface-container/50"
+                  }`}
                 >
-                  <span className="material-symbols-outlined text-[18px]">logout</span>
-                  Sign out
+                  {item.label}
+                </Link>
+              );
+            })}
+
+            {/* Community Dropdown for Additional Pages */}
+            <div className="relative" ref={communityRef}>
+              <button
+                onClick={() => setCommunityDropdownOpen(!communityDropdownOpen)}
+                aria-expanded={communityDropdownOpen}
+                aria-haspopup="true"
+                className={`relative text-xs font-mono font-bold py-1.5 px-3 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1 leading-none ${
+                  communityDropdownItems.some((i) => pathname === i.href)
+                    ? "bg-primary-accent/15 text-primary-accent border border-primary-accent/30"
+                    : "text-on-surface-variant hover:text-on-background hover:bg-surface-container/50"
+                }`}
+              >
+                <span>Community</span>
+                <span className="material-symbols-outlined text-[14px]">
+                  {communityDropdownOpen ? "expand_less" : "expand_more"}
+                </span>
+              </button>
+
+              {communityDropdownOpen && (
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 rounded-xl bg-surface-low border border-outline shadow-xl py-1 z-50 backdrop-blur-xl">
+                  {communityDropdownItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setCommunityDropdownOpen(false)}
+                      className={`block px-4 py-2 font-mono text-xs font-semibold transition-colors ${
+                        pathname === item.href
+                          ? "text-primary-accent bg-primary-accent/10"
+                          : "text-on-surface-variant hover:text-on-background hover:bg-surface-container"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/join"
+              className={`relative text-xs font-mono font-bold py-1.5 px-3 rounded-lg transition-colors duration-200 select-none inline-flex items-center justify-center gap-1.5 leading-none ${
+                pathname === "/join"
+                  ? "bg-primary-accent/15 text-primary-accent border border-primary-accent/30"
+                  : "text-on-surface-variant hover:text-on-background hover:bg-surface-container/50"
+              }`}
+            >
+              Join
+            </Link>
+          </nav>
+
+          {/* Right Action Utilities */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Global Chat Link */}
+            <Link
+              href="/chat"
+              title="Community Assistant"
+              aria-label="Community Assistant"
+              className={`h-9 w-9 rounded-xl border border-outline/70 bg-surface-low flex items-center justify-center text-on-surface-variant hover:text-primary-accent hover:border-primary-accent/40 transition-colors ${
+                pathname === "/chat" ? "text-primary-accent border-primary-accent" : ""
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">chat</span>
+            </Link>
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              title={isLight ? "Switch to dark theme" : "Switch to light theme"}
+              aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
+              className="h-9 w-9 rounded-xl border border-outline/70 bg-surface-low text-on-surface-variant hover:text-primary-accent hover:border-primary-accent/40 flex items-center justify-center transition-colors"
+            >
+              <span className="material-symbols-outlined text-[19px]">
+                {isLight ? "dark_mode" : "light_mode"}
+              </span>
+            </button>
+
+            {/* User Profile or Join CTA */}
+            {!loading && user ? (
+              <div className="relative" ref={profileRef}>
+                <button
+                  onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                  aria-expanded={profileDropdownOpen}
+                  className="h-9 px-3.5 rounded-xl btn-3d-secondary font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5"
+                >
+                  <span className="material-symbols-outlined text-[16px]">account_circle</span>
+                  <span className="hidden md:inline">{userProfile?.name || user?.displayName || "Account"}</span>
                 </button>
+                {profileDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-surface-low border border-outline shadow-xl py-1 z-50">
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setProfileDropdownOpen(false)}
+                      className="block px-4 py-2 font-mono text-xs text-on-background hover:bg-surface-container"
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setProfileDropdownOpen(false);
+                        handleLogout();
+                      }}
+                      className="w-full text-left px-4 py-2 font-mono text-xs text-red-400 hover:bg-surface-container"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
               </div>
+            ) : (
+              <Link
+                href="/join"
+                className="hidden sm:inline-flex h-9 items-center justify-center px-4 rounded-xl btn-3d-aws font-mono text-[11px] font-bold uppercase tracking-wider text-black"
+              >
+                Join Community
+              </Link>
             )}
+
+            {/* Mobile Drawer Hamburger Trigger */}
+            <button
+              onClick={() => setMobileDrawerOpen(true)}
+              aria-label="Open mobile navigation menu"
+              className="xl:hidden h-9 w-9 rounded-xl border border-outline/70 bg-surface-low text-on-surface-variant hover:text-on-background flex items-center justify-center transition-colors"
+            >
+              <span className="material-symbols-outlined text-[22px]">menu</span>
+            </button>
           </div>
-        ) : !loading ? (
-          <Link href="/login" className="inline-flex items-center justify-center h-8 px-4 text-xs font-semibold rounded bg-text text-bg hover:opacity-90 border-none transition-opacity whitespace-nowrap">
-            Sign in
-          </Link>
-        ) : null}
-      </div>
-    </header>
+        </div>
+      </header>
+
+      {/* Accessible Mobile Slide-in Drawer */}
+      <MobileDrawer
+        isOpen={mobileDrawerOpen}
+        onClose={closeMobileDrawer}
+        isLight={isLight}
+        onToggleTheme={toggleTheme}
+      />
+    </>
   );
 }

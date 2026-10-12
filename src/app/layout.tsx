@@ -1,32 +1,56 @@
-import type { Metadata } from "next";
-import { Inter, Space_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Topnav } from "@/components/layout/Topnav";
-import { Sidebar } from "@/components/layout/Sidebar";
 import { Footer } from "@/components/layout/Footer";
-import { MobileNav } from "@/components/layout/MobileNav";
 import { FlashNotificationBanner } from "@/components/ui/FlashNotificationBanner";
 import { AuthProvider } from "@/lib/contexts/AuthContext";
 import { ChatNotificationProvider } from "@/lib/contexts/ChatNotificationContext";
 import { Toaster } from "sonner";
 
-const inter = Inter({
-  variable: "--font-inter",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const spaceMono = Space_Mono({
+const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "AWS Student Builder Group — HBTU Kanpur",
-  description: "Learn, build, and ship cloud-powered projects together.",
+  description: "Learn, build, and ship cloud-powered projects together at Harcourt Butler Technical University, Kanpur.",
+  metadataBase: new URL("https://aws-sbg-hbtu.vercel.app"),
+  openGraph: {
+    title: "AWS Student Builder Group — HBTU Kanpur",
+    description: "Learn, build, and ship cloud-powered projects together at Harcourt Butler Technical University, Kanpur.",
+    url: "https://aws-sbg-hbtu.vercel.app",
+    siteName: "AWS SBG HBTU",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AWS Student Builder Group — HBTU Kanpur",
+    description: "Learn, build, and ship cloud-powered projects together at Harcourt Butler Technical University, Kanpur.",
+  },
+};
+
+// Explicitly ensure user pinch-zoom is enabled per Rule 9
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
 };
 
 export default function RootLayout({
@@ -35,31 +59,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceMono.variable} h-full`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* Apply the saved theme before first paint to avoid a dark-theme
-            flash for light-mode users. Runs synchronously, before hydration. */}
+        {/* Synchronous script to prevent light-theme flash before first paint */}
         <script
           dangerouslySetInnerHTML={{
             __html: `try{if(localStorage.getItem("theme")==="light")document.documentElement.classList.add("light")}catch(e){}`,
           }}
         />
       </head>
-      <body className="flex min-h-full flex-col bg-bg text-text antialiased pb-20 md:pb-0">
+      <body className="flex min-h-full flex-col bg-surface-lowest text-on-background antialiased selection:bg-primary-accent selection:text-white">
         <AuthProvider>
           <ChatNotificationProvider>
             <Topnav />
             <FlashNotificationBanner />
-            <div className="flex flex-1 pt-16">
-              <Sidebar />
-              <main className="flex-1 md:ml-64 w-full overflow-x-hidden min-h-[calc(100vh-64px)] flex flex-col">
-                <div className="flex-1">
-                  {children}
-                </div>
-                <Footer />
-              </main>
-            </div>
-            <MobileNav />
+            <main className="flex-1 w-full pt-20 overflow-x-hidden min-h-[calc(100vh-80px)] flex flex-col">
+              <div className="flex-1">
+                {children}
+              </div>
+              <Footer />
+            </main>
             <Toaster theme="dark" position="bottom-right" richColors />
           </ChatNotificationProvider>
         </AuthProvider>
