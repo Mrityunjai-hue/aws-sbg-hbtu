@@ -14,10 +14,14 @@ interface MobileDrawerProps {
 
 export function MobileDrawer({ isOpen, onClose, isLight, onToggleTheme }: MobileDrawerProps) {
   const pathname = usePathname();
+  const prevPathnameRef = React.useRef(pathname);
 
   // Close drawer on route change
   useEffect(() => {
-    onClose();
+    if (prevPathnameRef.current !== pathname) {
+      prevPathnameRef.current = pathname;
+      onClose();
+    }
   }, [pathname, onClose]);
 
   // Lock body scroll when drawer is open

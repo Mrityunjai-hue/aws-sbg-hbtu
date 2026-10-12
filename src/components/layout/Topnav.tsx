@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
@@ -24,6 +24,10 @@ export function Topnav() {
   const [communityDropdownOpen, setCommunityDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const closeMobileDrawer = useCallback(() => {
+    setMobileDrawerOpen(false);
+  }, []);
 
   const communityRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -275,7 +279,7 @@ export function Topnav() {
       {/* Accessible Mobile Slide-in Drawer */}
       <MobileDrawer
         isOpen={mobileDrawerOpen}
-        onClose={() => setMobileDrawerOpen(false)}
+        onClose={closeMobileDrawer}
         isLight={isLight}
         onToggleTheme={toggleTheme}
       />
