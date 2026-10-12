@@ -111,7 +111,7 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end max-w-5xl mx-auto pt-6">
           {/* RANK 2: SILVER PEDESTAL (Left) */}
-          {top2 && (
+          {top2 ? (
             <div className="order-2 md:order-1 relative rounded-3xl p-6 bg-gradient-to-b from-slate-200/10 via-surface-low to-surface-lowest border-2 border-slate-300/40 shadow-xl flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:border-slate-300/70">
               <div className="absolute -top-4 px-4 py-1 rounded-full bg-slate-300 text-slate-900 font-mono font-black text-xs shadow-md tracking-wider">
                 RANK 02 · SILVER
@@ -154,10 +154,21 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
                 </div>
               </div>
             </div>
+          ) : (
+            <div className="order-2 md:order-1 relative rounded-3xl p-6 bg-surface-low border border-dashed border-outline/70 flex flex-col items-center text-center opacity-70">
+              <div className="absolute -top-3.5 px-3 py-0.5 rounded-full bg-surface-lowest border border-outline text-on-surface-variant font-mono text-[10px] font-bold">
+                RANK 02 · SILVER
+              </div>
+              <div className="h-14 w-14 rounded-2xl bg-surface-lowest border border-dashed border-outline flex items-center justify-center font-mono text-on-surface-variant mt-3 mb-2">
+                <span className="material-symbols-outlined text-xl">person</span>
+              </div>
+              <h3 className="font-bold text-sm text-on-surface-variant">Open Podium Slot</h3>
+              <p className="text-[10px] font-mono text-on-surface-variant/70 mt-1">Awaiting 2nd verified finisher</p>
+            </div>
           )}
 
           {/* RANK 1: GOLD CHAMPION PEDESTAL (Center, Elevated) */}
-          {top1 && (
+          {top1 ? (
             <div className="order-1 md:order-2 relative rounded-3xl p-7 bg-gradient-to-b from-amber-500/20 via-surface-low to-surface-lowest border-2 border-amber-400/80 shadow-2xl animate-gold-glow flex flex-col items-center text-center md:-translate-y-5 transition-all duration-300 hover:-translate-y-6">
               <div className="absolute -top-5 px-5 py-1.5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-black font-mono font-black text-xs shadow-xl tracking-wider">
                 RANK 01 · CHAMPION
@@ -202,10 +213,23 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
                 </div>
               </div>
             </div>
+          ) : (
+            <div className="order-1 md:order-2 relative rounded-3xl p-8 bg-surface-low border-2 border-dashed border-amber-400/40 flex flex-col items-center text-center md:-translate-y-4">
+              <div className="absolute -top-4 px-4 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-xs font-black">
+                RANK 01 · CHAMPION
+              </div>
+              <div className="h-16 w-16 rounded-2xl bg-amber-400/10 border border-amber-400/40 flex items-center justify-center text-amber-400 mt-2 mb-3">
+                <span className="material-symbols-outlined text-2xl">trophy</span>
+              </div>
+              <h3 className="font-black text-base text-on-background">Sprint Starts Wednesday, 14 October</h3>
+              <p className="text-xs font-mono text-on-surface-variant mt-1 max-w-xs">
+                Zero standings recorded yet. Complete Module 01 on launch day to claim Rank 01 on the official HBTU chapter podium!
+              </p>
+            </div>
           )}
 
           {/* RANK 3: BRONZE PEDESTAL (Right) */}
-          {top3 && (
+          {top3 ? (
             <div className="order-3 relative rounded-3xl p-6 bg-gradient-to-b from-amber-700/15 via-surface-low to-surface-lowest border-2 border-amber-600/50 shadow-xl flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:border-amber-600/80">
               <div className="absolute -top-4 px-4 py-1 rounded-full bg-amber-700 text-amber-100 font-mono font-black text-xs shadow-md tracking-wider">
                 RANK 03 · BRONZE
@@ -247,6 +271,17 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
                   </div>
                 </div>
               </div>
+            </div>
+          ) : (
+            <div className="order-3 relative rounded-3xl p-6 bg-surface-low border border-dashed border-outline/70 flex flex-col items-center text-center opacity-70">
+              <div className="absolute -top-3.5 px-3 py-0.5 rounded-full bg-surface-lowest border border-outline text-on-surface-variant font-mono text-[10px] font-bold">
+                RANK 03 · BRONZE
+              </div>
+              <div className="h-14 w-14 rounded-2xl bg-surface-lowest border border-dashed border-outline flex items-center justify-center font-mono text-on-surface-variant mt-3 mb-2">
+                <span className="material-symbols-outlined text-xl">person</span>
+              </div>
+              <h3 className="font-bold text-sm text-on-surface-variant">Open Podium Slot</h3>
+              <p className="text-[10px] font-mono text-on-surface-variant/70 mt-1">Awaiting 3rd verified finisher</p>
             </div>
           )}
         </div>
@@ -350,6 +385,21 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
               </tr>
             </thead>
             <tbody className="divide-y divide-outline/50">
+              {filteredRoster.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="py-12 px-4 text-center">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <div className="h-10 w-10 rounded-2xl bg-surface-lowest border border-outline flex items-center justify-center text-on-surface-variant">
+                        <span className="material-symbols-outlined text-xl">hourglass_empty</span>
+                      </div>
+                      <div className="font-bold text-sm text-on-background">No Verified Standings Recorded Yet</div>
+                      <p className="text-xs font-mono text-on-surface-variant max-w-sm">
+                        The challenge leaderboard is completely authentic and live. Complete and verify Module 01 on launch day to appear on the official standings!
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              )}
               {filteredRoster.map((student, idx) => {
                 const actualRank = students.findIndex((s) => s.id === student.id) + 1;
                 const isLocal = student.id === "local-user";
