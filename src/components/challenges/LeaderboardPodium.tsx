@@ -25,7 +25,9 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
 
     const matchesBranch =
       selectedBranch === "ALL" ||
-      s.branch.toUpperCase().includes(selectedBranch);
+      (selectedBranch === "MDS"
+        ? (s.branch.toUpperCase().includes("MATH") || s.branch.toUpperCase().includes("DATA SCIENCE") || s.branch.toUpperCase().includes("MDS"))
+        : s.branch.toUpperCase().includes(selectedBranch));
 
     return matchesSearch && matchesBranch;
   });
@@ -325,6 +327,7 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
               <option value="ALL">All Departments</option>
               <option value="CSE">Computer Science</option>
               <option value="IT">Information Tech</option>
+              <option value="MDS">BS-MS Math & Data Science</option>
               <option value="ECE">Electronics</option>
               <option value="EE">Electrical</option>
               <option value="CHE">Chemical</option>

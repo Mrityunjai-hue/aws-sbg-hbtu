@@ -661,16 +661,16 @@ export const INITIAL_LEADERBOARD_DATA: LeaderboardStudent[] = [
   },
   {
     id: "hbtu-user-04",
-    name: "Ananya Mishra",
-    rollOrHandle: "230101033 (CSE)",
-    branch: "Computer Science & Engineering",
-    year: "2nd Year",
-    targetCert: "AWS Certified Developer - Associate",
+    name: "Ishaan Saxena",
+    rollOrHandle: "230209012 (MDS)",
+    branch: "BS-MS Mathematics and Data Science",
+    year: "3rd Year",
+    targetCert: "AWS Certified Data Engineer - Associate",
     points: 1650,
     streakDays: 11,
     completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
     badge: "Merit Finalist",
-    avatarMonogram: "AM"
+    avatarMonogram: "IS"
   },
   {
     id: "hbtu-user-05",

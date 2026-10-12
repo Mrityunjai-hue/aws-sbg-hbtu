@@ -14,6 +14,7 @@ import { ModuleQuizModal } from "@/components/challenges/ModuleQuizModal";
 import { RoadmapViewerModal } from "@/components/challenges/RoadmapViewerModal";
 import { LeaderboardPodium } from "@/components/challenges/LeaderboardPodium";
 import { DayModuleCard } from "@/components/challenges/DayModuleCard";
+import { CertificationRoadmapGuide } from "@/components/challenges/CertificationRoadmapGuide";
 
 export default function ChallengesPage() {
   const [activeTab, setActiveTab] = useState<"modules" | "leaderboard" | "roadmap" | "rules">("modules");
@@ -346,32 +347,15 @@ export default function ChallengesPage() {
       {/* TAB 3: CERTIFICATION ROADMAP */}
       {activeTab === "roadmap" && (
         <div className="space-y-6">
-          <div className="p-6 rounded-3xl bg-surface-low border border-outline flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h2 className="font-extrabold text-xl text-on-background">
-                Official AWS Certification Paths Roadmap
-              </h2>
-              <p className="text-xs font-mono text-on-surface-variant mt-1">
-                Explore recommended career paths across Solutions Architecture, DevOps, Security, Data Engineering, and Generative AI.
-              </p>
-            </div>
-            <button
-              onClick={() => setIsRoadmapModalOpen(true)}
-              className="btn-3d-secondary px-5 py-2.5 rounded-xl font-mono text-xs font-bold text-on-background flex items-center gap-2"
-            >
-              <span className="material-symbols-outlined text-base text-primary-accent">open_in_full</span>
-              <span>Open Interactive Viewer</span>
-            </button>
-          </div>
-
-          <div className="rounded-3xl overflow-hidden border border-outline bg-black shadow-2xl p-4 flex justify-center">
-            <img
-              src="/images/challenges/aws-certification-paths-roadmap.png"
-              alt="AWS Certification Paths Roadmap Infographic"
-              className="max-w-2xl w-full h-auto rounded-xl cursor-pointer hover:opacity-95 transition-opacity"
-              onClick={() => setIsRoadmapModalOpen(true)}
-            />
-          </div>
+          <CertificationRoadmapGuide
+            onSelectCert={(_code) => {
+              if (!studentState.isRegistered) {
+                setIsRegisterModalOpen(true);
+              } else {
+                setActiveTab("modules");
+              }
+            }}
+          />
         </div>
       )}
 

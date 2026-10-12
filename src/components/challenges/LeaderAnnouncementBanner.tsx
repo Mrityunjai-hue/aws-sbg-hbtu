@@ -72,7 +72,7 @@ export function LeaderAnnouncementBanner({
             className="inline-flex items-center gap-2 px-5 py-3 rounded-xl btn-3d-secondary font-mono text-xs font-bold text-on-background hover:text-primary-accent"
           >
             <span className="material-symbols-outlined text-base text-primary-accent">map</span>
-            <span>Explore Certification Roadmap (PDF Guide)</span>
+            <span>Explore Certification Roadmap Guide</span>
           </button>
 
           {/* Direct Skill Builder Course Link */}

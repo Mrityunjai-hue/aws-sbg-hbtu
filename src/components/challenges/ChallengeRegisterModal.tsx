@@ -12,6 +12,7 @@ interface ChallengeRegisterModalProps {
 const HBTU_BRANCHES = [
   "Computer Science & Engineering (CSE)",
   "Information Technology (IT)",
+  "BS-MS Mathematics and Data Science (MDS)",
   "Electronics & Communication Engineering (ECE)",
   "Electrical Engineering (EE)",
   "Mechanical Engineering (ME)",
@@ -24,15 +25,18 @@ const HBTU_BRANCHES = [
   "Paint Technology (PT)",
   "Plastic Technology (PLT)",
   "MCA / Masters Program",
+  "Other / Open Elective",
 ];
 
 const TARGET_CERTS = [
-  "AWS Certified Cloud Practitioner (Foundational)",
-  "AWS Certified Solutions Architect - Associate",
-  "AWS Certified Developer - Associate",
-  "AWS Certified Data Engineer - Associate",
-  "AWS Certified SysOps Administrator - Associate",
-  "AWS Certified Machine Learning - Specialty / Associate",
+  "AWS Certified Cloud Practitioner (CLF-C02)",
+  "AWS Certified Solutions Architect - Associate (SAA-C03)",
+  "AWS Certified Developer - Associate (DVA-C02)",
+  "AWS Certified Data Engineer - Associate (DEA-C01)",
+  "AWS Certified SysOps Administrator - Associate (SOA-C02)",
+  "AWS Certified Machine Learning - Associate / Specialty",
+  "AWS Certified Solutions Architect - Professional (SAP-C02)",
+  "AWS Certified DevOps Engineer - Professional (DOP-C02)",
 ];
 
 export function ChallengeRegisterModal({
@@ -193,6 +197,7 @@ export function ChallengeRegisterModal({
                 <option value="2nd Year" className="bg-surface-lowest">2nd Year (Sophomore)</option>
                 <option value="3rd Year" className="bg-surface-lowest">3rd Year (Junior)</option>
                 <option value="4th Year" className="bg-surface-lowest">4th Year (Senior)</option>
+                <option value="5th Year (Integrated BS-MS)" className="bg-surface-lowest">5th Year (Integrated BS-MS)</option>
                 <option value="Postgraduate / MCA" className="bg-surface-lowest">Postgraduate / MCA</option>
               </select>
             </div>
