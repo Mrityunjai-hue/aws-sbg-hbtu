@@ -1,122 +1,285 @@
+"use client";
+
+import React from "react";
 import Link from "next/link";
 import { SOCIAL_LINKS } from "@/lib/constants/socials";
-import { 
-  MeetupIcon, 
-  LinkedInIcon, 
-  WhatsAppIcon, 
-  InstagramIcon, 
-  GitHubIcon, 
-  TwitterIcon, 
-  EmailIcon 
+import { BrandLogo } from "@/components/ui/BrandLogo";
+import {
+  MeetupIcon,
+  LinkedInIcon,
+  WhatsAppIcon,
+  InstagramIcon,
+  GitHubIcon,
+  TwitterIcon,
 } from "@/components/ui/SocialIcons";
 
+/**
+ * Global Footer Component.
+ * Exactly replicates the reference site's 3-zone architecture:
+ * 1. Top CTA Band (Chapter tag + "Build. Ship. Repeat." + Join CTA)
+ * 2. 5-Column Navigation & Connect Matrix with real HBTU URLs
+ * 3. Bottom Legal & Copyright Bar
+ */
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-border-hairline bg-bg px-4 py-12 text-center text-text-muted">
-      <div className="mx-auto max-w-7xl flex flex-col items-center gap-8">
-        
-        {/* Brand & Mission */}
-        <div className="flex flex-col items-center gap-2">
-          <div className="font-heading text-xl font-bold tracking-tight text-accent">
-            AWS Student Builder Group
+    <footer className="relative z-10 font-mono overflow-hidden bg-surface-lowest border-t border-outline mt-20">
+      {/* Top Gradient Highlight Line */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#AD5CFF]/50 to-transparent" />
+
+      {/* Atmospheric Dot-Pattern and Glow Overlay */}
+      <div className="site-dot-pattern absolute inset-0 pointer-events-none opacity-40" aria-hidden="true" />
+      <div
+        className="absolute top-0 left-1/3 w-[500px] h-[280px] rounded-full pointer-events-none blur-[100px]"
+        aria-hidden="true"
+        style={{
+          background: "radial-gradient(circle, rgba(173, 92, 255, 0.08) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative z-10 site-container">
+        {/* Zone 1: Top CTA Band */}
+        <div className="py-8 sm:py-12 border-b border-outline flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-primary-accent mb-1.5 break-words">
+              AWS Student Builder Group · HBTU Kanpur Chapter
+            </p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-on-background leading-tight uppercase tracking-tight">
+              Build. Ship. Repeat.
+            </h2>
           </div>
-          <p className="text-xs uppercase tracking-widest text-text-muted/80">Harcourt Butler Technical University, Kanpur</p>
+          <Link
+            href="/join"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 btn-3d-aws text-black text-xs font-extrabold uppercase tracking-wider rounded-xl transition-all shadow-md shrink-0"
+          >
+            Join the Community →
+          </Link>
         </div>
 
-        {/* Social Media Links Bar */}
-        <div className="flex flex-col items-center gap-3">
-          <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">Connect With Us</p>
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+        {/* Zone 2: Main 5-Column Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 py-10 sm:py-12 border-b border-outline">
+          {/* Column 1: Brand & Chapter Info */}
+          <div className="space-y-4">
+            <Link href="/" className="flex items-center gap-2 group">
+              <BrandLogo size="md" />
+            </Link>
+            <p className="text-on-surface-variant text-[11px] leading-relaxed max-w-xs font-sans">
+              Empowering the next generation of builders at Harcourt Butler Technical University Kanpur — exploring cloud technology and shipping real production software.
+            </p>
+            <div className="flex gap-2 pt-1">
+              <a
+                href={SOCIAL_LINKS.linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-primary-accent transition-colors"
+              >
+                <LinkedInIcon className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href={SOCIAL_LINKS.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-primary-accent transition-colors"
+              >
+                <InstagramIcon className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href={SOCIAL_LINKS.github.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-primary-accent transition-colors"
+              >
+                <GitHubIcon className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href={SOCIAL_LINKS.twitter.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X (Twitter)"
+                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-primary-accent transition-colors"
+              >
+                <TwitterIcon className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: Quick Links (Part 1) */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-on-background">Explore</h3>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/about" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/tracks" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Technical Tracks
+                </Link>
+              </li>
+              <li>
+                <Link href="/events" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Events & Workshops
+                </Link>
+              </li>
+              <li>
+                <Link href="/team" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Core Team
+                </Link>
+              </li>
+              <li>
+                <Link href="/join" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Join the Group
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Quick Links (Part 2 - Community) */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-on-background">Community</h3>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/projects" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Projects Showcase
+                </Link>
+              </li>
+              <li>
+                <Link href="/challenges" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Challenges & Sprints
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Tech Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/gallery" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Community Gallery
+                </Link>
+              </li>
+              <li>
+                <Link href="/code-of-conduct" className="text-on-surface-variant hover:text-primary-accent transition-colors">
+                  Code of Conduct
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Connect With Us */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-on-background">Connect</h3>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a
+                  href={SOCIAL_LINKS.meetup.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-on-surface-variant hover:text-[#ED1C40] transition-colors flex items-center gap-1.5"
+                >
+                  <MeetupIcon className="w-3.5 h-3.5 text-[#ED1C40]" />
+                  <span>Meetup Group</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SOCIAL_LINKS.whatsapp.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-on-surface-variant hover:text-[#25D366] transition-colors flex items-center gap-1.5"
+                >
+                  <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366]" />
+                  <span>WhatsApp Community</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SOCIAL_LINKS.linkedin.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-on-surface-variant hover:text-[#0A66C2] transition-colors flex items-center gap-1.5"
+                >
+                  <LinkedInIcon className="w-3.5 h-3.5 text-[#0A66C2]" />
+                  <span>LinkedIn Page</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SOCIAL_LINKS.instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-on-surface-variant hover:text-[#E4405F] transition-colors flex items-center gap-1.5"
+                >
+                  <InstagramIcon className="w-3.5 h-3.5 text-[#E4405F]" />
+                  <span>Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SOCIAL_LINKS.github.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-on-surface-variant hover:text-white transition-colors flex items-center gap-1.5"
+                >
+                  <GitHubIcon className="w-3.5 h-3.5" />
+                  <span>GitHub</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5: Official Contact & Location */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-on-background">Official Inboxes</h3>
+            <div className="space-y-1">
+              <a
+                href={SOCIAL_LINKS.email.url}
+                className="text-on-surface-variant text-[11px] hover:text-primary-accent transition-colors block break-all font-mono"
+              >
+                aws.sbghbtu@gmail.com
+              </a>
+            </div>
+            <div className="pt-2">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-on-background mb-1">Campus Location</h4>
+              <p className="text-on-surface-variant text-[11px] leading-relaxed font-sans">
+                Harcourt Butler Technical University,<br />
+                Nawabganj, Kanpur,<br />
+                Uttar Pradesh 208002, India
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Zone 3: Bottom Legal & Copyright Bar */}
+        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-on-surface-variant">
+          <div>
+            © {new Date().getFullYear()} AWS Student Builder Group, HBTU Kanpur. Built for Builders.
+          </div>
+          <div className="flex items-center gap-4">
+            <Link href="/code-of-conduct" className="hover:text-primary-accent transition-colors">
+              Code of Conduct
+            </Link>
             <a
-              href={SOCIAL_LINKS.meetup.url}
+              href="https://aws.amazon.com/privacy/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-border-hairline bg-bg-card px-4 py-2 text-xs font-medium text-text hover:border-[#ED1C40] hover:text-[#ED1C40] hover:bg-[#ED1C40]/10 transition-all shadow-sm group"
+              className="hover:text-primary-accent transition-colors"
             >
-              <MeetupIcon className="w-4 h-4 text-[#ED1C40] group-hover:scale-110 transition-transform" />
-              <span>Meetup</span>
+              Privacy
             </a>
-
             <a
-              href={SOCIAL_LINKS.linkedin.url}
+              href="https://aws.amazon.com/events/terms/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-border-hairline bg-bg-card px-4 py-2 text-xs font-medium text-text hover:border-[#0A66C2] hover:text-[#0A66C2] hover:bg-[#0A66C2]/10 transition-all shadow-sm group"
+              className="hover:text-primary-accent transition-colors"
             >
-              <LinkedInIcon className="w-4 h-4 text-[#0A66C2] group-hover:scale-110 transition-transform" />
-              <span>LinkedIn</span>
-            </a>
-
-            <a
-              href={SOCIAL_LINKS.whatsapp.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-border-hairline bg-bg-card px-4 py-2 text-xs font-medium text-text hover:border-[#25D366] hover:text-[#25D366] hover:bg-[#25D366]/10 transition-all shadow-sm group"
-            >
-              <WhatsAppIcon className="w-4 h-4 text-[#25D366] group-hover:scale-110 transition-transform" />
-              <span>WhatsApp</span>
-            </a>
-
-            <a
-              href={SOCIAL_LINKS.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-border-hairline bg-bg-card px-4 py-2 text-xs font-medium text-text hover:border-[#E4405F] hover:text-[#E4405F] hover:bg-[#E4405F]/10 transition-all shadow-sm group"
-            >
-              <InstagramIcon className="w-4 h-4 text-[#E4405F] group-hover:scale-110 transition-transform" />
-              <span>Instagram</span>
-            </a>
-
-            <a
-              href={SOCIAL_LINKS.github.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-border-hairline bg-bg-card px-4 py-2 text-xs font-medium text-text hover:border-white hover:text-white hover:bg-white/10 transition-all shadow-sm group"
-            >
-              <GitHubIcon className="w-4 h-4 text-text group-hover:scale-110 transition-transform" />
-              <span>GitHub</span>
-            </a>
-
-            <a
-              href={SOCIAL_LINKS.twitter.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-border-hairline bg-bg-card px-4 py-2 text-xs font-medium text-text hover:border-[#1DA1F2] hover:text-[#1DA1F2] hover:bg-[#1DA1F2]/10 transition-all shadow-sm group"
-            >
-              <TwitterIcon className="w-4 h-4 text-[#1DA1F2] group-hover:scale-110 transition-transform" />
-              <span>X (Twitter)</span>
-            </a>
-
-            <a
-              href={SOCIAL_LINKS.email.url}
-              className="flex items-center gap-2 rounded-full border border-border-hairline bg-bg-card px-4 py-2 text-xs font-medium text-text hover:border-amber-400 hover:text-amber-400 hover:bg-amber-400/10 transition-all shadow-sm group"
-            >
-              <EmailIcon className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
-              <span>Email Us</span>
+              Terms
             </a>
           </div>
         </div>
-        
-        {/* Navigation links */}
-        <div className="flex flex-wrap justify-center gap-6 pt-2 border-t border-border-hairline/40 w-full max-w-md">
-          <Link href="/" className="text-xs font-medium text-text-muted transition-colors hover:text-accent">
-            Home
-          </Link>
-          <Link href="/events" className="text-xs font-medium text-text-muted transition-colors hover:text-accent">
-            Events & Workshops
-          </Link>
-          <Link href="/team" className="text-xs font-medium text-text-muted transition-colors hover:text-accent">
-            Core Team
-          </Link>
-          <Link href="/join" className="text-xs font-medium text-text-muted transition-colors hover:text-accent">
-            Join Group
-          </Link>
-        </div>
-        
-        {/* Copyright */}
-        <p className="max-w-md text-xs text-text-muted/70">
-          © {new Date().getFullYear()} AWS Student Builder Group, HBTU Kanpur. Built for Builders.
-        </p>
       </div>
     </footer>
   );
