@@ -6,6 +6,7 @@ export interface SectionHeaderProps {
   highlightWord?: string;
   description?: string;
   centered?: boolean;
+  align?: "left" | "center" | "right";
   className?: string;
 }
 
@@ -15,10 +16,13 @@ export function SectionHeader({
   highlightWord,
   description,
   centered = false,
+  align,
   className = "",
 }: SectionHeaderProps) {
+  const isCentered = centered || align === "center";
+
   return (
-    <div className={`mb-10 sm:mb-14 ${centered ? "text-center mx-auto max-w-3xl" : "max-w-2xl"} ${className}`}>
+    <div className={`mb-8 sm:mb-10 ${isCentered ? "text-center mx-auto max-w-3xl" : "max-w-2xl"} ${className}`}>
       {tag && (
         <p className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest text-primary-accent mb-2 sm:mb-3">
           {tag}
