@@ -5,7 +5,6 @@ import {
   Button,
   Card,
   Badge,
-  Input,
   BrandLogo,
   ImagePlaceholder,
   EmptyStatePanel,
@@ -91,7 +90,7 @@ export default function StyleGuidePage() {
           02. Tactile 3D Buttons
         </h2>
         <div className="flex flex-wrap gap-4 items-center p-6 rounded-2xl bg-surface/60 border border-border-hairline">
-          <Button variant="primary">Primary (Purple 3D)</Button>
+          <Button variant="primary">Primary (Emerald 3D)</Button>
           <Button variant="aws">AWS Builder (Amber 3D)</Button>
           <Button variant="secondary">Secondary Dark</Button>
           <Button variant="ghost">Ghost Button</Button>
@@ -105,14 +104,14 @@ export default function StyleGuidePage() {
           03. Semantic Badges
         </h2>
         <div className="flex flex-wrap gap-3 items-center p-6 rounded-2xl bg-surface/60 border border-border-hairline">
-          <Badge variant="purple">Electric Purple</Badge>
+          <Badge variant="emerald">Emerald Matrix</Badge>
           <Badge variant="aws">AWS Orange</Badge>
           <Badge variant="emerald">Active / Verified</Badge>
           <Badge variant="mono">Terminal Tag</Badge>
           <Badge variant="outline">Outline</Badge>
           <Badge variant="default">Default Surface</Badge>
-          <Badge variant="purple" size="sm">Small</Badge>
-          <Badge variant="purple" size="lg">Large</Badge>
+          <Badge variant="emerald" size="sm">Small</Badge>
+          <Badge variant="emerald" size="lg">Large</Badge>
         </div>
       </section>
 

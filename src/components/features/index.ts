@@ -5,3 +5,4 @@ export * from "./TeamMemberCard";
 export * from "./StatBand";
 export * from "./Tabs";
 export * from "./EventsList";
+export * from "./CloudArchitectureVisual";

@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { TeamMember } from "@/lib/services/team";
 import { Badge } from "@/components/ui/Badge";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
 interface TeamMemberCardProps {
   member: TeamMember;
@@ -19,9 +18,7 @@ export function TeamMemberCard({
   isAdmin = false,
   onDelete,
   className = "",
-  imageSlotId,
 }: TeamMemberCardProps) {
-  const slotId = imageSlotId || `TEAM-MEMBER-${member.id.slice(0, 6).toUpperCase()}`;
 
   return (
     <div

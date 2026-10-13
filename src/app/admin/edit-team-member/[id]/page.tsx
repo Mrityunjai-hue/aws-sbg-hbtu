@@ -37,7 +37,7 @@ export default function EditTeamMemberPage() {
           toast.error("Team member not found.");
           router.push("/team");
         }
-      } catch (err) {
+      } catch {
         toast.error("Failed to load team member.");
         router.push("/team");
       } finally {

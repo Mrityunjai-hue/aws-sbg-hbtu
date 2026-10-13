@@ -69,7 +69,7 @@ export default function ChatPage() {
     return (
       <div className="site-container py-16 min-h-[calc(100vh-160px)] flex flex-col items-center justify-center">
         <Card variant="terminal" className="max-w-md w-full p-8 text-center space-y-6">
-          <Badge variant="purple" size="sm" className="font-mono">
+          <Badge variant="emerald" size="sm" className="font-mono">
             BUILDER ROOM
           </Badge>
           <div className="w-14 h-14 rounded-2xl bg-surface-elevated border border-border-hairline flex items-center justify-center text-accent mx-auto">
@@ -165,7 +165,7 @@ export default function ChatPage() {
                       <div className={`flex items-center gap-2 text-[11px] text-text-muted mb-1 ${isMe ? "mr-1" : "ml-1"}`}>
                         <span className="font-semibold text-text">{msg.userName}</span>
                         {msg.userRole && msg.userRole !== "member" && (
-                          <Badge variant="purple" size="sm" className="font-mono text-[9px] py-0 px-1.5">
+                          <Badge variant="emerald" size="sm" className="font-mono text-[9px] py-0 px-1.5">
                             {msg.userRole === "admin" ? "Core Team" : msg.userRole}
                           </Badge>
                         )}

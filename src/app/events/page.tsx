@@ -86,7 +86,7 @@ export default function EventsPage() {
               className="p-6 sm:p-7 flex flex-col justify-between"
             >
               <div>
-                <Badge variant="purple" size="sm" className="mb-3 font-mono">
+                <Badge variant="emerald" size="sm" className="mb-3 font-mono">
                   {pillar.tag}
                 </Badge>
                 <h3 className="font-sans font-bold text-lg text-text mb-2">

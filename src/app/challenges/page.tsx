@@ -348,7 +348,7 @@ export default function ChallengesPage() {
       {activeTab === "roadmap" && (
         <div className="space-y-6">
           <CertificationRoadmapGuide
-            onSelectCert={(_code) => {
+            onSelectCert={() => {
               if (!studentState.isRegistered) {
                 setIsRegisterModalOpen(true);
               } else {

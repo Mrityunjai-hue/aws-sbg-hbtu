@@ -78,7 +78,7 @@ export function EventCard({
 
         {/* Category Pill */}
         <div className="absolute top-3 right-3">
-          <Badge variant="purple" size="sm">
+          <Badge variant="emerald" size="sm">
             {event.type || "Event"}
           </Badge>
         </div>

@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { SOCIAL_LINKS } from "@/lib/constants/socials";
 import { MeetupIcon, LinkedInIcon, WhatsAppIcon } from "@/components/ui/SocialIcons";
-import { SectionHeader, Badge, Card, Button } from "@/components/ui";
+import { Badge, Card, Button } from "@/components/ui";
 
 export default function JoinPage() {
   const [name, setName] = useState("");
