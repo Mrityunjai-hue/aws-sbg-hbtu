@@ -17,7 +17,7 @@ export function Card({
     interactive:
       "bg-surface-low border border-outline hover:border-primary-accent/50 hover:bg-surface-container/60 rounded-2xl p-5 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-0.5 text-on-background group",
     terminal:
-      "bg-[#090b14] border border-outline/80 rounded-2xl p-6 font-mono text-on-background shadow-inner",
+      "bg-surface-lowest border border-outline rounded-2xl p-6 font-mono text-on-background shadow-inner",
     elevated:
       "bg-surface-low border border-outline rounded-2xl p-6 shadow-xl text-on-background backdrop-blur-md",
   };

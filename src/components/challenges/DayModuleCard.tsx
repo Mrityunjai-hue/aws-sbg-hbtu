@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { ChallengeDayModule } from "@/data/challenges";
 
 interface DayModuleCardProps {
@@ -29,21 +30,26 @@ export function DayModuleCard({
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      whileHover={{ y: -4, scale: 1.01 }}
+      transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
       className={`group relative rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between border ${
         isCompleted
-          ? "bg-gradient-to-br from-emerald-950/20 via-surface-low to-surface-lowest border-emerald-500/40 shadow-lg shadow-emerald-500/5"
-          : "bg-surface-low/90 hover:bg-surface-low border-outline hover:border-primary-accent/50 shadow-md hover:-translate-y-1 hover:shadow-xl"
+          ? "bg-gradient-to-br from-primary-accent/15 via-surface-low to-surface-lowest border-primary-accent/40 shadow-lg shadow-primary-accent/5"
+          : "liquid-glass bg-surface-low/90 hover:bg-surface-low border-outline hover:border-primary-accent/50 shadow-md hover:shadow-xl"
       }`}
     >
       <div>
         {/* Top Tag Row */}
-        <div className="flex items-center justify-between gap-3 pb-3 border-b border-outline/70">
+        <div className="flex items-center justify-between gap-3 pb-3 border-b border-outline">
           <div className="flex items-center gap-2.5">
             <span
               className={`h-9 w-9 rounded-xl font-mono font-black text-xs flex items-center justify-center border transition-colors ${
                 isCompleted
-                  ? "bg-emerald-500 text-black border-emerald-400"
+                  ? "bg-primary-accent text-white border-primary-accent"
                   : "bg-surface-lowest text-primary-accent border-primary-accent/30 group-hover:border-primary-accent group-hover:bg-primary-accent/10"
               }`}
             >
@@ -61,7 +67,7 @@ export function DayModuleCard({
 
           <div>
             {isCompleted ? (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-mono text-xs font-bold">
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-xs font-bold">
                 <span className="material-symbols-outlined text-sm">verified</span>
                 <span>Verified</span>
               </span>
@@ -97,7 +103,7 @@ export function DayModuleCard({
 
         {/* Collapsible Detailed Syllabus Breakdown */}
         {module.sections && module.sections.length > 0 && (
-          <div className="mt-4 pt-3 border-t border-outline/50">
+          <div className="mt-4 pt-3 border-t border-outline">
             <button
               type="button"
               onClick={() => setShowSections(!showSections)}
@@ -113,10 +119,10 @@ export function DayModuleCard({
             </button>
 
             {showSections && (
-              <ul className="mt-2 space-y-1 pl-2 border-l border-outline/80 text-[11px] font-mono text-on-surface-variant animate-fadeIn">
+              <ul className="mt-2 space-y-1 pl-2 border-l border-outline text-[11px] font-mono text-on-surface-variant">
                 {module.sections.map((sec, sIdx) => (
                   <li key={sIdx} className="flex items-start gap-1.5 py-0.5">
-                    <span className="text-primary-accent/80 font-bold shrink-0">{sIdx + 1}.</span>
+                    <span className="text-primary-accent font-bold shrink-0">{sIdx + 1}.</span>
                     <span className="leading-snug">{sec}</span>
                   </li>
                 ))}
@@ -127,7 +133,7 @@ export function DayModuleCard({
       </div>
 
       {/* Action Footer */}
-      <div className="mt-6 pt-4 border-t border-outline/70 flex flex-wrap items-center justify-between gap-3">
+      <div className="mt-6 pt-4 border-t border-outline flex flex-wrap items-center justify-between gap-3">
         <a
           href={module.skillBuilderUrl}
           target="_blank"
@@ -140,22 +146,26 @@ export function DayModuleCard({
         </a>
 
         {isCompleted ? (
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => onOpenQuiz(module)}
             className="px-4 py-2 rounded-xl bg-surface-lowest border border-outline hover:border-emerald-500/50 text-emerald-400 font-mono text-xs font-bold transition-colors"
           >
             Review Question
-          </button>
+          </motion.button>
         ) : (
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             onClick={handleVerifyClick}
             className="btn-3d-aws px-4 py-2 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-1.5"
           >
             <span>Verify Assessment</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </button>
+          </motion.button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
