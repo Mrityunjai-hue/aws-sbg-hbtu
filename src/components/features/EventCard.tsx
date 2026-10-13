@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { Timestamp } from "firebase/firestore";
 import { Badge } from "@/components/ui/Badge";
@@ -23,6 +23,26 @@ export function EventCard({
   imageSlotId,
 }: EventCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const rotX = ((y - cy) / cy) * -4;
+    const rotY = ((x - cx) / cx) * 4;
+    cardRef.current.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px) scale(1.012)`;
+    cardRef.current.style.boxShadow = "0 24px 72px rgba(0,0,0,0.65), 0 8px 24px rgba(0,0,0,0.45), 0 0 32px rgba(16,185,129,0.12)";
+  };
+
+  const handleMouseLeave = () => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = "";
+    cardRef.current.style.boxShadow = "";
+  };
 
   const formatDate = (date: Date | Timestamp | null) => {
     if (!date) return { month: "TBD", day: "--", year: "", jsDate: null };
@@ -67,14 +87,22 @@ export function EventCard({
 
   return (
     <article
-      className={`group flex flex-col rounded-3xl border ${
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ transition: "transform 0.35s cubic-bezier(0.23,1,0.32,1), box-shadow 0.35s ease", willChange: "transform" }}
+      className={`group relative flex flex-col rounded-3xl border ${
         isPast
           ? "border-emerald-500/15 bg-surface-low/60 opacity-85 hover:opacity-100"
           : isToday
           ? "border-emerald-400 bg-surface-low shadow-[0_0_25px_rgba(16,185,129,0.15)] ring-1 ring-emerald-400/40"
           : "border-emerald-500/25 bg-surface-low shadow-lg hover:border-emerald-400/50"
-      } overflow-hidden transition-all duration-300 hover:-translate-y-1 ${className}`}
+      } overflow-hidden ${className}`}
     >
+      {/* Shimmer top-edge */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px" style={{background:isToday ? "linear-gradient(90deg,transparent,rgba(16,185,129,0.9),transparent)" : "linear-gradient(90deg,transparent,rgba(16,185,129,0.35),transparent)"}} aria-hidden="true" />
+      {/* Ambient orb */}
+      <div className="pointer-events-none absolute -top-8 -right-8 w-32 h-32 rounded-full bg-primary-accent/5 blur-3xl group-hover:bg-primary-accent/10 transition-colors duration-500" aria-hidden="true" />
       {/* Event Header Banner */}
       <div className="relative w-full overflow-hidden border-b border-emerald-500/20">
         <ImagePlaceholder
@@ -118,7 +146,7 @@ export function EventCard({
       </div>
 
       {/* Card Content */}
-      <div className="flex-1 flex flex-col p-5 sm:p-6 justify-between gap-4">
+      <div className="flex-1 flex flex-col p-4 sm:p-5 justify-between gap-3 sm:gap-4">
         <div>
           {/* Time & Venue Info */}
           {event.time && (

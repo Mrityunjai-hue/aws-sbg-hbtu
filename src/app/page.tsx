@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { SOCIAL_LINKS } from "@/lib/constants/socials";
 import { MeetupIcon } from "@/components/ui/SocialIcons";
 import {
@@ -36,103 +39,130 @@ export default function HomePage() {
     },
   ];
 
+  const fadeUp = {
+    hidden: { opacity: 0, y: 32 },
+    visible: (i: number = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] },
+    }),
+  };
+
   return (
     <div className="site-container py-8 sm:py-12 md:py-16 space-y-16 sm:space-y-24">
       {/* 1. Hero Section */}
       <section className="relative flex flex-col lg:flex-row items-center gap-10 lg:gap-16 pt-2 sm:pt-6">
-        {/* Left Column: Heading, Subhead, 3D CTAs */}
+        {/* Left Column */}
         <div className="flex-1 flex flex-col justify-center max-w-2xl">
-          <div className="mb-4 flex items-center gap-2 flex-wrap">
-            <Badge variant="emerald" size="sm">
-              HBTU KANPUR CHAPTER
-            </Badge>
-            <Badge variant="aws" size="sm">
-              POWERED BY AWS
-            </Badge>
-          </div>
+          <motion.div
+            initial="hidden" animate="visible"
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+          >
+            <motion.div variants={fadeUp} custom={0} className="mb-4 flex items-center gap-2 flex-wrap">
+              <Badge variant="emerald" size="sm">HBTU KANPUR CHAPTER</Badge>
+              <Badge variant="aws" size="sm">POWERED BY AWS</Badge>
+            </motion.div>
 
-          <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
-            Your ideas.
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-300 to-amber-400">
-              Your community.
-            </span>
-            <br />
-            Your AWS SBG.
-          </h1>
-
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl font-medium">
-            Connect with builders who understand your journey. Explore cloud architecture, deploy
-            scalable serverless systems, and accelerate your engineering career. Your cloud journey starts here
-            at HBTU Kanpur.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-            <Link
-              href="/join"
-              className="btn-3d-aws inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-extrabold text-sm sm:text-base text-center shadow-lg"
+            <motion.h1
+              variants={fadeUp}
+              custom={1}
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6"
             >
-              <span>Join the community</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2.5"
+              Your ideas.
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-300 to-amber-400 animate-gradient-flow">
+                Your community.
+              </span>
+              <br />
+              Your AWS SBG.
+            </motion.h1>
+
+            <motion.p
+              variants={fadeUp}
+              custom={2}
+              className="text-base sm:text-lg text-on-surface-variant leading-relaxed mb-8 max-w-xl font-medium"
+            >
+              Connect with builders who understand your journey. Explore cloud architecture, deploy
+              scalable serverless systems, and accelerate your engineering career. Your cloud journey starts here
+              at HBTU Kanpur.
+            </motion.p>
+
+            <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <Link
+                href="/join"
+                className="btn-3d-aws inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-extrabold text-sm sm:text-base text-center shadow-lg"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Link>
+                <span>Join the community</span>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
 
-            <a
-              href={SOCIAL_LINKS.meetup.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-3d-secondary inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base text-center border-emerald-900/50 hover:border-emerald-500/50"
+              <a
+                href={SOCIAL_LINKS.meetup.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-3d-secondary inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base text-center"
+              >
+                <MeetupIcon className="w-5 h-5 text-[#ED1C40]" />
+                <span>Meetup Group</span>
+              </a>
+            </motion.div>
+
+            {/* Micro trust row */}
+            <motion.div
+              variants={fadeUp}
+              custom={4}
+              className="mt-8 pt-6 border-t border-outline flex items-center gap-4 sm:gap-6 text-xs text-on-surface-variant font-mono flex-wrap"
             >
-              <MeetupIcon className="w-5 h-5 text-[#ED1C40]" />
-              <span>Meetup Group</span>
-            </a>
-          </div>
-
-          {/* Micro trust row */}
-          <div className="mt-8 pt-6 border-t border-outline flex items-center gap-6 text-xs text-on-surface-variant font-mono">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-primary-accent font-semibold">Free Membership</span>
-            </div>
-            <span>•</span>
-            <div className="text-on-background font-semibold">100% Student-Led</div>
-            <span>•</span>
-            <div className="text-on-background font-semibold">Campus Community</div>
-          </div>
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                </span>
+                <span className="text-primary-accent font-semibold">Free Membership</span>
+              </div>
+              <span aria-hidden>•</span>
+              <div className="text-on-background font-semibold">100% Student-Led</div>
+              <span aria-hidden>•</span>
+              <div className="text-on-background font-semibold">Campus Community</div>
+            </motion.div>
+          </motion.div>
         </div>
 
-        {/* Right Column: High Quality Interactive Cloud Architecture Visual */}
-        <div className="flex-1 w-full max-w-lg lg:max-w-none">
+        {/* Right Column: Cloud Architecture Visual */}
+        <motion.div
+          initial={{ opacity: 0, x: 40, scale: 0.96 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="flex-1 w-full max-w-lg lg:max-w-none"
+        >
           <div className="relative group">
-            {/* Ambient High-Voltage Emerald/Orange Glow */}
             <div
-              className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-emerald-500/30 via-emerald-400/20 to-amber-500/20 blur-2xl opacity-60 group-hover:opacity-85 transition duration-500"
+              className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-emerald-500/30 via-emerald-400/20 to-amber-500/20 blur-2xl opacity-60 group-hover:opacity-85 transition duration-500 animate-gradient-flow"
               aria-hidden="true"
             />
-
             <CloudArchitectureVisual />
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 2. Metric Stat Band */}
-      <section>
+      <motion.section
+        initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
         <StatBand />
-      </section>
+      </motion.section>
 
       {/* 3. Connect Across Our Platforms */}
-      <section className="space-y-8">
+      <motion.section
+        initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="space-y-8"
+      >
         <SectionHeader
           tag="CONNECT WITH BUILDERS"
           title="Connect Across Our Platforms"
@@ -140,16 +170,27 @@ export default function HomePage() {
           align="center"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <PlatformCard platform="meetup" />
-          <PlatformCard platform="linkedin" />
-          <PlatformCard platform="whatsapp" />
-          <PlatformCard platform="instagram" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          {["meetup","linkedin","whatsapp","instagram"].map((platform, i) => (
+            <motion.div
+              key={platform}
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <PlatformCard platform={platform as "meetup"|"linkedin"|"whatsapp"|"instagram"} />
+            </motion.div>
+          ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* 4. Upcoming Events Preview */}
-      <section className="space-y-8">
+      <motion.section
+        initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="space-y-8"
+      >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <SectionHeader
             tag="COMMUNITY SESSIONS"
@@ -174,7 +215,7 @@ export default function HomePage() {
         </div>
 
         <EventsList maxItems={3} />
-      </section>
+      </motion.section>
 
       {/* 5. About The Program & FAQs */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pt-4 border-t border-border-hairline">
@@ -252,7 +293,12 @@ export default function HomePage() {
       </section>
 
       {/* 6. Call To Action Footer Strip */}
-      <section className="relative rounded-3xl overflow-hidden border border-border-hairline bg-surface/80 dark:bg-surface-elevated/60 p-8 sm:p-12 text-center backdrop-blur-md">
+      <motion.section
+        initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="relative rounded-3xl overflow-hidden border border-border-hairline bg-surface/80 dark:bg-surface-elevated/60 p-8 sm:p-12 text-center backdrop-blur-md animate-border-glow"
+      >
         <div
           className="absolute inset-0 pointer-events-none opacity-20 site-dot-pattern"
           aria-hidden="true"
@@ -290,7 +336,7 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
