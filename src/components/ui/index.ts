@@ -8,3 +8,4 @@ export * from "./EmptyStatePanel";
 export * from "./SkeletonCard";
 export * from "./SectionHeader";
 export * from "./BrandLogo";
+export * from "./MechanicalKeycapHero";

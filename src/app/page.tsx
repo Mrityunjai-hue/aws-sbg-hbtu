@@ -8,6 +8,7 @@ import { MeetupIcon } from "@/components/ui/SocialIcons";
 import {
   SectionHeader,
   Badge,
+  MechanicalKeycapHero,
 } from "@/components/ui";
 import {
   PlatformCard,
@@ -66,15 +67,13 @@ export default function HomePage() {
             <motion.h1
               variants={fadeUp}
               custom={1}
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6"
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white [html.light_&]:text-slate-900 leading-[1.12] mb-6"
             >
-              Your ideas.
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-300 to-amber-400 animate-gradient-flow">
-                Your community.
-              </span>
-              <br />
-              Your AWS SBG.
+              <span className="block text-white [html.light_&]:text-slate-900">Your ideas.</span>
+              <div className="my-2.5 sm:my-3.5">
+                <MechanicalKeycapHero />
+              </div>
+              <span className="block text-white [html.light_&]:text-slate-900">Your AWS SBG.</span>
             </motion.h1>
 
             <motion.p
