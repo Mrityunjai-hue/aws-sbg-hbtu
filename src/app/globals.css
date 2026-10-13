@@ -13,8 +13,8 @@
     --surface-container: #121c16;
     --surface-high: #19271e;
     --surface-highest: #22362b;
-    --outline-color: #1a2a20;
-    --outline-variant-color: #274031;
+    --outline-color: #1e3a29;
+    --outline-variant-color: #2d553d;
     --text-color: #f8fafc;
     --text-muted: #94a3b8;
 
@@ -31,13 +31,13 @@
     /* Backward-compatibility RGB channels for existing components */
     --color-bg: 5 7 6;
     --color-bg-card: 12 18 14;
-    --color-border-hairline: 26 42 32;
+    --color-border-hairline: 30 58 41;
     --color-text: 248 250 252;
     --color-text-muted: 148 163 184;
     --color-accent: 16 185 129;
     --color-accent-hover: 5 150 105;
-    --grid-line: rgba(16, 185, 129, 0.05);
-    --topnav-bg: rgba(5, 7, 6, 0.88);
+    --grid-line: rgba(16, 185, 129, 0.06);
+    --topnav-bg: rgba(5, 7, 6, 0.92);
   }
 
   :root.light {
@@ -48,8 +48,8 @@
     --surface-container: #f1f5f9;
     --surface-high: #e2e8f0;
     --surface-highest: #cbd5e1;
-    --outline-color: #e2e8f0;
-    --outline-variant-color: #cbd5e1;
+    --outline-color: #cbd5e1;
+    --outline-variant-color: #94a3b8;
     --text-color: #0f172a;
     --text-muted: #64748b;
 
@@ -66,13 +66,13 @@
     /* Backward-compatibility channels */
     --color-bg: 255 255 255;
     --color-bg-card: 248 250 252;
-    --color-border-hairline: 226 232 240;
+    --color-border-hairline: 203 213 225;
     --color-text: 15 23 42;
     --color-text-muted: 100 116 139;
     --color-accent: 5 150 105;
     --color-accent-hover: 4 120 87;
     --grid-line: rgba(5, 150, 105, 0.04);
-    --topnav-bg: rgba(255, 255, 255, 0.88);
+    --topnav-bg: rgba(255, 255, 255, 0.92);
   }
 
   html {
@@ -119,15 +119,40 @@
     }
   }
 
+  /* High-Contrast Glassmorphism Card with Crisp Visible Borders */
+  .glass-card-emerald {
+    background: rgba(12, 18, 14, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(16, 185, 129, 0.06);
+  }
+  .glass-card-emerald:hover {
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 24px rgba(16, 185, 129, 0.12);
+  }
+
+  /* Spring Physics Micro-Interactions */
+  .spring-interactive {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.2s ease;
+  }
+  .spring-interactive:hover {
+    transform: translateY(-2.5px);
+  }
+  .spring-interactive:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
   /* 3D Tactile Buttons matching reference design system */
   .btn-3d-primary {
     background-color: var(--primary-accent);
     color: #ffffff;
     box-shadow: var(--btn-3d-shadow) 0px 2.5px 0px 0px, var(--primary-glow) 0px 3px 8px 0px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, background-color 0.18s ease;
   }
   .btn-3d-primary:hover {
     background-color: var(--primary-hover);
+    transform: translateY(-1px);
   }
   .btn-3d-primary:active {
     transform: translateY(1.5px);
@@ -139,11 +164,12 @@
     color: var(--text-color);
     border: 1px solid var(--outline-color);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 0px 0px, rgba(0, 0, 0, 0.15) 0px 2px 6px 0px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
   }
   .btn-3d-secondary:hover {
     background-color: var(--surface-container);
     border-color: rgba(16, 185, 129, 0.45);
+    transform: translateY(-1px);
   }
   .btn-3d-secondary:active {
     transform: translateY(1.5px);
@@ -156,11 +182,12 @@
     color: #050706;
     font-weight: 700;
     box-shadow: var(--aws-orange-hover) 0px 2.5px 0px 0px, var(--aws-glow) 0px 3px 8px 0px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, background-color 0.18s ease;
   }
   .btn-3d-aws:hover {
     background-color: var(--aws-orange-hover);
     color: #ffffff;
+    transform: translateY(-1px);
   }
   .btn-3d-aws:active {
     transform: translateY(1.5px);
@@ -246,4 +273,3 @@
     animation: radarSweep 8s linear infinite;
   }
 }
-

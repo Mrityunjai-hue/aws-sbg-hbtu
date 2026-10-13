@@ -259,7 +259,7 @@ export function CloudArchitectureVisual() {
                 <span className="text-emerald-500">21:30:14.201</span> [CloudFront] HIT 200 GET /api/workshops · 3.2ms
               </div>
               <div className="text-slate-400">
-                <span className="text-emerald-500">21:30:14.482</span> [Lambda] Invoke `calculateLeaderboardVoucherEligibility` · runtime: 12ms
+                <span className="text-emerald-500">21:30:14.482</span> [Lambda] Invoke `calculateLeaderboardRankingsAndHonors` · runtime: 12ms
               </div>
               <div className="text-slate-400">
                 <span className="text-emerald-500">21:30:14.890</span> [Bedrock] Stream completion generated with model `anthropic.claude-3-5-sonnet`

@@ -200,14 +200,14 @@ export default function ChallengesPage() {
         </div>
       )}
 
-      {/* Navigation Tabs Bar */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-outline pb-2">
+      {/* Navigation Tabs Bar (Scrollable on Mobile) */}
+      <div className="flex items-center gap-2 border-b border-emerald-500/20 pb-3 overflow-x-auto no-scrollbar w-full">
         <button
           onClick={() => setActiveTab("modules")}
-          className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
+          className={`shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
             activeTab === "modules"
-              ? "bg-primary-accent text-white shadow-lg shadow-primary-accent/25"
-              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest"
+              ? "bg-primary-accent text-slate-950 font-black shadow-lg shadow-primary-accent/25 ring-1 ring-primary-accent"
+              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
           }`}
         >
           <span className="material-symbols-outlined text-base">menu_book</span>
@@ -216,25 +216,25 @@ export default function ChallengesPage() {
 
         <button
           onClick={() => setActiveTab("leaderboard")}
-          className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
+          className={`shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
             activeTab === "leaderboard"
-              ? "bg-primary-accent text-white shadow-lg shadow-primary-accent/25"
-              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest"
+              ? "bg-primary-accent text-slate-950 font-black shadow-lg shadow-primary-accent/25 ring-1 ring-primary-accent"
+              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
           }`}
         >
           <span className="material-symbols-outlined text-base">leaderboard</span>
           <span>Official Leaderboard Standings</span>
           <span className="px-2 py-0.5 rounded-full bg-amber-400 text-black text-[10px] font-black">
-            TOP 3 ALLOCATION
+            TOP 3 HONORS
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab("roadmap")}
-          className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
+          className={`shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
             activeTab === "roadmap"
-              ? "bg-primary-accent text-white shadow-lg shadow-primary-accent/25"
-              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest"
+              ? "bg-primary-accent text-slate-950 font-black shadow-lg shadow-primary-accent/25 ring-1 ring-primary-accent"
+              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
           }`}
         >
           <span className="material-symbols-outlined text-base">map</span>
@@ -243,76 +243,76 @@ export default function ChallengesPage() {
 
         <button
           onClick={() => setActiveTab("rules")}
-          className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
+          className={`shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
             activeTab === "rules"
-              ? "bg-primary-accent text-white shadow-lg shadow-primary-accent/25"
-              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest"
+              ? "bg-primary-accent text-slate-950 font-black shadow-lg shadow-primary-accent/25 ring-1 ring-primary-accent"
+              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
           }`}
         >
           <span className="material-symbols-outlined text-base">verified_user</span>
-          <span>Curriculum Criteria & Rules</span>
+          <span>Attempt Scoring & Criteria</span>
         </button>
       </div>
 
       {/* TAB 1: 15-MODULE CURRICULUM */}
       {activeTab === "modules" && (
         <div className="space-y-6">
-          {/* Detailed Domain Filters */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-2">
+          {/* Detailed Domain Filters (Scrollable on Mobile) */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto py-1">
               <button
                 onClick={() => setCurriculumFilter("all")}
-                className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-colors ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
                   curriculumFilter === "all"
-                    ? "bg-secondary-accent text-black"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background"
+                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
+                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
                 }`}
               >
                 All 15 Modules
               </button>
               <button
                 onClick={() => setCurriculumFilter("core")}
-                className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-colors ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
                   curriculumFilter === "core"
-                    ? "bg-secondary-accent text-black"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background"
+                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
+                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
                 }`}
               >
                 Core Cloud & Compute (M1–M5)
               </button>
               <button
                 onClick={() => setCurriculumFilter("data")}
-                className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-colors ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
                   curriculumFilter === "data"
-                    ? "bg-secondary-accent text-black"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background"
+                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
+                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
                 }`}
               >
                 Storage, DB & AI/ML (M6–M8)
               </button>
               <button
                 onClick={() => setCurriculumFilter("security")}
-                className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-colors ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
                   curriculumFilter === "security"
-                    ? "bg-secondary-accent text-black"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background"
+                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
+                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
                 }`}
               >
                 Security & Governance (M9–M11)
               </button>
               <button
                 onClick={() => setCurriculumFilter("arch")}
-                className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-colors ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
                   curriculumFilter === "arch"
-                    ? "bg-secondary-accent text-black"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background"
+                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
+                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
                 }`}
               >
-                Migration & Capstone (M12–M15)
+                Architecture & Capstone (M12–M15)
               </button>
             </div>
 
-            <div className="text-xs font-mono text-on-surface-variant flex items-center gap-2">
+            <div className="text-xs font-mono text-on-surface-variant flex items-center gap-2 shrink-0">
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
               <span>
                 {studentState.completedDays.length} of 15 Modules Verified
@@ -365,7 +365,7 @@ export default function ChallengesPage() {
           <div className="p-6 sm:p-8 rounded-3xl bg-surface-low border border-outline space-y-6">
             <div>
               <h2 className="text-xl font-black text-on-background">
-                Assessment Standards, Point Distribution & Voucher Allocation
+                Assessment Standards, Attempt Scoring & Executive Honors Allocation
               </h2>
               <p className="text-xs font-mono text-on-surface-variant mt-1">
                 Engineering criteria governing the HBTU AWS Learning Challenge Sprint.
@@ -376,20 +376,20 @@ export default function ChallengesPage() {
               <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
                 <div className="flex items-center gap-2 text-primary-accent font-mono text-xs font-bold">
                   <span className="material-symbols-outlined text-base">verified_user</span>
-                  <span>Anti-Cheat Assessment Protocol</span>
+                  <span>Dynamic Attempt-Based Scoring</span>
                 </div>
                 <p className="text-xs text-on-surface-variant leading-relaxed">
-                  Every module completion requires solving an authentic scenario assessment testing genuine technical comprehension. Mindless button clicks without concept validation are prevented.
+                  First-attempt mastery awards 100% full points. If an assessment is missed on the 1st try, points decrease with subsequent attempts (2nd: 75%, 3rd: 50%, 4th+: 25% floor) to reward genuine first-try preparation.
                 </p>
               </div>
 
               <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
                 <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold">
-                  <span className="material-symbols-outlined text-base">trending_up</span>
-                  <span>Consecutive Streak Retention</span>
+                  <span className="material-symbols-outlined text-base">timer</span>
+                  <span>Earliest-Finish Leaderboard Tie-Breaking</span>
                 </div>
                 <p className="text-xs text-on-surface-variant leading-relaxed">
-                  Consistent daily participation maintains learning momentum. Streak consistency serves as the primary tie-breaking criterion for top voucher candidate positions.
+                  In case of point ties at any rank, the builder who completed the assessments earliest (timestamp of verification) is placed at the top, eliminating standings clashes.
                 </p>
               </div>
 
@@ -399,17 +399,17 @@ export default function ChallengesPage() {
                   <span>Point Distribution Structure</span>
                 </div>
                 <p className="text-xs text-on-surface-variant leading-relaxed">
-                  Modules 1 through 13 award 100 Base Points + 50 Verification Quiz Points. Module 14 awards 150 Base + 75 Quiz Points. The Module 15 Capstone awards 200 Base + 100 Quiz Points.
+                  Modules 1 through 13 award up to 150 Points. Module 14 awards up to 225 Points. The Module 15 Capstone awards up to 300 Points based on attempt weighting.
                 </p>
               </div>
 
               <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
                 <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
-                  <span className="material-symbols-outlined text-base">confirmation_number</span>
-                  <span>Voucher Grant Protocol</span>
+                  <span className="material-symbols-outlined text-base">workspace_premium</span>
+                  <span>LinkedIn Spotlight & Goodies Protocol</span>
                 </div>
                 <p className="text-xs text-on-surface-variant leading-relaxed">
-                  The top 3 validated candidates upon sprint completion receive 100% sponsored official AWS Certified Cloud Practitioner examination vouchers.
+                  The top 3 validated candidates upon sprint completion receive official LinkedIn executive features, exclusive AWS & SBG Swag & Goodies kits, chapter core team recognition, and 1-on-1 industry mentorship.
                 </p>
               </div>
             </div>
