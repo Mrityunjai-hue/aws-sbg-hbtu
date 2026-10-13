@@ -27,8 +27,6 @@ export function ImagePlaceholder({
   label,
   sublabel,
   aspectRatio = "16/9",
-  width,
-  height,
   src,
   alt = "Placeholder image",
   priority = false,

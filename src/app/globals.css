@@ -4,75 +4,75 @@
 @tailwind utilities;
 
 @layer base {
-  /* ── Redesign Design Tokens (Option B: Hybrid Reference Purple + AWS Orange) ── */
+  /* ── Redesign Design Tokens: Black + Emerald Green Matrix Architecture ── */
   :root {
-    /* Base Obsidian Palette (Dark Mode by default) */
-    --bg-color: #09090b;
-    --surface-lowest: #09090b;
-    --surface-low: #18181b;
-    --surface-container: #27272a;
-    --surface-high: #3f3f46;
-    --surface-highest: #52525b;
-    --outline-color: #27272a;
-    --outline-variant-color: #3f3f46;
-    --text-color: #f4f4f5;
-    --text-muted: #a1a1aa;
+    /* Base Obsidian & Deep Tech Black Palette */
+    --bg-color: #050706;
+    --surface-lowest: #050706;
+    --surface-low: #0c120e;
+    --surface-container: #121c16;
+    --surface-high: #19271e;
+    --surface-highest: #22362b;
+    --outline-color: #1a2a20;
+    --outline-variant-color: #274031;
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
 
-    /* Accents */
-    --primary-accent: #AD5CFF;
-    --primary-hover: #9C47FF;
-    --primary-glow: rgba(173, 92, 255, 0.22);
+    /* Accents: High-Voltage Emerald Green + AWS Orange */
+    --primary-accent: #10B981;
+    --primary-hover: #059669;
+    --primary-glow: rgba(16, 185, 129, 0.28);
     --aws-orange: #FF9900;
     --aws-orange-hover: #EC7211;
     --aws-glow: rgba(255, 153, 0, 0.25);
-    --grid-color: rgba(173, 92, 255, 0.20);
-    --btn-3d-shadow: #731ED0;
+    --grid-color: rgba(16, 185, 129, 0.14);
+    --btn-3d-shadow: #047857;
 
     /* Backward-compatibility RGB channels for existing components */
-    --color-bg: 9 9 11;
-    --color-bg-card: 24 24 27;
-    --color-border-hairline: 39 39 42;
-    --color-text: 244 244 245;
-    --color-text-muted: 161 161 170;
-    --color-accent: 173 92 255;
-    --color-accent-hover: 156 71 255;
-    --grid-line: rgba(173, 92, 255, 0.05);
-    --topnav-bg: rgba(9, 9, 11, 0.85);
+    --color-bg: 5 7 6;
+    --color-bg-card: 12 18 14;
+    --color-border-hairline: 26 42 32;
+    --color-text: 248 250 252;
+    --color-text-muted: 148 163 184;
+    --color-accent: 16 185 129;
+    --color-accent-hover: 5 150 105;
+    --grid-line: rgba(16, 185, 129, 0.05);
+    --topnav-bg: rgba(5, 7, 6, 0.88);
   }
 
   :root.light {
     /* Clean Light Mode Surfaces */
     --bg-color: #ffffff;
     --surface-lowest: #ffffff;
-    --surface-low: #f4f4f5;
-    --surface-container: #e4e4e7;
-    --surface-high: #d4d4d8;
-    --surface-highest: #a1a1aa;
-    --outline-color: #e4e4e7;
-    --outline-variant-color: #d4d4d8;
-    --text-color: #09090b;
-    --text-muted: #71717a;
+    --surface-low: #f8fafc;
+    --surface-container: #f1f5f9;
+    --surface-high: #e2e8f0;
+    --surface-highest: #cbd5e1;
+    --outline-color: #e2e8f0;
+    --outline-variant-color: #cbd5e1;
+    --text-color: #0f172a;
+    --text-muted: #64748b;
 
     /* Light Theme Accents */
-    --primary-accent: #8E35EA;
-    --primary-hover: #7928CA;
-    --primary-glow: rgba(142, 53, 234, 0.15);
+    --primary-accent: #059669;
+    --primary-hover: #047857;
+    --primary-glow: rgba(5, 150, 105, 0.18);
     --aws-orange: #FF9900;
     --aws-orange-hover: #EC7211;
     --aws-glow: rgba(255, 153, 0, 0.20);
-    --grid-color: rgba(142, 53, 234, 0.08);
-    --btn-3d-shadow: #6b21a8;
+    --grid-color: rgba(5, 150, 105, 0.08);
+    --btn-3d-shadow: #065f46;
 
     /* Backward-compatibility channels */
     --color-bg: 255 255 255;
-    --color-bg-card: 244 244 245;
-    --color-border-hairline: 228 228 231;
-    --color-text: 9 9 11;
-    --color-text-muted: 113 113 122;
-    --color-accent: 142 53 234;
-    --color-accent-hover: 121 40 202;
-    --grid-line: rgba(142, 53, 234, 0.04);
-    --topnav-bg: rgba(255, 255, 255, 0.85);
+    --color-bg-card: 248 250 252;
+    --color-border-hairline: 226 232 240;
+    --color-text: 15 23 42;
+    --color-text-muted: 100 116 139;
+    --color-accent: 5 150 105;
+    --color-accent-hover: 4 120 87;
+    --grid-line: rgba(5, 150, 105, 0.04);
+    --topnav-bg: rgba(255, 255, 255, 0.88);
   }
 
   html {
@@ -143,7 +143,7 @@
   }
   .btn-3d-secondary:hover {
     background-color: var(--surface-container);
-    border-color: rgba(173, 92, 255, 0.4);
+    border-color: rgba(16, 185, 129, 0.45);
   }
   .btn-3d-secondary:active {
     transform: translateY(1.5px);
@@ -153,7 +153,7 @@
   /* AWS Builder Orange 3D Button */
   .btn-3d-aws {
     background-color: var(--aws-orange);
-    color: #09090b;
+    color: #050706;
     font-weight: 700;
     box-shadow: var(--aws-orange-hover) 0px 2.5px 0px 0px, var(--aws-glow) 0px 3px 8px 0px;
     transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
@@ -183,12 +183,12 @@
     }
   }
 
-  @keyframes purpleGlow {
+  @keyframes greenGlow {
     0%, 100% {
-      box-shadow: 0 0 20px rgba(173, 92, 255, 0.25), 0 0 45px rgba(173, 92, 255, 0.1);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.25), 0 0 45px rgba(16, 185, 129, 0.1);
     }
     50% {
-      box-shadow: 0 0 38px rgba(173, 92, 255, 0.45), 0 0 70px rgba(173, 92, 255, 0.22);
+      box-shadow: 0 0 38px rgba(16, 185, 129, 0.5), 0 0 70px rgba(16, 185, 129, 0.25);
     }
   }
 
@@ -212,12 +212,26 @@
     }
   }
 
+  @keyframes radarSweep {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   .animate-gold-glow {
     animation: goldGlow 3.5s ease-in-out infinite;
   }
 
+  .animate-green-glow {
+    animation: greenGlow 3.5s ease-in-out infinite;
+  }
+
+  /* Alias for any legacy purple glow call */
   .animate-purple-glow {
-    animation: purpleGlow 3.5s ease-in-out infinite;
+    animation: greenGlow 3.5s ease-in-out infinite;
   }
 
   .animate-pulse-subtle {
@@ -226,6 +240,10 @@
 
   .animate-float-subtle {
     animation: floatSubtle 4s ease-in-out infinite;
+  }
+
+  .animate-radar {
+    animation: radarSweep 8s linear infinite;
   }
 }
 

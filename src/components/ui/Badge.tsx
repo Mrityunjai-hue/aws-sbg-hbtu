@@ -16,10 +16,10 @@ export function Badge({
 }) {
   const variants: Record<BadgeVariant, string> = {
     default: "bg-surface-low text-on-surface-variant border border-outline",
-    accent: "bg-primary-accent/15 text-primary-accent border border-primary-accent/30",
-    purple: "bg-[#AD5CFF]/15 text-[#AD5CFF] border border-[#AD5CFF]/30",
+    accent: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30",
+    purple: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30",
     aws: "bg-[#FF9900]/15 text-[#FF9900] border border-[#FF9900]/30",
-    emerald: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30",
+    emerald: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30",
     outline: "bg-transparent text-on-surface-variant border border-outline",
     mono: "font-mono uppercase font-bold tracking-wider bg-surface-low text-on-surface-variant border border-outline",
   };

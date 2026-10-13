@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { collection, addDoc, getDocs, doc, setDoc, query, orderBy, limit, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, limit, serverTimestamp } from "firebase/firestore";
 import { ACTIVE_14DAY_CHALLENGE, INITIAL_LEADERBOARD_DATA, LeaderboardStudent } from "@/data/challenges";
 
 export interface StudentRegistrationInput {
@@ -187,7 +187,7 @@ export const ChallengeService = {
    */
   async getLeaderboard(): Promise<LeaderboardStudent[]> {
     const currentState = this.getLocalState();
-    let roster = [...INITIAL_LEADERBOARD_DATA];
+    const roster = [...INITIAL_LEADERBOARD_DATA];
 
     // If local user is registered, inject them into the roster
     if (currentState.isRegistered && currentState.student) {
@@ -254,7 +254,7 @@ export const ChallengeService = {
             });
           }
         });
-      } catch (e) {
+      } catch {
         // Fallback to in-memory roster
       }
     }

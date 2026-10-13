@@ -70,7 +70,7 @@ export function ChallengeRegisterModal({
       await ChallengeService.registerStudent(formData);
       onRegistered();
       onClose();
-    } catch (err) {
+    } catch {
       setErrorMsg("Failed to register. Please try again.");
     } finally {
       setIsSubmitting(false);

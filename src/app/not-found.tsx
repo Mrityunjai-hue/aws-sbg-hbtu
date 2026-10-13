@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className="site-container py-20 min-h-[calc(100vh-140px)] flex flex-col items-center justify-center text-center">
       <Card variant="terminal" className="max-w-md w-full p-8 sm:p-10 space-y-6">
-        <Badge variant="purple" size="sm" className="font-mono">
+        <Badge variant="emerald" size="sm" className="font-mono">
           ERROR 404
         </Badge>
 

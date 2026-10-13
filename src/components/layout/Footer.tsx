@@ -24,7 +24,7 @@ export function Footer() {
   return (
     <footer className="relative z-10 font-mono overflow-hidden bg-surface-lowest border-t border-outline mt-20">
       {/* Top Gradient Highlight Line */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#AD5CFF]/50 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-accent/50 to-transparent" />
 
       {/* Atmospheric Dot-Pattern and Glow Overlay */}
       <div className="site-dot-pattern absolute inset-0 pointer-events-none opacity-40" aria-hidden="true" />
@@ -32,7 +32,7 @@ export function Footer() {
         className="absolute top-0 left-1/3 w-[500px] h-[280px] rounded-full pointer-events-none blur-[100px]"
         aria-hidden="true"
         style={{
-          background: "radial-gradient(circle, rgba(173, 92, 255, 0.08) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%)",
         }}
       />
 

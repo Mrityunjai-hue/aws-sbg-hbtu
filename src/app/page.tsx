@@ -4,7 +4,6 @@ import { SOCIAL_LINKS } from "@/lib/constants/socials";
 import { MeetupIcon } from "@/components/ui/SocialIcons";
 import {
   SectionHeader,
-  ImagePlaceholder,
   Badge,
 } from "@/components/ui";
 import {
@@ -12,6 +11,7 @@ import {
   FaqAccordion,
   StatBand,
   EventsList,
+  CloudArchitectureVisual,
 } from "@/components/features";
 
 export default function HomePage() {
@@ -43,7 +43,7 @@ export default function HomePage() {
         {/* Left Column: Heading, Subhead, 3D CTAs */}
         <div className="flex-1 flex flex-col justify-center max-w-2xl">
           <div className="mb-4 flex items-center gap-2 flex-wrap">
-            <Badge variant="purple" size="sm">
+            <Badge variant="emerald" size="sm">
               HBTU KANPUR CHAPTER
             </Badge>
             <Badge variant="aws" size="sm">
@@ -51,26 +51,26 @@ export default function HomePage() {
             </Badge>
           </div>
 
-          <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-text leading-[1.08] mb-6">
+          <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
             Your ideas.
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent-hover to-accent-aws">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-300 to-amber-400">
               Your community.
             </span>
             <br />
             Your AWS SBG.
           </h1>
 
-          <p className="text-base sm:text-lg text-text-muted leading-relaxed mb-8 max-w-xl">
-            Connect with builders who understand your journey. Explore cloud technology, build
-            innovative projects, and grow your technical skills. Your cloud journey starts here
-            at HBTU.
+          <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl font-medium">
+            Connect with builders who understand your journey. Explore cloud architecture, deploy
+            scalable serverless systems, and accelerate your engineering career. Your cloud journey starts here
+            at HBTU Kanpur.
           </p>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <Link
               href="/join"
-              className="btn-3d-aws inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-bold text-sm sm:text-base text-center"
+              className="btn-3d-aws inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-extrabold text-sm sm:text-base text-center shadow-lg"
             >
               <span>Join the community</span>
               <svg
@@ -92,7 +92,7 @@ export default function HomePage() {
               href={SOCIAL_LINKS.meetup.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-3d-secondary inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-center"
+              className="btn-3d-secondary inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base text-center border-emerald-900/50 hover:border-emerald-500/50"
             >
               <MeetupIcon className="w-5 h-5 text-[#ED1C40]" />
               <span>Meetup Group</span>
@@ -100,45 +100,28 @@ export default function HomePage() {
           </div>
 
           {/* Micro trust row */}
-          <div className="mt-8 pt-6 border-t border-border-hairline/60 flex items-center gap-6 text-xs text-text-muted font-mono">
+          <div className="mt-8 pt-6 border-t border-emerald-950/80 flex items-center gap-6 text-xs text-slate-300 font-mono">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Free Membership</span>
+              <span className="text-emerald-300 font-semibold">Free Membership</span>
             </div>
             <span>•</span>
-            <div>100% Student-Led</div>
+            <div className="text-slate-200">100% Student-Led</div>
             <span>•</span>
-            <div>Campus Community</div>
+            <div className="text-slate-200">Campus Community</div>
           </div>
         </div>
 
-        {/* Right Column: Hero Visual Slot */}
+        {/* Right Column: High Quality Interactive Cloud Architecture Visual */}
         <div className="flex-1 w-full max-w-lg lg:max-w-none">
           <div className="relative group">
-            {/* Ambient Purple/Orange Glow */}
+            {/* Ambient High-Voltage Emerald/Orange Glow */}
             <div
-              className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-accent/30 via-accent-aws/20 to-accent/30 blur-xl opacity-50 group-hover:opacity-75 transition duration-500"
+              className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-emerald-500/30 via-emerald-400/20 to-amber-500/20 blur-2xl opacity-60 group-hover:opacity-85 transition duration-500"
               aria-hidden="true"
             />
 
-            <div className="relative rounded-2xl overflow-hidden border border-border-subtle bg-surface/90 shadow-2xl">
-              <ImagePlaceholder
-                id="HERO-IMG-01"
-                label="AWS SBG HBTU HERO MEDIA"
-                aspectRatio="4:3"
-                sublabel="HBTU Kanpur Campus Workshop"
-                className="border-none rounded-none"
-              />
-
-              {/* Status footer bar */}
-              <div className="p-3 bg-surface-elevated/90 border-t border-border-hairline flex items-center justify-between text-xs font-mono text-text-muted">
-                <span className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
-                  <span>SLOT: HERO-IMG-01</span>
-                </span>
-                <span className="text-accent-aws font-bold">4:3 · 800x600</span>
-              </div>
-            </div>
+            <CloudArchitectureVisual />
           </div>
         </div>
       </section>

@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { SectionHeader, Card, Badge } from "@/components/ui";
-import { SOCIAL_LINKS } from "@/lib/constants/socials";
 import { PlatformCard } from "@/components/features";
 
 export default function ContactPage() {
@@ -29,7 +28,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Email & Inboxes */}
         <Card variant="interactive" className="p-6 sm:p-8 space-y-4">
-          <Badge variant="purple" size="sm">
+          <Badge variant="emerald" size="sm">
             DIRECT INBOX
           </Badge>
           <h2 className="font-sans font-bold text-xl text-text">Official Email</h2>

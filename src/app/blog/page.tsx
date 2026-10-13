@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { BLOG_POSTS_DATA } from "@/data/blog";
-import { SectionHeader, EmptyStatePanel, Card, Badge } from "@/components/ui";
+import { SectionHeader, EmptyStatePanel, Card } from "@/components/ui";
 
 export default function BlogPage() {
   return (

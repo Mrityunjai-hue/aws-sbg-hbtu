@@ -402,7 +402,7 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
               )}
               {filteredRoster.map((student, idx) => {
                 const actualRank = students.findIndex((s) => s.id === student.id) + 1;
-                const isLocal = student.id === "local-user";
+                const isLocal = student.id === "local-user" || (Boolean(currentUserId) && student.id === currentUserId);
                 return (
                   <tr
                     key={student.id}

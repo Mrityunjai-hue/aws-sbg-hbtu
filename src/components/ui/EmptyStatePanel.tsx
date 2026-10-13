@@ -45,12 +45,12 @@ export function EmptyStatePanel({
       />
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full blur-[90px] pointer-events-none opacity-30"
-        style={{ background: "radial-gradient(circle, #AD5CFF 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, #10B981 0%, transparent 70%)" }}
         aria-hidden="true"
       />
 
       <div className="relative z-10 flex flex-col items-center max-w-md mx-auto">
-        <Badge variant="purple" className="mb-4 font-mono">
+        <Badge variant="emerald" className="mb-4 font-mono">
           {resolvedBadge}
         </Badge>
 

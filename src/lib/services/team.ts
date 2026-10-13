@@ -88,7 +88,7 @@ export async function updateTeamMember(id: string, data: Partial<Omit<TeamMember
     if (!db) throw new Error("Firebase DB not initialized");
     
     const docRef = doc(db, "team", id);
-    const updateData: any = { ...data };
+    const updateData: Record<string, unknown> = { ...data };
     
     if (data.name) {
       updateData.initial = data.name.charAt(0).toUpperCase();

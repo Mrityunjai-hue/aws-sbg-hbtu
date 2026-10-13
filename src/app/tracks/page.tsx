@@ -21,7 +21,7 @@ export default function TracksPage() {
       slotId: "TRACK-CLOUD-01",
       title: "Cloud Foundations & Architecture",
       level: "BEGINNER",
-      badgeVariant: "purple" as const,
+      badgeVariant: "emerald" as const,
       description:
         "Master the core building blocks of AWS infrastructure, security, and networking. Perfect for beginners looking to prepare for the AWS Certified Cloud Practitioner and Solutions Architect Associate examinations.",
       services: ["Amazon EC2", "Amazon S3", "Amazon VPC", "AWS IAM", "CloudWatch"],
@@ -72,7 +72,7 @@ export default function TracksPage() {
       slotId: "TRACK-AIML-01",
       title: "AI/ML & Generative AI on AWS",
       level: "ADVANCED",
-      badgeVariant: "purple" as const,
+      badgeVariant: "emerald" as const,
       description:
         "Unlock predictive and generative artificial intelligence with Amazon Bedrock and SageMaker. Build production RAG (Retrieval Augmented Generation) applications and fine-tune foundation models.",
       services: ["Amazon Bedrock", "Amazon SageMaker", "Amazon Rekognition", "LangChain", "Amazon OpenSearch"],

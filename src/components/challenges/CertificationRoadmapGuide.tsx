@@ -6,8 +6,6 @@ import {
   CAREER_ROLE_PATHS,
   PERSONA_RECOMMENDATIONS,
   FOUR_STEP_READINESS_BLUEPRINT,
-  CertificationSpec,
-  CareerRolePath,
 } from "@/data/roadmap";
 
 interface CertificationRoadmapGuideProps {
@@ -59,9 +57,9 @@ export function CertificationRoadmapGuide({
       case "Associate":
         return "border-blue-500/40 hover:border-blue-400 bg-blue-500/5";
       case "Professional":
-        return "border-purple-500/40 hover:border-purple-400 bg-purple-500/5";
+        return "border-emerald-500/40 hover:border-emerald-400 bg-emerald-500/5";
       case "Specialty":
-        return "border-pink-500/40 hover:border-pink-400 bg-pink-500/5";
+        return "border-amber-500/40 hover:border-amber-400 bg-amber-500/5";
       default:
         return "border-outline hover:border-primary-accent bg-surface-lowest";
     }
@@ -74,9 +72,9 @@ export function CertificationRoadmapGuide({
       case "Associate":
         return "bg-blue-500/15 text-blue-300 border-blue-500/30";
       case "Professional":
-        return "bg-purple-500/15 text-purple-300 border-purple-500/30";
+        return "bg-emerald-500/15 text-emerald-300 border-emerald-500/30";
       case "Specialty":
-        return "bg-pink-500/15 text-pink-300 border-pink-500/30";
+        return "bg-amber-500/15 text-amber-300 border-amber-500/30";
       default:
         return "bg-surface-low text-on-surface-variant border-outline";
     }
@@ -119,8 +117,8 @@ export function CertificationRoadmapGuide({
               <div className="text-base font-black text-blue-400 font-mono">4</div>
               <div className="text-[10px] font-mono text-on-surface-variant uppercase">Associate</div>
             </div>
-            <div className="p-3 rounded-2xl bg-surface-lowest border border-purple-500/30 text-center">
-              <div className="text-base font-black text-purple-400 font-mono">2</div>
+            <div className="p-3 rounded-2xl bg-surface-lowest border border-emerald-500/30 text-center">
+              <div className="text-base font-black text-emerald-400 font-mono">2</div>
               <div className="text-[10px] font-mono text-on-surface-variant uppercase">Professional</div>
             </div>
             <div className="p-3 rounded-2xl bg-surface-lowest border border-pink-500/30 text-center">
@@ -573,7 +571,7 @@ export function CertificationRoadmapGuide({
               </div>
 
               <div className="p-5 rounded-2xl bg-surface-lowest border border-outline">
-                <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold text-purple-400">
+                <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold text-emerald-400">
                   <span className="material-symbols-outlined text-sm">format_quote</span>
                   <span>Lead DevOps Engineer Perspective</span>
                 </div>

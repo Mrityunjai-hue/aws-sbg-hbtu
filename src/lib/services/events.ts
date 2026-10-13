@@ -1,4 +1,4 @@
-import { collection, getDocs, query, orderBy, limit, Timestamp, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, getDocs, Timestamp, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 export interface EventRecord {

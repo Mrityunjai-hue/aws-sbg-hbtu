@@ -25,7 +25,7 @@ export function LeaderAnnouncementBanner({
       {/* Header bar */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-outline">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-primary-accent to-purple-800 text-white font-mono font-black text-sm flex items-center justify-center shadow-lg shadow-primary-accent/20 border border-primary-accent/30">
+          <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-primary-accent to-emerald-900 text-white font-mono font-black text-sm flex items-center justify-center shadow-lg shadow-primary-accent/20 border border-primary-accent/30">
             {leaderAnnouncement.avatarMonogram}
           </div>
           <div>

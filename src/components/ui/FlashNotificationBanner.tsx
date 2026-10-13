@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { fetchEvents, EventRecord } from "@/lib/services/events";
-import { fetchNotifications, NotificationRecord } from "@/lib/services/notifications";
+import { fetchEvents } from "@/lib/services/events";
+import { fetchNotifications } from "@/lib/services/notifications";
 import { Timestamp } from "firebase/firestore";
 
 interface FlashAlert {

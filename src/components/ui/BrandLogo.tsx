@@ -43,7 +43,7 @@ export function BrandLogo({ className = "", size = "md" }: BrandLogoProps) {
           className={`flex items-center justify-center font-mono font-bold tracking-wider rounded-lg border border-outline bg-surface-low text-on-surface-variant/90 uppercase ${dims.boxClass}`}
           title="Official logo pending in /public/brand/"
         >
-          <span className="text-[#AD5CFF] mr-1">AWS</span> SBG HBTU
+          <span className="text-primary-accent mr-1 font-black">AWS</span> SBG HBTU
         </div>
       )}
     </div>
