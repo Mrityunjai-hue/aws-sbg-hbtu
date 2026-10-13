@@ -2,7 +2,7 @@ import React from "react";
 import { Loader2, Check } from "lucide-react";
 
 export type ButtonVariant = "primary" | "secondary" | "aws" | "outline" | "ghost" | "success";
-export type ButtonSize = "sm" | "md" | "lg";
+export type ButtonSize = "sm" | "md" | "lg" | "icon";
 
 export type ButtonProps<E extends React.ElementType = "button"> = {
   variant?: ButtonVariant;
@@ -26,12 +26,13 @@ export function Button<E extends React.ElementType = "button">({
   const Component = as || "button";
 
   const baseStyles =
-    "inline-flex items-center justify-center gap-2 font-mono font-bold uppercase tracking-wider select-none transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface-lowest disabled:opacity-60 disabled:cursor-not-allowed";
+    "group inline-flex items-center justify-center gap-2 font-mono font-bold uppercase tracking-wider select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface-lowest disabled:opacity-60 disabled:cursor-not-allowed";
 
   const sizeStyles: Record<ButtonSize, string> = {
-    sm: "px-3 py-1.5 text-[11px] rounded-lg",
-    md: "px-4 py-2.5 text-xs rounded-xl",
-    lg: "px-6 py-3.5 text-sm rounded-xl",
+    sm:   "px-3 py-1.5 text-[11px] rounded-lg",
+    md:   "px-4 py-2.5 text-xs rounded-xl",
+    lg:   "px-6 py-3.5 text-sm rounded-xl",
+    icon: "p-2.5 text-xs rounded-xl aspect-square",
   };
 
   const variantStyles: Record<ButtonVariant, string> = {
