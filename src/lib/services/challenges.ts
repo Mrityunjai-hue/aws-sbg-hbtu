@@ -83,6 +83,20 @@ export function calculateAttemptPoints(
 
 export const ChallengeService = {
   /**
+   * Reset local challenge progress and test registration state
+   */
+  resetLocalState(): void {
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.removeItem(STORAGE_KEY_STUDENT);
+        localStorage.removeItem(STORAGE_KEY_PROGRESS);
+      } catch (err) {
+        console.error("Failed to clear local challenge state:", err);
+      }
+    }
+  },
+
+  /**
    * Get student's local challenge progress and registration state
    */
   getLocalState(): StudentProgressState {

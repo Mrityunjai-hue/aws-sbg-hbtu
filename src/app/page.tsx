@@ -100,15 +100,15 @@ export default function HomePage() {
           </div>
 
           {/* Micro trust row */}
-          <div className="mt-8 pt-6 border-t border-emerald-950/80 flex items-center gap-6 text-xs text-slate-300 font-mono">
+          <div className="mt-8 pt-6 border-t border-outline flex items-center gap-6 text-xs text-on-surface-variant font-mono">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-emerald-300 font-semibold">Free Membership</span>
+              <span className="text-primary-accent font-semibold">Free Membership</span>
             </div>
             <span>•</span>
-            <div className="text-slate-200">100% Student-Led</div>
+            <div className="text-on-background font-semibold">100% Student-Led</div>
             <span>•</span>
-            <div className="text-slate-200">Campus Community</div>
+            <div className="text-on-background font-semibold">Campus Community</div>
           </div>
         </div>
 

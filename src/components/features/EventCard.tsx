@@ -86,11 +86,11 @@ export function EventCard({
         />
 
         {/* Date floating badge */}
-        <div className="absolute top-3 left-3 flex flex-col items-center justify-center min-w-[54px] px-2.5 py-1.5 rounded-2xl bg-[#070d0a]/90 backdrop-blur-md border border-emerald-500/30 shadow-md">
+        <div className="absolute top-3 left-3 flex flex-col items-center justify-center min-w-[54px] px-2.5 py-1.5 rounded-2xl bg-surface-lowest/90 backdrop-blur-md border border-outline shadow-md">
           <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-400">
             {month}
           </span>
-          <span className="font-mono text-lg font-black leading-none text-slate-100">
+          <span className="font-mono text-lg font-black leading-none text-on-background">
             {day}
           </span>
         </div>
@@ -98,15 +98,15 @@ export function EventCard({
         {/* Status & Category Pills */}
         <div className="absolute top-3 right-3 flex items-center gap-1.5">
           {isPast ? (
-            <span className="px-2.5 py-0.5 rounded-full bg-slate-800/90 text-slate-400 border border-slate-700 font-mono text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
+            <span className="px-2.5 py-0.5 rounded-full bg-surface-low/90 text-on-surface-variant border border-outline font-mono text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
               COMPLETED SESSION
             </span>
           ) : isToday ? (
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/25 text-emerald-300 border border-emerald-400 font-mono text-[10px] font-black uppercase tracking-wider animate-pulse backdrop-blur-md">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/25 text-emerald-400 border border-emerald-400 font-mono text-[10px] font-black uppercase tracking-wider animate-pulse backdrop-blur-md">
               LIVE TODAY
             </span>
           ) : (
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
               UPCOMING
             </span>
           )}
@@ -128,12 +128,12 @@ export function EventCard({
                   isToday
                     ? "bg-emerald-400 animate-ping"
                     : isPast
-                    ? "bg-slate-500"
+                    ? "bg-on-surface-variant/40"
                     : "bg-amber-400 animate-pulse"
                 }`}
               />
-              <span className="font-semibold text-slate-300">{event.time}</span>
-              {year && <span className="text-slate-500">• {year}</span>}
+              <span className="font-semibold text-on-background">{event.time}</span>
+              {year && <span className="text-on-surface-variant">• {year}</span>}
             </div>
           )}
 

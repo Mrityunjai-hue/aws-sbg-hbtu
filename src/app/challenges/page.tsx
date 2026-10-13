@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ACTIVE_14DAY_CHALLENGE,
   ChallengeDayModule,
@@ -26,6 +27,9 @@ export default function ChallengesPage() {
     completedDays: [],
     quizAnswers: {},
     notesByDay: {},
+    triesByDay: {},
+    completedTimestamps: {},
+    lastCompletedAt: null,
     totalPoints: 0,
     currentStreak: 0,
   });
@@ -43,6 +47,13 @@ export default function ChallengesPage() {
   };
 
   useEffect(() => {
+    // If URL has ?reset=true or ?clear=true, reset test registration immediately
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("reset") === "true" || urlParams.get("clear") === "true") {
+        ChallengeService.resetLocalState();
+      }
+    }
     refreshState();
   }, []);
 
@@ -59,6 +70,13 @@ export default function ChallengesPage() {
     setActiveTab("modules");
   };
 
+  const handleResetRegistration = () => {
+    if (confirm("Reset challenge registration and start with a fresh state? All test progress will be cleared.")) {
+      ChallengeService.resetLocalState();
+      refreshState();
+    }
+  };
+
   const filteredModules = ACTIVE_14DAY_CHALLENGE.modules.filter((m) => {
     if (curriculumFilter === "core") return m.moduleNumber <= 5;
     if (curriculumFilter === "data") return m.moduleNumber >= 6 && m.moduleNumber <= 8;
@@ -69,6 +87,30 @@ export default function ChallengesPage() {
 
   const currentRank = leaderboard.findIndex((s) => s.id === "local-user") + 1;
   const progressPercent = Math.round((studentState.completedDays.length / 15) * 100);
+
+  const tabs = [
+    {
+      id: "modules" as const,
+      label: "15-Module Curriculum & Assessments",
+      icon: "menu_book",
+    },
+    {
+      id: "leaderboard" as const,
+      label: "Official Leaderboard Standings",
+      icon: "leaderboard",
+      badge: "TOP 3 HONORS",
+    },
+    {
+      id: "roadmap" as const,
+      label: "Certification Roadmap Guide",
+      icon: "map",
+    },
+    {
+      id: "rules" as const,
+      label: "Attempt Scoring & Criteria",
+      icon: "verified_user",
+    },
+  ];
 
   return (
     <div className="site-container py-8 sm:py-12 md:py-16 space-y-10">
@@ -100,28 +142,32 @@ export default function ChallengesPage() {
 
         <div className="shrink-0 flex flex-wrap items-center gap-3">
           {!studentState.isRegistered ? (
-            <button
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setIsRegisterModalOpen(true)}
               className="btn-3d-aws px-6 py-3.5 rounded-xl font-mono text-xs sm:text-sm font-extrabold text-black uppercase tracking-wider flex items-center gap-2"
             >
               <span className="material-symbols-outlined text-base">how_to_reg</span>
               <span>Register for Challenge</span>
-            </button>
+            </motion.button>
           ) : (
-            <div className="p-3 px-4 rounded-2xl bg-surface-low border border-primary-accent/40 flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center justify-center font-mono font-bold text-xs">
-                {studentState.currentStreak}d
-              </div>
-              <div className="font-mono text-xs">
-                <span className="text-on-surface-variant block">Active Streak</span>
-                <span className="text-on-background font-bold">{studentState.totalPoints} PTS</span>
+            <div className="flex items-center gap-2">
+              <div className="p-3 px-4 rounded-2xl bg-surface-low border border-primary-accent/40 flex items-center gap-3 shadow-md">
+                <div className="h-9 w-9 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center justify-center font-mono font-bold text-xs">
+                  {studentState.currentStreak}d
+                </div>
+                <div className="font-mono text-xs">
+                  <span className="text-on-surface-variant block">Active Streak</span>
+                  <span className="text-on-background font-bold">{studentState.totalPoints} PTS</span>
+                </div>
               </div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Leader Announcement Banner (Executive Leadership Dispatch, No Emojis) */}
+      {/* Leader Announcement Banner (Executive Leadership Dispatch) */}
       <LeaderAnnouncementBanner
         onOpenRoadmap={() => setIsRoadmapModalOpen(true)}
         onRegisterClick={() => setIsRegisterModalOpen(true)}
@@ -130,10 +176,14 @@ export default function ChallengesPage() {
 
       {/* Student Personal Dashboard HUD (When Registered) */}
       {studentState.isRegistered && studentState.student && (
-        <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-primary-accent/15 via-surface-low to-secondary-accent/10 border border-primary-accent/40 shadow-xl space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-6 sm:p-7 rounded-3xl liquid-glass bg-gradient-to-r from-primary-accent/15 via-surface-low to-secondary-accent/10 border border-primary-accent/40 shadow-xl space-y-4"
+        >
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="h-12 w-12 rounded-2xl bg-primary-accent text-white font-mono font-black text-base flex items-center justify-center shadow-lg shadow-primary-accent/20">
+              <div className="h-12 w-12 rounded-2xl bg-primary-accent text-white font-mono font-black text-base flex items-center justify-center shadow-lg shadow-primary-accent/25">
                 {studentState.student.name.slice(0, 2).toUpperCase()}
               </div>
               <div>
@@ -141,7 +191,7 @@ export default function ChallengesPage() {
                   <h3 className="font-extrabold text-base text-on-background">
                     {studentState.student.name}
                   </h3>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-bold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
                     VERIFIED CANDIDATE
                   </span>
                 </div>
@@ -151,7 +201,7 @@ export default function ChallengesPage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-6 font-mono">
+            <div className="flex flex-wrap items-center gap-5 sm:gap-6 font-mono">
               <div className="text-center">
                 <div className="text-[10px] text-on-surface-variant uppercase">Active Streak</div>
                 <div className="text-lg font-black text-amber-400">
@@ -181,6 +231,19 @@ export default function ChallengesPage() {
                   </div>
                 </div>
               )}
+
+              {/* Reset Registration Button for Test Cleanup */}
+              <div className="text-center sm:pl-2">
+                <button
+                  type="button"
+                  onClick={handleResetRegistration}
+                  title="Remove test registration and start fresh"
+                  className="px-2.5 py-1.5 rounded-xl border border-outline hover:border-red-500/50 hover:bg-red-500/10 text-on-surface-variant hover:text-red-400 text-[11px] font-mono transition-colors flex items-center gap-1"
+                >
+                  <span className="material-symbols-outlined text-sm">restart_alt</span>
+                  <span>Reset Test</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -197,225 +260,212 @@ export default function ChallengesPage() {
               />
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
 
-      {/* Navigation Tabs Bar (Scrollable on Mobile) */}
-      <div className="flex items-center gap-2 border-b border-emerald-500/20 pb-3 overflow-x-auto no-scrollbar w-full">
-        <button
-          onClick={() => setActiveTab("modules")}
-          className={`shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
-            activeTab === "modules"
-              ? "bg-primary-accent text-slate-950 font-black shadow-lg shadow-primary-accent/25 ring-1 ring-primary-accent"
-              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
-          }`}
-        >
-          <span className="material-symbols-outlined text-base">menu_book</span>
-          <span>15-Module Curriculum & Assessments</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("leaderboard")}
-          className={`shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
-            activeTab === "leaderboard"
-              ? "bg-primary-accent text-slate-950 font-black shadow-lg shadow-primary-accent/25 ring-1 ring-primary-accent"
-              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
-          }`}
-        >
-          <span className="material-symbols-outlined text-base">leaderboard</span>
-          <span>Official Leaderboard Standings</span>
-          <span className="px-2 py-0.5 rounded-full bg-amber-400 text-black text-[10px] font-black">
-            TOP 3 HONORS
-          </span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("roadmap")}
-          className={`shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
-            activeTab === "roadmap"
-              ? "bg-primary-accent text-slate-950 font-black shadow-lg shadow-primary-accent/25 ring-1 ring-primary-accent"
-              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
-          }`}
-        >
-          <span className="material-symbols-outlined text-base">map</span>
-          <span>Certification Roadmap Guide</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("rules")}
-          className={`shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-all ${
-            activeTab === "rules"
-              ? "bg-primary-accent text-slate-950 font-black shadow-lg shadow-primary-accent/25 ring-1 ring-primary-accent"
-              : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
-          }`}
-        >
-          <span className="material-symbols-outlined text-base">verified_user</span>
-          <span>Attempt Scoring & Criteria</span>
-        </button>
+      {/* Navigation Tabs Bar with Liquid Sliding Pill Indicator (Zero Browser Scrollbars) */}
+      <div className="flex flex-wrap items-center gap-2.5 sm:overflow-visible no-scrollbar pb-3 border-b border-outline w-full">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <motion.button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              whileHover={{ y: -2, scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+              className={`relative shrink-0 flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-mono text-xs font-bold transition-colors ${
+                isActive
+                  ? "text-slate-950 font-black"
+                  : "bg-surface-low text-on-surface-variant hover:text-on-background hover:bg-surface-lowest border border-outline"
+              }`}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="activeTabIndicator"
+                  className="absolute inset-0 rounded-2xl bg-primary-accent shadow-lg shadow-primary-accent/30 ring-1 ring-primary-accent"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.35 }}
+                />
+              )}
+              <span className="relative z-10 material-symbols-outlined text-base">{tab.icon}</span>
+              <span className="relative z-10">{tab.label}</span>
+              {tab.badge && (
+                <span className="relative z-10 px-2 py-0.5 rounded-full bg-amber-400 text-black text-[10px] font-black">
+                  {tab.badge}
+                </span>
+              )}
+            </motion.button>
+          );
+        })}
       </div>
 
-      {/* TAB 1: 15-MODULE CURRICULUM */}
-      {activeTab === "modules" && (
-        <div className="space-y-6">
-          {/* Detailed Domain Filters (Scrollable on Mobile) */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto py-1">
-              <button
-                onClick={() => setCurriculumFilter("all")}
-                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
-                  curriculumFilter === "all"
-                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
-                }`}
-              >
-                All 15 Modules
-              </button>
-              <button
-                onClick={() => setCurriculumFilter("core")}
-                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
-                  curriculumFilter === "core"
-                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
-                }`}
-              >
-                Core Cloud & Compute (M1–M5)
-              </button>
-              <button
-                onClick={() => setCurriculumFilter("data")}
-                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
-                  curriculumFilter === "data"
-                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
-                }`}
-              >
-                Storage, DB & AI/ML (M6–M8)
-              </button>
-              <button
-                onClick={() => setCurriculumFilter("security")}
-                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
-                  curriculumFilter === "security"
-                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
-                }`}
-              >
-                Security & Governance (M9–M11)
-              </button>
-              <button
-                onClick={() => setCurriculumFilter("arch")}
-                className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
-                  curriculumFilter === "arch"
-                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
-                }`}
-              >
-                Architecture & Capstone (M12–M15)
-              </button>
+      {/* Smooth Gliding Tab Content Transitions */}
+      <AnimatePresence mode="wait">
+        {/* TAB 1: 15-MODULE CURRICULUM */}
+        {activeTab === "modules" && (
+          <motion.div
+            key="tab-modules"
+            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6"
+          >
+            {/* Domain Filters (Flex Wrap, Zero Horizontal Scrollbars) */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-2 py-1 no-scrollbar w-full sm:w-auto">
+                {[
+                  { id: "all" as const, label: "All 15 Modules" },
+                  { id: "core" as const, label: "Core Cloud & Compute (M1–M5)" },
+                  { id: "data" as const, label: "Storage, DB & AI/ML (M6–M8)" },
+                  { id: "security" as const, label: "Security & Governance (M9–M11)" },
+                  { id: "arch" as const, label: "Architecture & Capstone (M12–M15)" },
+                ].map((f) => {
+                  const isSelected = curriculumFilter === f.id;
+                  return (
+                    <motion.button
+                      key={f.id}
+                      onClick={() => setCurriculumFilter(f.id)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
+                        isSelected
+                          ? "bg-primary-accent text-slate-950 font-black shadow-md shadow-primary-accent/25"
+                          : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
+                      }`}
+                    >
+                      {f.label}
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              <div className="text-xs font-mono text-on-surface-variant flex items-center gap-2 shrink-0">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                <span>
+                  {studentState.completedDays.length} of 15 Modules Verified
+                </span>
+              </div>
             </div>
 
-            <div className="text-xs font-mono text-on-surface-variant flex items-center gap-2 shrink-0">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              <span>
-                {studentState.completedDays.length} of 15 Modules Verified
-              </span>
+            {/* Module Cards Grid with Scroll Reveal Stagger */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredModules.map((module) => (
+                <DayModuleCard
+                  key={module.day}
+                  module={module}
+                  isCompleted={studentState.completedDays.includes(module.day)}
+                  onOpenQuiz={handleOpenQuiz}
+                  isRegistered={studentState.isRegistered}
+                  onPromptRegister={() => setIsRegisterModalOpen(true)}
+                />
+              ))}
             </div>
-          </div>
+          </motion.div>
+        )}
 
-          {/* Module Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredModules.map((module) => (
-              <DayModuleCard
-                key={module.day}
-                module={module}
-                isCompleted={studentState.completedDays.includes(module.day)}
-                onOpenQuiz={handleOpenQuiz}
-                isRegistered={studentState.isRegistered}
-                onPromptRegister={() => setIsRegisterModalOpen(true)}
-              />
-            ))}
-          </div>
-        </div>
-      )}
+        {/* TAB 2: LIVE LEADERBOARD */}
+        {activeTab === "leaderboard" && (
+          <motion.div
+            key="tab-leaderboard"
+            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <LeaderboardPodium
+              students={leaderboard}
+              currentUserId={studentState.student?.rollNo}
+            />
+          </motion.div>
+        )}
 
-      {/* TAB 2: LIVE LEADERBOARD */}
-      {activeTab === "leaderboard" && (
-        <LeaderboardPodium
-          students={leaderboard}
-          currentUserId={studentState.student?.rollNo}
-        />
-      )}
+        {/* TAB 3: CERTIFICATION ROADMAP */}
+        {activeTab === "roadmap" && (
+          <motion.div
+            key="tab-roadmap"
+            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6"
+          >
+            <CertificationRoadmapGuide
+              onSelectCert={() => {
+                if (!studentState.isRegistered) {
+                  setIsRegisterModalOpen(true);
+                } else {
+                  setActiveTab("modules");
+                }
+              }}
+            />
+          </motion.div>
+        )}
 
-      {/* TAB 3: CERTIFICATION ROADMAP */}
-      {activeTab === "roadmap" && (
-        <div className="space-y-6">
-          <CertificationRoadmapGuide
-            onSelectCert={() => {
-              if (!studentState.isRegistered) {
-                setIsRegisterModalOpen(true);
-              } else {
-                setActiveTab("modules");
-              }
-            }}
-          />
-        </div>
-      )}
-
-      {/* TAB 4: RULES & SCORING */}
-      {activeTab === "rules" && (
-        <div className="space-y-6 max-w-4xl">
-          <div className="p-6 sm:p-8 rounded-3xl bg-surface-low border border-outline space-y-6">
-            <div>
-              <h2 className="text-xl font-black text-on-background">
-                Assessment Standards, Attempt Scoring & Executive Honors Allocation
-              </h2>
-              <p className="text-xs font-mono text-on-surface-variant mt-1">
-                Engineering criteria governing the HBTU AWS Learning Challenge Sprint.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
-                <div className="flex items-center gap-2 text-primary-accent font-mono text-xs font-bold">
-                  <span className="material-symbols-outlined text-base">verified_user</span>
-                  <span>Dynamic Attempt-Based Scoring</span>
-                </div>
-                <p className="text-xs text-on-surface-variant leading-relaxed">
-                  First-attempt mastery awards 100% full points. If an assessment is missed on the 1st try, points decrease with subsequent attempts (2nd: 75%, 3rd: 50%, 4th+: 25% floor) to reward genuine first-try preparation.
+        {/* TAB 4: RULES & SCORING */}
+        {activeTab === "rules" && (
+          <motion.div
+            key="tab-rules"
+            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6 max-w-4xl"
+          >
+            <div className="p-6 sm:p-8 rounded-3xl bg-surface-low border border-outline space-y-6 shadow-md">
+              <div>
+                <h2 className="text-xl font-black text-on-background">
+                  Assessment Standards, Attempt Scoring & Executive Honors Allocation
+                </h2>
+                <p className="text-xs font-mono text-on-surface-variant mt-1">
+                  Engineering criteria governing the HBTU AWS Learning Challenge Sprint.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
-                <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold">
-                  <span className="material-symbols-outlined text-base">timer</span>
-                  <span>Earliest-Finish Leaderboard Tie-Breaking</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
+                  <div className="flex items-center gap-2 text-primary-accent font-mono text-xs font-bold">
+                    <span className="material-symbols-outlined text-base">verified_user</span>
+                    <span>Dynamic Attempt-Based Scoring</span>
+                  </div>
+                  <p className="text-xs text-on-surface-variant leading-relaxed">
+                    First-attempt mastery awards 100% full points. If an assessment is missed on the 1st try, points decrease with subsequent attempts (2nd: 75%, 3rd: 50%, 4th+: 25% floor) to reward genuine first-try preparation.
+                  </p>
                 </div>
-                <p className="text-xs text-on-surface-variant leading-relaxed">
-                  In case of point ties at any rank, the builder who completed the assessments earliest (timestamp of verification) is placed at the top, eliminating standings clashes.
-                </p>
-              </div>
 
-              <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
-                <div className="flex items-center gap-2 text-secondary-accent font-mono text-xs font-bold">
-                  <span className="material-symbols-outlined text-base">calculate</span>
-                  <span>Point Distribution Structure</span>
+                <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
+                  <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold">
+                    <span className="material-symbols-outlined text-base">timer</span>
+                    <span>Earliest-Finish Leaderboard Tie-Breaking</span>
+                  </div>
+                  <p className="text-xs text-on-surface-variant leading-relaxed">
+                    In case of point ties at any rank, the builder who completed the assessments earliest (timestamp of verification) is placed at the top, eliminating standings clashes.
+                  </p>
                 </div>
-                <p className="text-xs text-on-surface-variant leading-relaxed">
-                  Modules 1 through 13 award up to 150 Points. Module 14 awards up to 225 Points. The Module 15 Capstone awards up to 300 Points based on attempt weighting.
-                </p>
-              </div>
 
-              <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
-                <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
-                  <span className="material-symbols-outlined text-base">workspace_premium</span>
-                  <span>LinkedIn Spotlight & Goodies Protocol</span>
+                <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
+                  <div className="flex items-center gap-2 text-secondary-accent font-mono text-xs font-bold">
+                    <span className="material-symbols-outlined text-base">calculate</span>
+                    <span>Point Distribution Structure</span>
+                  </div>
+                  <p className="text-xs text-on-surface-variant leading-relaxed">
+                    Modules 1 through 13 award up to 150 Points. Module 14 awards up to 225 Points. The Module 15 Capstone awards up to 300 Points based on attempt weighting.
+                  </p>
                 </div>
-                <p className="text-xs text-on-surface-variant leading-relaxed">
-                  The top 3 validated candidates upon sprint completion receive official LinkedIn executive features, exclusive AWS & SBG Swag & Goodies kits, chapter core team recognition, and 1-on-1 industry mentorship.
-                </p>
+
+                <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
+                  <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
+                    <span className="material-symbols-outlined text-base">workspace_premium</span>
+                    <span>LinkedIn Spotlight & Goodies Protocol</span>
+                  </div>
+                  <p className="text-xs text-on-surface-variant leading-relaxed">
+                    The top 3 validated candidates upon sprint completion receive official LinkedIn executive features, exclusive AWS & SBG Swag & Goodies kits, chapter core team recognition, and 1-on-1 industry mentorship.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Modals */}
       <ChallengeRegisterModal
