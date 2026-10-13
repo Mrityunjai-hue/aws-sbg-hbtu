@@ -281,10 +281,10 @@ export function CertificationRoadmapGuide({
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3 py-1.5 rounded-xl font-mono text-xs transition-colors ${
+                className={`px-3 py-1.5 rounded-xl font-mono text-xs transition-all ${
                   selectedCategory === cat.id
-                    ? "bg-on-background text-background font-bold shadow"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
+                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 font-bold shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline hover:border-emerald-500/30"
                 }`}
               >
                 {cat.label}
@@ -396,10 +396,10 @@ export function CertificationRoadmapGuide({
               <button
                 key={lvl.id}
                 onClick={() => setSelectedLevel(lvl.id)}
-                className={`px-3 py-1.5 rounded-xl font-mono text-xs transition-colors ${
+                className={`px-3 py-1.5 rounded-xl font-mono text-xs transition-all ${
                   selectedLevel === lvl.id
-                    ? "bg-on-background text-background font-bold shadow"
-                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline"
+                    ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400 font-bold shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+                    : "bg-surface-low text-on-surface-variant hover:text-on-background border border-outline hover:border-emerald-500/30"
                 }`}
               >
                 {lvl.label}
@@ -592,10 +592,10 @@ export function CertificationRoadmapGuide({
           </div>
           <div>
             <h4 className="text-sm font-bold text-on-background">
-              Win 100% Sponsored Official Exam Vouchers
+              Earn LinkedIn Executive Spotlight & AWS/SBG Goodies Pack
             </h4>
             <p className="text-xs font-mono text-on-surface-variant">
-              The Top 3 verified students on the 14-Day Sprint Leaderboard receive fully funded AWS Certification vouchers from AWS Student Builder Group HBTU.
+              The Top 3 verified students on the 14-Day Sprint Leaderboard receive official LinkedIn executive features, exclusive builder goodies, chapter core team honors, and 1-on-1 industry mentorship.
             </p>
           </div>
         </div>

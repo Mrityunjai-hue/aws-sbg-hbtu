@@ -469,7 +469,7 @@ export const PERSONA_RECOMMENDATIONS: PersonaRecommendation[] = [
     recommendedCertId: "clf-c02",
     recommendedCertName: "AWS Certified Cloud Practitioner (CLF-C02)",
     reasoning: "Validates fundamental knowledge of AWS Cloud terminology, core services (EC2, S3, RDS, IAM), billing structures, and security responsibilities.",
-    nextSteps: "Enrolls you in our 14-day challenge sprint; prepares you for entry-level internships and qualifies you for advanced Associate exam voucher sponsorships.",
+    nextSteps: "Enrolls you in our 14-day challenge sprint; prepares you for entry-level internships and qualifies you for chapter recognition, LinkedIn spotlight, and 1-on-1 industry mentorship.",
   },
   {
     id: "business",

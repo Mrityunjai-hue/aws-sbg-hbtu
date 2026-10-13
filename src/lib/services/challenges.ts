@@ -17,12 +17,69 @@ export interface StudentProgressState {
   completedDays: number[];
   quizAnswers: Record<number, number>;
   notesByDay: Record<number, string>;
+  triesByDay: Record<number, number>; // Attempts count per day module
+  completedTimestamps: Record<number, number>; // Completion timestamp per day module
+  lastCompletedAt: number | null; // Epoch timestamp of latest completed module (for tie-breaking)
   totalPoints: number;
   currentStreak: number;
 }
 
+export interface VerificationResult {
+  success: boolean;
+  pointsAwarded: number;
+  attemptNumber?: number;
+  percentage?: number;
+  explanation: string;
+  alreadyCompleted?: boolean;
+}
+
 const STORAGE_KEY_STUDENT = "aws_sbg_14day_student";
 const STORAGE_KEY_PROGRESS = "aws_sbg_14day_progress";
+
+/**
+ * Dynamic Scoring Calculator
+ * 1st try: 100% full points
+ * 2nd try: 75% points (-25% penalty)
+ * 3rd try: 50% points (-50% penalty)
+ * 4th+ try: 25% minimum floor points
+ */
+export function calculateAttemptPoints(
+  maxPoints: number,
+  attemptNumber: number
+): {
+  awardedPoints: number;
+  percentage: number;
+  penaltyExplanation: string;
+} {
+  if (attemptNumber <= 1) {
+    return {
+      awardedPoints: maxPoints,
+      percentage: 100,
+      penaltyExplanation: "First-attempt perfection: 100% full points awarded!",
+    };
+  } else if (attemptNumber === 2) {
+    const awarded = Math.round(maxPoints * 0.75);
+    return {
+      awardedPoints: awarded,
+      percentage: 75,
+      penaltyExplanation: "Second attempt: 75% points awarded (-25% retry penalty).",
+    };
+  } else if (attemptNumber === 3) {
+    const awarded = Math.round(maxPoints * 0.50);
+    return {
+      awardedPoints: awarded,
+      percentage: 50,
+      penaltyExplanation: "Third attempt: 50% points awarded (-50% retry penalty).",
+    };
+  } else {
+    const awarded = Math.round(maxPoints * 0.25);
+    return {
+      awardedPoints: Math.max(awarded, 10),
+      percentage: 25,
+      penaltyExplanation: `Attempt #${attemptNumber}: 25% minimum floor points awarded.`,
+    };
+  }
+}
 
 export const ChallengeService = {
   /**
@@ -36,6 +93,9 @@ export const ChallengeService = {
         completedDays: [],
         quizAnswers: {},
         notesByDay: {},
+        triesByDay: {},
+        completedTimestamps: {},
+        lastCompletedAt: null,
         totalPoints: 0,
         currentStreak: 0,
       };
@@ -48,7 +108,16 @@ export const ChallengeService = {
       const student: StudentRegistrationInput | null = storedStudent ? JSON.parse(storedStudent) : null;
       const progress = storedProgress
         ? JSON.parse(storedProgress)
-        : { completedDays: [], quizAnswers: {}, notesByDay: {}, totalPoints: 0, currentStreak: 0 };
+        : {
+            completedDays: [],
+            quizAnswers: {},
+            notesByDay: {},
+            triesByDay: {},
+            completedTimestamps: {},
+            lastCompletedAt: null,
+            totalPoints: 0,
+            currentStreak: 0,
+          };
 
       return {
         isRegistered: !!student,
@@ -56,6 +125,9 @@ export const ChallengeService = {
         completedDays: progress.completedDays || [],
         quizAnswers: progress.quizAnswers || {},
         notesByDay: progress.notesByDay || {},
+        triesByDay: progress.triesByDay || {},
+        completedTimestamps: progress.completedTimestamps || {},
+        lastCompletedAt: progress.lastCompletedAt || null,
         totalPoints: progress.totalPoints || 0,
         currentStreak: progress.currentStreak || 0,
       };
@@ -66,6 +138,9 @@ export const ChallengeService = {
         completedDays: [],
         quizAnswers: {},
         notesByDay: {},
+        triesByDay: {},
+        completedTimestamps: {},
+        lastCompletedAt: null,
         totalPoints: 0,
         currentStreak: 0,
       };
@@ -103,13 +178,13 @@ export const ChallengeService = {
 
   /**
    * Verify and complete a daily module
+   * Dynamic scoring: 1st attempt full points, subsequent attempts penalized proportionally
    */
-  async submitModuleVerification(dayNumber: number, selectedOptionIndex: number, notes: string): Promise<{
-    success: boolean;
-    pointsAwarded: number;
-    explanation: string;
-    alreadyCompleted?: boolean;
-  }> {
+  async submitModuleVerification(
+    dayNumber: number,
+    selectedOptionIndex: number,
+    notes: string
+  ): Promise<VerificationResult> {
     const targetModule = ACTIVE_14DAY_CHALLENGE.modules.find((m) => m.day === dayNumber);
     if (!targetModule) {
       return { success: false, pointsAwarded: 0, explanation: "Invalid module day." };
@@ -125,27 +200,57 @@ export const ChallengeService = {
       };
     }
 
+    const previousTries = currentState.triesByDay[dayNumber] || 0;
+    const currentAttempt = previousTries + 1;
+
     const isCorrect = selectedOptionIndex === targetModule.verificationQuestion.correctIndex;
     if (!isCorrect) {
+      // Record failed attempt in local state
+      const updatedTriesState = {
+        ...currentState,
+        triesByDay: {
+          ...currentState.triesByDay,
+          [dayNumber]: currentAttempt,
+        },
+      };
+
+      if (typeof window !== "undefined") {
+        localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(updatedTriesState));
+      }
+
       return {
         success: false,
         pointsAwarded: 0,
-        explanation: "Incorrect answer. Review the concept on AWS Skill Builder and try again to verify genuine completion!",
+        attemptNumber: currentAttempt,
+        explanation: `Incorrect answer (Attempt #${currentAttempt}). Each retry reduces available points (1st: 100%, 2nd: 75%, 3rd: 50%, 4th+: 25%). Review AWS Skill Builder and try again to verify genuine mastery!`,
       };
     }
 
-    // Calculation
-    const pointsAwarded = targetModule.basePoints + targetModule.quizPoints;
+    // Correct Answer: Calculate dynamic points based on attempt number
+    const maxModulePoints = targetModule.basePoints + targetModule.quizPoints;
+    const { awardedPoints, percentage, penaltyExplanation } = calculateAttemptPoints(
+      maxModulePoints,
+      currentAttempt
+    );
+
+    const completionEpoch = Date.now();
     const newCompletedDays = [...currentState.completedDays, dayNumber].sort((a, b) => a - b);
     const newQuizAnswers = { ...currentState.quizAnswers, [dayNumber]: selectedOptionIndex };
     const newNotes = { ...currentState.notesByDay, [dayNumber]: notes };
-    const newTotalPoints = currentState.totalPoints + pointsAwarded;
+    const newTriesByDay = { ...currentState.triesByDay, [dayNumber]: currentAttempt };
+    const newCompletedTimestamps = { ...currentState.completedTimestamps, [dayNumber]: completionEpoch };
+    const newTotalPoints = currentState.totalPoints + awardedPoints;
     const newStreak = currentState.currentStreak + 1;
 
-    const updatedState = {
+    const updatedState: StudentProgressState = {
+      isRegistered: currentState.isRegistered,
+      student: currentState.student,
       completedDays: newCompletedDays,
       quizAnswers: newQuizAnswers,
       notesByDay: newNotes,
+      triesByDay: newTriesByDay,
+      completedTimestamps: newCompletedTimestamps,
+      lastCompletedAt: completionEpoch,
       totalPoints: newTotalPoints,
       currentStreak: newStreak,
     };
@@ -154,7 +259,7 @@ export const ChallengeService = {
       localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(updatedState));
     }
 
-    // Save to Firestore if available
+    // Save completion to Firestore if available
     if (db && currentState.student) {
       try {
         await Promise.race([
@@ -165,8 +270,10 @@ export const ChallengeService = {
             studentName: currentState.student.name,
             rollNo: currentState.student.rollNo,
             notes,
-            pointsEarned: pointsAwarded,
+            pointsEarned: awardedPoints,
+            attemptNumber: currentAttempt,
             completedAt: serverTimestamp(),
+            epochCompletedAt: completionEpoch,
           }),
           new Promise((_, reject) => setTimeout(() => reject(new Error("firestore_timeout")), 1500)),
         ]);
@@ -177,13 +284,19 @@ export const ChallengeService = {
 
     return {
       success: true,
-      pointsAwarded,
-      explanation: targetModule.verificationQuestion.explanation,
+      pointsAwarded: awardedPoints,
+      attemptNumber: currentAttempt,
+      percentage,
+      explanation: `${penaltyExplanation} ${targetModule.verificationQuestion.explanation}`,
     };
   },
 
   /**
    * Get merged live leaderboard
+   * Sort hierarchy:
+   * 1. Total Points DESC
+   * 2. Earliest completion timestamp ASC (first to finish wins ties)
+   * 3. Streak Days DESC
    */
   async getLeaderboard(): Promise<LeaderboardStudent[]> {
     const currentState = this.getLocalState();
@@ -199,7 +312,18 @@ export const ChallengeService = {
         .toUpperCase()
         .slice(0, 2);
 
-      const existingIndex = roster.findIndex((s) => s.id === "local-user" || s.rollOrHandle.includes(student.rollNo));
+      const existingIndex = roster.findIndex(
+        (s) => s.id === "local-user" || s.rollOrHandle.includes(student.rollNo)
+      );
+
+      const finishTimeStr = currentState.lastCompletedAt
+        ? `Finished · ${new Date(currentState.lastCompletedAt).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })} IST`
+        : "In Progress";
+
+      const totalAttempts = Object.values(currentState.triesByDay).reduce((a, b) => a + b, 0);
 
       const localEntry: LeaderboardStudent = {
         id: "local-user",
@@ -213,6 +337,9 @@ export const ChallengeService = {
         completedDays: currentState.completedDays,
         badge: "Priority Member",
         avatarMonogram: monogram || "ME",
+        completedAt: currentState.lastCompletedAt || undefined,
+        finishTimeStr,
+        attemptsCount: totalAttempts,
       };
 
       if (existingIndex >= 0) {
@@ -251,6 +378,8 @@ export const ChallengeService = {
               completedDays: d.completedDays || [],
               badge: "Priority Member",
               avatarMonogram: monogram,
+              completedAt: d.completedAt ? d.completedAt.toMillis() : undefined,
+              finishTimeStr: d.completedAt ? "Verified Entry" : undefined,
             });
           }
         });
@@ -259,18 +388,28 @@ export const ChallengeService = {
       }
     }
 
-    // Sort descending by points, then by streakDays
+    // Strict Tie-Breaking Order:
+    // 1. Highest Points First (DESC)
+    // 2. Earliest Completion Timestamp (ASC - first to finish wins ties at any rank)
+    // 3. Longest Streak (DESC)
     roster.sort((a, b) => {
-      if (b.points !== a.points) return b.points - a.points;
+      if (b.points !== a.points) {
+        return b.points - a.points;
+      }
+      const timeA = a.completedAt || Number.MAX_SAFE_INTEGER;
+      const timeB = b.completedAt || Number.MAX_SAFE_INTEGER;
+      if (timeA !== timeB) {
+        return timeA - timeB;
+      }
       return b.streakDays - a.streakDays;
     });
 
     // Re-assign badges based on new ranking
     return roster.map((student, idx) => {
       let badge: LeaderboardStudent["badge"] = "Priority Member";
-      if (idx === 0) badge = "Voucher Candidate Rank 1";
-      else if (idx === 1) badge = "Voucher Candidate Rank 2";
-      else if (idx === 2) badge = "Voucher Candidate Rank 3";
+      if (idx === 0) badge = "Rank 1 · LinkedIn Spotlight";
+      else if (idx === 1) badge = "Rank 2 · Goodies & Swag";
+      else if (idx === 2) badge = "Rank 3 · Team Recognition";
       else if (idx < 5) badge = "Merit Finalist";
 
       return {

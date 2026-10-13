@@ -50,8 +50,8 @@ export function LeaderAnnouncementBanner({
             <span>Starts Wed, 14 Oct</span>
           </span>
           <span className="text-xs font-mono px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
-            <span className="material-symbols-outlined text-sm">confirmation_number</span>
-            <span>Vouchers for Top 3</span>
+            <span className="material-symbols-outlined text-sm">workspace_premium</span>
+            <span>LinkedIn Spotlight & Goodies</span>
           </span>
         </div>
       </div>

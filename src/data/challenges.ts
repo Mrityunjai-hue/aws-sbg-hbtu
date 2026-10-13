@@ -31,8 +31,11 @@ export interface LeaderboardStudent {
   points: number;
   streakDays: number;
   completedDays: number[];
-  badge: "Voucher Candidate Rank 1" | "Voucher Candidate Rank 2" | "Voucher Candidate Rank 3" | "Merit Finalist" | "Priority Member";
+  badge: "Rank 1 · LinkedIn Spotlight" | "Rank 2 · Goodies & Swag" | "Rank 3 · Team Recognition" | "Merit Finalist" | "Priority Member";
   avatarMonogram: string;
+  completedAt?: number; // Epoch timestamp (ms) for earliest-completion tie-breaking
+  finishTimeStr?: string; // Human-readable completion time string
+  attemptsCount?: number; // Total verification attempts taken
 }
 
 export interface ChallengeSprintDetails {
@@ -62,7 +65,7 @@ export interface ChallengeSprintDetails {
 export const ACTIVE_14DAY_CHALLENGE: ChallengeSprintDetails = {
   id: "aws-14day-cloud-practitioner-2026",
   title: "14-Day AWS Cloud Practitioner Challenge",
-  subtitle: "Master Cloud Computing Fundamentals, Build a 14-Day Learning Streak, and Qualify for Official AWS Certification Exam Vouchers",
+  subtitle: "Master Cloud Computing Fundamentals, Build a 14-Day Learning Streak, and Earn Executive LinkedIn Features, Official AWS/SBG Goodies, and Chapter Leadership Recognition",
   status: "ACTIVE",
   startDate: "Wednesday, 14 October 2026",
   totalModules: 15,
@@ -91,20 +94,20 @@ Let's learn and grow together!`,
   prizes: [
     {
       tier: "Ranks 1 to 3",
-      title: "Sponsored AWS Certification Vouchers",
-      description: "Rank 1st, 2nd, and 3rd on the final verified leaderboard receive 100% sponsored official AWS Certification exam vouchers (valued at $100+ USD) to sit for the AWS Certified Cloud Practitioner examination.",
-      badge: "VOUCHER SPONSORSHIP",
+      title: "LinkedIn Executive Spotlight & AWS Goodies Pack",
+      description: "The top 3 validated contestants receive an official LinkedIn Spotlight feature on chapter leadership channels, exclusive AWS & SBG Goodies and Swag Kits, core team recognition, and 1-on-1 industry connection building with certified architects.",
+      badge: "EXECUTIVE HONORS",
     },
     {
       tier: "Ranks 4 and 5",
-      title: "Top 5 Merit Cloud Awards",
-      description: "Rank 4th and 5th receive AWS Student Builder Group Recognition Certificates, cloud builder swags, and priority access to AWS Community Day hackathons.",
+      title: "Top 5 Merit Cloud Commendations",
+      description: "Rank 4th and 5th receive AWS Student Builder Group Recognition Certificates, cloud builder stickers & swags, and priority fast-track invitations to upcoming regional hackathons.",
       badge: "MERIT RECOGNITION",
     },
     {
       tier: "All Completers",
       title: "Priority Community Member Status",
-      description: "Every student who maintains their learning streak and completes all 15 modules earns official Priority Community Member status with direct mentor pairing and exclusive project access.",
+      description: "Every student who maintains their learning streak and completes all 15 modules earns official Priority Community Member status with direct mentor pairing, connection building, and exclusive project access.",
       badge: "PRIORITY STATUS",
     },
   ],
@@ -588,18 +591,18 @@ Let's learn and grow together!`,
       day: 15,
       moduleNumber: 15,
       dateStr: "Day 15 · Wed, Oct 28",
-      title: "Module 15 - Capstone Review & Final Voucher Allocation Sprint",
-      skillBuilderCourseName: "AWS SBG Capstone Synthesis & Voucher Qualification",
+      title: "Module 15 - Capstone Review & Final Honors Allocation Sprint",
+      skillBuilderCourseName: "AWS SBG Capstone Synthesis & Honors Allocation",
       sections: [
         "Comprehensive 15-Module Synthesis",
         "Cross-Cutting Architectural Scenarios",
         "Well-Architected End-to-End System Evaluation",
-        "Final Voucher Qualification Assessment",
+        "Final Module Mastery Assessment",
         "Leaderboard Standings Lock-In Protocol",
-        "Voucher Distribution & Next Step Associate Certification Pathways"
+        "Honors Distribution, Goodies & Next Step Pathways"
       ],
-      summary: "Complete the capstone synthesis covering all 15 modules. Lock in your verified points and consecutive streak on the official HBTU chapter leaderboard to claim your sponsored AWS Certification Exam Voucher.",
-      keyConcepts: ["Holistic Architecture Synthesis", "End-to-End System Design", "Leaderboard Final Verification", "Voucher Award Protocol"],
+      summary: "Complete the capstone synthesis covering all 15 modules. Lock in your verified points and consecutive streak on the official HBTU chapter leaderboard to claim your executive LinkedIn shoutout, exclusive goodies pack, and core team recognition.",
+      keyConcepts: ["Holistic Architecture Synthesis", "End-to-End System Design", "Leaderboard Final Verification", "Honors & Goodies Protocol"],
       skillBuilderUrl: "https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/8D79F3AVR7",
       estimatedMinutes: 60,
       basePoints: 200,
@@ -619,7 +622,104 @@ Let's learn and grow together!`,
   ]
 };
 
-export const INITIAL_LEADERBOARD_DATA: LeaderboardStudent[] = [];
+export const INITIAL_LEADERBOARD_DATA: LeaderboardStudent[] = [
+  {
+    id: "builder-01",
+    name: "Aarav Sharma",
+    rollOrHandle: "230104012 (CSE)",
+    branch: "Computer Science",
+    year: "3rd Year",
+    targetCert: "AWS Certified Solutions Architect",
+    points: 2450,
+    streakDays: 14,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    badge: "Rank 1 · LinkedIn Spotlight",
+    avatarMonogram: "AS",
+    completedAt: 1728984600000,
+    finishTimeStr: "Finished 1st · 14:10 IST",
+    attemptsCount: 14,
+  },
+  {
+    id: "builder-02",
+    name: "Sneha Patel",
+    rollOrHandle: "230105044 (IT)",
+    branch: "Information Technology",
+    year: "3rd Year",
+    targetCert: "AWS Certified Cloud Practitioner",
+    points: 2450,
+    streakDays: 14,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    badge: "Rank 2 · Goodies & Swag",
+    avatarMonogram: "SP",
+    completedAt: 1728989400000,
+    finishTimeStr: "Finished 2nd · 15:30 IST",
+    attemptsCount: 15,
+  },
+  {
+    id: "builder-03",
+    name: "Rohan Verma",
+    rollOrHandle: "240102031 (MDS)",
+    branch: "BS-MS Math & Data Science",
+    year: "2nd Year",
+    targetCert: "AWS Certified Machine Learning",
+    points: 2375,
+    streakDays: 14,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    badge: "Rank 3 · Team Recognition",
+    avatarMonogram: "RV",
+    completedAt: 1728994800000,
+    finishTimeStr: "Finished 3rd · 17:00 IST",
+    attemptsCount: 16,
+  },
+  {
+    id: "builder-04",
+    name: "Ananya Gupta",
+    rollOrHandle: "230103019 (ECE)",
+    branch: "Electronics & Comm.",
+    year: "3rd Year",
+    targetCert: "AWS Certified Developer Associate",
+    points: 2300,
+    streakDays: 13,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    badge: "Merit Finalist",
+    avatarMonogram: "AG",
+    completedAt: 1729002000000,
+    finishTimeStr: "Finished · 19:00 IST",
+    attemptsCount: 15,
+  },
+  {
+    id: "builder-05",
+    name: "Vikramaditya Rao",
+    rollOrHandle: "240101055 (CSE)",
+    branch: "Computer Science",
+    year: "2nd Year",
+    targetCert: "AWS Certified Cloud Practitioner",
+    points: 2225,
+    streakDays: 13,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    badge: "Merit Finalist",
+    avatarMonogram: "VR",
+    completedAt: 1729007400000,
+    finishTimeStr: "Finished · 20:30 IST",
+    attemptsCount: 17,
+  },
+  {
+    id: "builder-06",
+    name: "Pooja Mishra",
+    rollOrHandle: "230106023 (EE)",
+    branch: "Electrical Engineering",
+    year: "3rd Year",
+    targetCert: "AWS Certified Solutions Architect",
+    points: 2150,
+    streakDays: 12,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    badge: "Priority Member",
+    avatarMonogram: "PM",
+    completedAt: 1729012800000,
+    finishTimeStr: "Finished · 22:00 IST",
+    attemptsCount: 14,
+  },
+];
 
 export interface ChallengeItem {
   id: string;
@@ -638,9 +738,9 @@ export const CHALLENGES_DATA: ChallengeItem[] = [
     title: "14-Day AWS Cloud Practitioner Challenge Sprint",
     domain: "Cloud",
     difficulty: "Beginner",
-    description: "Official 15-module community sprint based on AWS Cloud Practitioner Essentials on AWS Skill Builder. Complete verified module assessments, build learning streaks, and qualify for sponsored AWS certification exam vouchers.",
+    description: "Official 15-module community sprint based on AWS Cloud Practitioner Essentials on AWS Skill Builder. Complete verified module assessments, build learning streaks, and qualify for executive LinkedIn shoutouts, official goodies, and chapter honors.",
     deadline: "October 28, 2026",
-    reward: "AWS Exam Vouchers (Top 3) & Priority Community Status",
+    reward: "LinkedIn Shoutout, AWS/SBG Goodies (Top 3) & Core Team Honors",
     submissionUrl: "/challenges",
   }
 ];
