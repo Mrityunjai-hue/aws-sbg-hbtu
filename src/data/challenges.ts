@@ -31,7 +31,7 @@ export interface LeaderboardStudent {
   points: number;
   streakDays: number;
   completedDays: number[];
-  badge: "Rank 1 · LinkedIn Spotlight" | "Rank 2 · Goodies & Swag" | "Rank 3 · Team Recognition" | "Merit Finalist" | "Priority Member";
+  badge: string;
   avatarMonogram: string;
   completedAt?: number; // Epoch timestamp (ms) for earliest-completion tie-breaking
   finishTimeStr?: string; // Human-readable completion time string
@@ -65,7 +65,7 @@ export interface ChallengeSprintDetails {
 export const ACTIVE_14DAY_CHALLENGE: ChallengeSprintDetails = {
   id: "aws-14day-cloud-practitioner-2026",
   title: "14-Day AWS Cloud Practitioner Challenge",
-  subtitle: "Master Cloud Computing Fundamentals, Build a 14-Day Learning Streak, and Earn Executive LinkedIn Features, Official AWS/SBG Goodies, and Chapter Leadership Recognition",
+  subtitle: "Master Cloud Computing Fundamentals, Build a 14-Day Learning Streak, and Earn Executive Shoutouts, AWS Backpack for Rank 1, Goodies for Ranks 2-3, and Official Certificates, Stickers & Pens for All Participants",
   status: "ACTIVE",
   startDate: "Wednesday, 14 October 2026",
   totalModules: 15,
@@ -93,22 +93,22 @@ Let's learn and grow together!`,
   },
   prizes: [
     {
-      tier: "Ranks 1 to 3",
-      title: "LinkedIn Executive Spotlight & AWS Goodies Pack",
-      description: "The top 3 validated contestants receive an official LinkedIn Spotlight feature on chapter leadership channels, exclusive AWS & SBG Goodies and Swag Kits, core team recognition, and 1-on-1 industry connection building with certified architects.",
-      badge: "EXECUTIVE HONORS",
+      tier: "Rank 1 Winner",
+      title: "AWS Backpack & Official Shoutout",
+      description: "Official Shoutout across AWS SBG chapter leadership channels and an exclusive AWS Backpack for the Rank 1 winner.",
+      badge: "RANK 1 CHAMPION",
     },
     {
-      tier: "Ranks 4 and 5",
-      title: "Top 5 Merit Cloud Commendations",
-      description: "Rank 4th and 5th receive AWS Student Builder Group Recognition Certificates, cloud builder stickers & swags, and priority fast-track invitations to upcoming regional hackathons.",
-      badge: "MERIT RECOGNITION",
+      tier: "Ranks 2 and 3",
+      title: "AWS Goodies & Official Shoutout",
+      description: "Official Shoutout across chapter leadership channels along with exclusive AWS & SBG Goodies packs for Rank 2 and Rank 3 winners.",
+      badge: "PODIUM HONORS",
     },
     {
-      tier: "All Completers",
-      title: "Priority Community Member Status",
-      description: "Every student who maintains their learning streak and completes all 15 modules earns official Priority Community Member status with direct mentor pairing, connection building, and exclusive project access.",
-      badge: "PRIORITY STATUS",
+      tier: "Remaining Ranks",
+      title: "Official Certificate & AWS Swag",
+      description: "Official Certificate of Participation from AWS Student Builder Group HBTU Kanpur, plus exclusive AWS stickers and pens for all verified participants.",
+      badge: "PARTICIPATION HONORS",
     },
   ],
   modules: [

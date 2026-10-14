@@ -420,11 +420,11 @@ export const ChallengeService = {
 
     // Re-assign badges based on new ranking
     return roster.map((student, idx) => {
-      let badge: LeaderboardStudent["badge"] = "Priority Member";
-      if (idx === 0) badge = "Rank 1 · LinkedIn Spotlight";
-      else if (idx === 1) badge = "Rank 2 · Goodies & Swag";
-      else if (idx === 2) badge = "Rank 3 · Team Recognition";
-      else if (idx < 5) badge = "Merit Finalist";
+      let badge: LeaderboardStudent["badge"] = "Certificate & Swag";
+      if (idx === 0) badge = "Rank 1 · AWS Backpack & Shoutout";
+      else if (idx === 1) badge = "Rank 2 · Goodies & Shoutout";
+      else if (idx === 2) badge = "Rank 3 · Goodies & Shoutout";
+      else if (idx < 5) badge = "Top 5 · Certificate & Swag";
 
       return {
         ...student,

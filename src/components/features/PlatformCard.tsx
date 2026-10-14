@@ -3,13 +3,14 @@ import {
   MeetupIcon,
   LinkedInIcon,
   WhatsAppIcon,
+  TwitterIcon,
   InstagramIcon,
 } from "@/components/ui/SocialIcons";
 import { SOCIAL_LINKS } from "@/lib/constants/socials";
 
 export interface PlatformCardProps {
   index?: string;
-  platform: "meetup" | "linkedin" | "whatsapp" | "instagram";
+  platform: "meetup" | "linkedin" | "whatsapp" | "twitter" | "instagram";
   title?: string;
   description?: string;
   url?: string;
@@ -39,12 +40,19 @@ const DEFAULTS = {
     url: SOCIAL_LINKS.whatsapp.url,
     actionText: "Join Chat",
   },
-  instagram: {
+  twitter: {
     index: "04",
-    title: "Instagram Spotlights",
-    description: "Catch behind-the-scenes moments, event reels, student features, and stories.",
-    url: SOCIAL_LINKS.instagram.url,
+    title: "X (Twitter) Announcements",
+    description: "Catch real-time tech announcements, event reminders, and chapter updates.",
+    url: SOCIAL_LINKS.twitter.url,
     actionText: "Follow @aws_sbg_hbtu",
+  },
+  instagram: {
+    index: "05",
+    title: "Community Updates",
+    description: "Catch behind-the-scenes moments, event reels, student features, and stories.",
+    url: SOCIAL_LINKS.linkedin.url,
+    actionText: "Follow Updates",
   },
 };
 
@@ -69,6 +77,7 @@ export function PlatformCard({
     meetup: <MeetupIcon className="w-5 h-5 text-[#ED1C40]" />,
     linkedin: <LinkedInIcon className="w-5 h-5 text-[#0A66C2]" />,
     whatsapp: <WhatsAppIcon className="w-5 h-5 text-[#25D366]" />,
+    twitter: <TwitterIcon className="w-5 h-5 text-[#1DA1F2]" />,
     instagram: <InstagramIcon className="w-5 h-5 text-[#E4405F]" />,
   };
 
@@ -76,6 +85,7 @@ export function PlatformCard({
     meetup: "hover:border-[#ED1C40]/50 hover:shadow-[#ED1C40]/10",
     linkedin: "hover:border-[#0A66C2]/50 hover:shadow-[#0A66C2]/10",
     whatsapp: "hover:border-[#25D366]/50 hover:shadow-[#25D366]/10",
+    twitter: "hover:border-[#1DA1F2]/50 hover:shadow-[#1DA1F2]/10",
     instagram: "hover:border-[#E4405F]/50 hover:shadow-[#E4405F]/10",
   };
 

@@ -70,11 +70,10 @@ export default function ContactPage() {
         <h2 className="font-mono text-xs uppercase tracking-wider text-accent font-bold">
           Connect Across Our Channels
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <PlatformCard platform="meetup" />
           <PlatformCard platform="linkedin" />
           <PlatformCard platform="whatsapp" />
-          <PlatformCard platform="instagram" />
         </div>
       </section>
     </div>

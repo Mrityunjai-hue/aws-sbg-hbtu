@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { toast } from "sonner";
 import { ChallengeService, StudentRegistrationInput } from "@/lib/services/challenges";
 
 interface ChallengeRegisterModalProps {
@@ -55,6 +56,15 @@ export function ChallengeRegisterModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  useEffect(() => {
+    if (isOpen) {
+      const local = ChallengeService.getLocalState();
+      if (local.student) {
+        setFormData(local.student);
+      }
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -68,6 +78,7 @@ export function ChallengeRegisterModal({
       setIsSubmitting(true);
       setErrorMsg("");
       await ChallengeService.registerStudent(formData);
+      toast.success("Successfully registered for the 14-Day AWS Challenge!");
       onRegistered();
       onClose();
     } catch {
