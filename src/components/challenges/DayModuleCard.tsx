@@ -64,7 +64,7 @@ export function DayModuleCard({
         transition: "transform 0.35s cubic-bezier(0.23,1,0.32,1), box-shadow 0.35s ease",
         willChange: "transform, box-shadow",
       }}
-      className={`group relative rounded-3xl flex flex-col justify-between border overflow-hidden ${
+      className={`group relative rounded-3xl flex flex-col justify-between border overflow-hidden no-scrollbar ${
         isCompleted
           ? "bg-gradient-to-br from-primary-accent/20 via-surface-low to-surface-lowest border-primary-accent/50 shadow-[0_8px_32px_rgba(16,185,129,0.15)]"
           : "liquid-glass bg-surface-low/90 border-outline shadow-md"
@@ -165,7 +165,7 @@ export function DayModuleCard({
             </button>
 
             {showSections && (
-              <ul className="mt-2 space-y-1 pl-2 border-l border-outline text-[11px] font-mono text-on-surface-variant">
+              <ul className="mt-2 space-y-1 pl-2 border-l border-outline text-[11px] font-mono text-on-surface-variant overflow-hidden no-scrollbar">
                 {module.sections.map((sec, sIdx) => (
                   <li key={sIdx} className="flex items-start gap-1.5 py-0.5">
                     <span className="text-primary-accent font-bold shrink-0">{sIdx + 1}.</span>

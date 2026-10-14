@@ -1,4 +1,4 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -83,6 +83,7 @@
   html {
     scroll-behavior: smooth;
     font-family: var(--font-sans), system-ui, sans-serif;
+    scrollbar-gutter: stable;
   }
   body {
     background-color: var(--bg-color);
@@ -90,6 +91,29 @@
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+  }
+
+  /* Ultra-sleek custom scrollbars (Zero ugly thick default OS scrollbar) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(16, 185, 129, 0.55);
+  }
+  :root.light ::-webkit-scrollbar-thumb {
+    background: rgba(5, 150, 105, 0.3);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(16, 185, 129, 0.25) transparent;
   }
 }
 
