@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
@@ -56,7 +56,7 @@ export function DayModuleCard({
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-20px" }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -199,6 +199,16 @@ export function DayModuleCard({
             className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-surface-lowest border border-outline hover:border-emerald-500/50 text-emerald-400 font-mono text-xs font-bold transition-colors"
           >
             Review
+          </motion.button>
+        ) : !isRegistered ? (
+          <motion.button
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97, y: 2 }}
+            onClick={handleVerifyClick}
+            className="btn-3d-aws px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-1.5"
+          >
+            <span>Register to Verify</span>
+            <span className="material-symbols-outlined text-sm">how_to_reg</span>
           </motion.button>
         ) : (
           <motion.button

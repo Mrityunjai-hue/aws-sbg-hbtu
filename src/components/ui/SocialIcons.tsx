@@ -91,8 +91,6 @@ export function SocialIconsBar({ className = "" }: { className?: string }) {
     { name: "Meetup", link: SOCIAL_LINKS.meetup, icon: <MeetupIcon className="w-5 h-5" />, hoverBg: "hover:bg-[#ED1C40]/20 hover:text-[#ED1C40]" },
     { name: "LinkedIn", link: SOCIAL_LINKS.linkedin, icon: <LinkedInIcon className="w-5 h-5" />, hoverBg: "hover:bg-[#0A66C2]/20 hover:text-[#0A66C2]" },
     { name: "WhatsApp", link: SOCIAL_LINKS.whatsapp, icon: <WhatsAppIcon className="w-5 h-5" />, hoverBg: "hover:bg-[#25D366]/20 hover:text-[#25D366]" },
-    { name: "Instagram", link: SOCIAL_LINKS.instagram, icon: <InstagramIcon className="w-5 h-5" />, hoverBg: "hover:bg-[#E4405F]/20 hover:text-[#E4405F]" },
-    { name: "GitHub", link: SOCIAL_LINKS.github, icon: <GitHubIcon className="w-5 h-5" />, hoverBg: "hover:bg-white/20 hover:text-white" },
     { name: "Twitter", link: SOCIAL_LINKS.twitter, icon: <TwitterIcon className="w-5 h-5" />, hoverBg: "hover:bg-[#1DA1F2]/20 hover:text-[#1DA1F2]" },
     { name: "Email", link: SOCIAL_LINKS.email, icon: <EmailIcon className="w-5 h-5" />, hoverBg: "hover:bg-amber-500/20 hover:text-amber-400" },
   ];

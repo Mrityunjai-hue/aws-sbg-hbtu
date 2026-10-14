@@ -8,8 +8,6 @@ import {
   MeetupIcon,
   LinkedInIcon,
   WhatsAppIcon,
-  InstagramIcon,
-  GitHubIcon,
   TwitterIcon,
 } from "@/components/ui/SocialIcons";
 
@@ -67,38 +65,38 @@ export function Footer() {
             </p>
             <div className="flex gap-2 pt-1">
               <a
+                href={SOCIAL_LINKS.meetup.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Meetup"
+                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-[#ED1C40] transition-colors"
+              >
+                <MeetupIcon className="w-3.5 h-3.5" />
+              </a>
+              <a
                 href={SOCIAL_LINKS.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-primary-accent transition-colors"
+                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-[#0A66C2] transition-colors"
               >
                 <LinkedInIcon className="w-3.5 h-3.5" />
               </a>
               <a
-                href={SOCIAL_LINKS.instagram.url}
+                href={SOCIAL_LINKS.whatsapp.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-primary-accent transition-colors"
+                aria-label="WhatsApp Community"
+                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-[#25D366] transition-colors"
               >
-                <InstagramIcon className="w-3.5 h-3.5" />
-              </a>
-              <a
-                href={SOCIAL_LINKS.github.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-primary-accent transition-colors"
-              >
-                <GitHubIcon className="w-3.5 h-3.5" />
+                <WhatsAppIcon className="w-3.5 h-3.5" />
               </a>
               <a
                 href={SOCIAL_LINKS.twitter.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X (Twitter)"
-                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-primary-accent transition-colors"
+                className="p-2 bg-surface-low border border-outline rounded-lg hover:border-primary-accent text-on-surface-variant hover:text-[#1DA1F2] transition-colors"
               >
                 <TwitterIcon className="w-3.5 h-3.5" />
               </a>
@@ -208,24 +206,13 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href={SOCIAL_LINKS.instagram.url}
+                  href={SOCIAL_LINKS.twitter.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-on-surface-variant hover:text-[#E4405F] transition-colors flex items-center gap-1.5"
+                  className="text-on-surface-variant hover:text-[#1DA1F2] transition-colors flex items-center gap-1.5"
                 >
-                  <InstagramIcon className="w-3.5 h-3.5 text-[#E4405F]" />
-                  <span>Instagram</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={SOCIAL_LINKS.github.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-on-surface-variant hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <GitHubIcon className="w-3.5 h-3.5" />
-                  <span>GitHub</span>
+                  <TwitterIcon className="w-3.5 h-3.5 text-[#1DA1F2]" />
+                  <span>X (Twitter)</span>
                 </a>
               </li>
             </ul>

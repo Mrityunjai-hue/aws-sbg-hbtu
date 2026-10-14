@@ -40,12 +40,14 @@ export default function HomePage() {
     },
   ];
 
+  const EASE_CURVE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
   const fadeUp = {
     hidden: { opacity: 0, y: 32 },
     visible: (i: number = 0) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.55, delay: i * 0.08, ease: EASE_CURVE },
     }),
   };
 
@@ -165,19 +167,20 @@ export default function HomePage() {
         <SectionHeader
           tag="CONNECT WITH BUILDERS"
           title="Connect Across Our Platforms"
-          description="Stay plugged in with our latest meetups, professional updates, project repositories, and student discussions."
+          description="Stay plugged in with our latest meetups, professional LinkedIn updates, and active student builder discussions."
           align="center"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          {["meetup","linkedin","whatsapp","instagram"].map((platform, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          {["meetup", "linkedin", "whatsapp"].map((platform, i) => (
             <motion.div
               key={platform}
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.4, delay: i * 0.08, ease: EASE_CURVE }}
             >
-              <PlatformCard platform={platform as "meetup"|"linkedin"|"whatsapp"|"instagram"} />
+              <PlatformCard platform={platform as "meetup" | "linkedin" | "whatsapp"} />
             </motion.div>
           ))}
         </div>

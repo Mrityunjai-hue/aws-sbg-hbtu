@@ -51,7 +51,7 @@ export function LeaderAnnouncementBanner({
           </span>
           <span className="text-xs font-mono px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
             <span className="material-symbols-outlined text-sm">workspace_premium</span>
-            <span>LinkedIn Spotlight & Goodies</span>
+            <span>Backpack, Goodies & Certificates</span>
           </span>
         </div>
       </div>
@@ -99,9 +99,19 @@ export function LeaderAnnouncementBanner({
               <span>Register for 14-Day Challenge</span>
             </button>
           ) : (
-            <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold">
-              <span className="material-symbols-outlined text-sm">check_circle</span>
-              <span>Registration Verified · Challenge Ready</span>
+            <div className="flex items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold">
+                <span className="material-symbols-outlined text-sm">check_circle</span>
+                <span>Enrolled & Ready</span>
+              </div>
+              <button
+                type="button"
+                onClick={onRegisterClick}
+                className="px-3 py-2 rounded-xl bg-surface-lowest border border-outline hover:border-primary-accent text-on-surface-variant hover:text-on-background font-mono text-xs transition-colors"
+                title="Edit or review your registration details"
+              >
+                Edit
+              </button>
             </div>
           )}
         </div>
