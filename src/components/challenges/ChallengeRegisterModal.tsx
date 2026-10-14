@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { ChallengeService, StudentRegistrationInput } from "@/lib/services/challenges";
+import { ChallengeService, StudentRegistrationInput, isTestCandidate } from "@/lib/services/challenges";
 
 interface ChallengeRegisterModalProps {
   isOpen: boolean;
@@ -71,6 +71,11 @@ export function ChallengeRegisterModal({
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.rollNo.trim()) {
       setErrorMsg("Please fill in your name, email, and roll number.");
+      return;
+    }
+
+    if (isTestCandidate(formData.name, formData.rollNo, formData.email)) {
+      setErrorMsg("Please enter your actual full name and HBTU roll number. Test entries are not allowed.");
       return;
     }
 

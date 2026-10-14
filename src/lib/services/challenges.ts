@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { collection, addDoc, getDocs, query, limit, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, limit, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
 import { ACTIVE_14DAY_CHALLENGE, INITIAL_LEADERBOARD_DATA, LeaderboardStudent } from "@/data/challenges";
 
 export interface StudentRegistrationInput {
@@ -81,6 +81,38 @@ export function calculateAttemptPoints(
   }
 }
 
+/**
+ * Identify test/dummy registrations to purge from display and leaderboard
+ */
+export function isTestCandidate(name?: string, roll?: string, email?: string): boolean {
+  const check = (val?: string) => {
+    if (!val) return false;
+    const lower = val.trim().toLowerCase();
+    if (!lower) return false;
+    return (
+      lower === "test" ||
+      lower === "testing" ||
+      lower === "tester" ||
+      lower === "test candidate" ||
+      lower === "test user" ||
+      lower === "test student" ||
+      lower === "demo" ||
+      lower === "dummy" ||
+      lower === "sample" ||
+      lower.startsWith("test ") ||
+      lower.endsWith(" test") ||
+      lower.startsWith("test_") ||
+      lower.startsWith("test-") ||
+      lower.startsWith("test1") ||
+      lower.startsWith("test2") ||
+      lower.includes("test@") ||
+      lower.includes("@test.") ||
+      lower.includes("example.com")
+    );
+  };
+  return check(name) || check(roll) || check(email);
+}
+
 export const ChallengeService = {
   /**
    * Reset local challenge progress and test registration state
@@ -120,6 +152,29 @@ export const ChallengeService = {
       const storedProgress = localStorage.getItem(STORAGE_KEY_PROGRESS);
 
       const student: StudentRegistrationInput | null = storedStudent ? JSON.parse(storedStudent) : null;
+
+      // Automatically purge test registration if candidate name/roll/email is a test entry
+      if (student && isTestCandidate(student.name, student.rollNo, student.email)) {
+        try {
+          localStorage.removeItem(STORAGE_KEY_STUDENT);
+          localStorage.removeItem(STORAGE_KEY_PROGRESS);
+        } catch (err) {
+          console.warn("Failed to remove test candidate from local storage:", err);
+        }
+        return {
+          isRegistered: false,
+          student: null,
+          completedDays: [],
+          quizAnswers: {},
+          notesByDay: {},
+          triesByDay: {},
+          completedTimestamps: {},
+          lastCompletedAt: null,
+          totalPoints: 0,
+          currentStreak: 0,
+        };
+      }
+
       const progress = storedProgress
         ? JSON.parse(storedProgress)
         : {
@@ -165,6 +220,10 @@ export const ChallengeService = {
    * Register student for the 14-day challenge
    */
   async registerStudent(input: StudentRegistrationInput): Promise<boolean> {
+    if (isTestCandidate(input.name, input.rollNo, input.email)) {
+      throw new Error("Test registration cannot be submitted. Please use genuine student details.");
+    }
+
     if (typeof window !== "undefined") {
       localStorage.setItem(STORAGE_KEY_STUDENT, JSON.stringify(input));
     }
@@ -314,10 +373,18 @@ export const ChallengeService = {
    */
   async getLeaderboard(): Promise<LeaderboardStudent[]> {
     const currentState = this.getLocalState();
-    const roster = [...INITIAL_LEADERBOARD_DATA];
+    const roster: LeaderboardStudent[] = [...INITIAL_LEADERBOARD_DATA];
 
-    // If local user is registered, inject them into the roster
-    if (currentState.isRegistered && currentState.student) {
+    // If local user is registered and NOT a test candidate, inject them into the roster
+    if (
+      currentState.isRegistered &&
+      currentState.student &&
+      !isTestCandidate(
+        currentState.student.name,
+        currentState.student.rollNo,
+        currentState.student.email
+      )
+    ) {
       const student = currentState.student;
       const monogram = student.name
         .split(" ")
@@ -365,14 +432,23 @@ export const ChallengeService = {
 
     // Try fetching external registrations from Firestore
     if (db) {
+      const firestore = db;
       try {
-        const q = query(collection(db, "challengeRegistrations"), limit(20));
+        const q = query(collection(firestore, "challengeRegistrations"), limit(50));
         const snapshot = await Promise.race([
           getDocs(q),
           new Promise<never>((_, reject) => setTimeout(() => reject(new Error("firestore_timeout")), 1500)),
         ]);
-        snapshot.forEach((doc) => {
-          const d = doc.data();
+        snapshot.forEach((docSnap) => {
+          const d = docSnap.data();
+          // Immediately purge test candidate entries
+          if (isTestCandidate(d.name, d.rollNo, d.email)) {
+            try {
+              deleteDoc(doc(firestore, "challengeRegistrations", docSnap.id)).catch(() => {});
+            } catch {}
+            return;
+          }
+
           if (d.name && d.email && !roster.some((r) => r.rollOrHandle.includes(d.rollNo || d.email))) {
             const monogram = d.name
               .split(" ")
@@ -381,7 +457,7 @@ export const ChallengeService = {
               .toUpperCase()
               .slice(0, 2);
             roster.push({
-              id: doc.id,
+              id: docSnap.id,
               name: d.name,
               rollOrHandle: `${d.rollNo || "HBTU"} (${d.branch || "Engg"})`,
               branch: d.branch || "Engineering",
@@ -402,11 +478,16 @@ export const ChallengeService = {
       }
     }
 
+    // Strict Filter: remove any test candidates from the final roster
+    const cleanRoster = roster.filter(
+      (s) => !isTestCandidate(s.name, s.rollOrHandle, s.targetCert)
+    );
+
     // Strict Tie-Breaking Order:
     // 1. Highest Points First (DESC)
     // 2. Earliest Completion Timestamp (ASC - first to finish wins ties at any rank)
     // 3. Longest Streak (DESC)
-    roster.sort((a, b) => {
+    cleanRoster.sort((a, b) => {
       if (b.points !== a.points) {
         return b.points - a.points;
       }
@@ -419,7 +500,7 @@ export const ChallengeService = {
     });
 
     // Re-assign badges based on new ranking
-    return roster.map((student, idx) => {
+    return cleanRoster.map((student, idx) => {
       let badge: LeaderboardStudent["badge"] = "Certificate & Swag";
       if (idx === 0) badge = "Rank 1 · AWS Backpack & Shoutout";
       else if (idx === 1) badge = "Rank 2 · Goodies & Shoutout";
