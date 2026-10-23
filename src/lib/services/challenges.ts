@@ -1,6 +1,8 @@
 import { db } from "@/lib/firebase";
-import { collection, addDoc, getDocs, query, limit, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, getDoc, query, limit, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
 import { ACTIVE_14DAY_CHALLENGE, INITIAL_LEADERBOARD_DATA, LeaderboardStudent } from "@/data/challenges";
+
+const CHALLENGE_SYSTEM_DOC_ID = "hr58wQLvxJTh2SP6P8vmcYP5Fqx1";
 
 export interface StudentRegistrationInput {
   name: string;
@@ -228,22 +230,15 @@ export const ChallengeService = {
       localStorage.setItem(STORAGE_KEY_STUDENT, JSON.stringify(input));
     }
 
-    if (db) {
-      try {
-        await Promise.race([
-          addDoc(collection(db, "challengeRegistrations"), {
-            ...input,
-            registeredAt: serverTimestamp(),
-            challengeId: ACTIVE_14DAY_CHALLENGE.id,
-            totalPoints: 0,
-            completedDays: [],
-            streakDays: 0,
-          }),
-          new Promise((_, reject) => setTimeout(() => reject(new Error("firestore_timeout")), 1500)),
-        ]);
-      } catch (err) {
-        console.warn("Firestore registration write fallback:", err);
-      }
+    // Sync to shared backend so all students see this registration
+    try {
+      await fetch("/api/challenges", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "register", student: input }),
+      });
+    } catch (err) {
+      console.warn("Server challenge registration sync error:", err);
     }
 
     return true;
@@ -332,26 +327,26 @@ export const ChallengeService = {
       localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(updatedState));
     }
 
-    // Save completion to Firestore if available
-    if (db && currentState.student) {
+    // Sync to shared backend so all students see this module completion and updated points
+    if (currentState.student) {
       try {
-        await Promise.race([
-          addDoc(collection(db, "challengeCompletions"), {
-            challengeId: ACTIVE_14DAY_CHALLENGE.id,
-            dayNumber,
-            studentEmail: currentState.student.email,
-            studentName: currentState.student.name,
+        await fetch("/api/challenges", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "complete",
             rollNo: currentState.student.rollNo,
-            notes,
+            studentName: currentState.student.name,
+            branch: currentState.student.branch,
+            year: currentState.student.year,
+            targetCert: currentState.student.targetCert,
+            dayNumber,
             pointsEarned: awardedPoints,
             attemptNumber: currentAttempt,
-            completedAt: serverTimestamp(),
-            epochCompletedAt: completionEpoch,
           }),
-          new Promise((_, reject) => setTimeout(() => reject(new Error("firestore_timeout")), 1500)),
-        ]);
+        });
       } catch (err) {
-        console.warn("Firestore completion write fallback:", err);
+        console.warn("Server challenge completion sync error:", err);
       }
     }
 
@@ -373,9 +368,97 @@ export const ChallengeService = {
    */
   async getLeaderboard(): Promise<LeaderboardStudent[]> {
     const currentState = this.getLocalState();
-    const roster: LeaderboardStudent[] = [...INITIAL_LEADERBOARD_DATA];
+    let participantsMap: Record<string, any> = {};
 
-    // If local user is registered and NOT a test candidate, inject them into the roster
+    // 1. Fetch shared participants from Next.js server route (HTTP GET is fastest and avoids gRPC websocket drops)
+    if (typeof window !== "undefined") {
+      try {
+        const res = await Promise.race([
+          fetch("/api/challenges"),
+          new Promise<Response>((_, reject) => setTimeout(() => reject(new Error("api_timeout")), 2500)),
+        ]);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.participants) {
+            participantsMap = data.participants;
+          }
+        }
+      } catch (err) {
+        // Fallback to Firestore direct read
+      }
+    }
+
+    // 2. Direct Firestore read fallback if API route returned empty or timed out
+    if (Object.keys(participantsMap).length === 0 && db) {
+      try {
+        const snap = await Promise.race([
+          getDoc(doc(db, "users", CHALLENGE_SYSTEM_DOC_ID)),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error("firestore_timeout")), 2000)),
+        ]);
+        if (snap && snap.exists()) {
+          participantsMap = snap.data()?.participants || {};
+        }
+      } catch (err) {
+        // Fallback to local roster
+      }
+    }
+
+    const roster: LeaderboardStudent[] = [...INITIAL_LEADERBOARD_DATA];
+    const localRoll = currentState.student?.rollNo?.trim().toLowerCase();
+
+    // Map all shared participants
+    Object.values(participantsMap).forEach((p: any) => {
+      if (!p || !p.name || isTestCandidate(p.name, p.rollNo, p.email)) return;
+      const isCurrentLocal = Boolean(localRoll && p.rollNo && p.rollNo.trim().toLowerCase() === localRoll);
+      const monogram = p.name
+        .split(" ")
+        .map((part: string) => part[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2);
+
+      const effectivePoints = isCurrentLocal
+        ? Math.max(Number(p.points) || 0, currentState.totalPoints)
+        : Number(p.points) || 0;
+      const effectiveStreak = isCurrentLocal
+        ? Math.max(Number(p.streakDays) || 0, currentState.currentStreak)
+        : Number(p.streakDays) || 0;
+      const effectiveCompletedDays =
+        isCurrentLocal && currentState.completedDays.length > (p.completedDays?.length || 0)
+          ? currentState.completedDays
+          : p.completedDays || [];
+      const effectiveLastCompletedAt = isCurrentLocal
+        ? currentState.lastCompletedAt || p.lastCompletedAt
+        : p.lastCompletedAt;
+
+      const finishTimeStr = effectiveLastCompletedAt
+        ? `Finished · ${new Date(effectiveLastCompletedAt).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })} IST`
+        : effectiveCompletedDays.length > 0
+        ? "In Progress"
+        : "Registered";
+
+      roster.push({
+        id: isCurrentLocal ? "local-user" : p.id || `student_${p.rollNo}`,
+        name: isCurrentLocal ? `${p.name} (You)` : p.name,
+        rollOrHandle: `${p.rollNo} (${p.branch || "Engineering"})`,
+        branch: p.branch || "Engineering",
+        year: p.year || "Student",
+        targetCert: p.targetCert || "AWS Cloud Practitioner (CLF-C02)",
+        points: effectivePoints,
+        streakDays: effectiveStreak,
+        completedDays: effectiveCompletedDays,
+        badge: "Priority Member",
+        avatarMonogram: monogram || "SB",
+        completedAt: effectiveLastCompletedAt || undefined,
+        finishTimeStr,
+        attemptsCount: p.attemptsCount || 0,
+      });
+    });
+
+    // If local user is registered and NOT a test candidate and not yet in the mapped roster, inject them
     if (
       currentState.isRegistered &&
       currentState.student &&
@@ -383,7 +466,8 @@ export const ChallengeService = {
         currentState.student.name,
         currentState.student.rollNo,
         currentState.student.email
-      )
+      ) &&
+      !roster.some((r) => r.id === "local-user" || (localRoll && r.rollOrHandle.toLowerCase().includes(localRoll)))
     ) {
       const student = currentState.student;
       const monogram = student.name
@@ -393,20 +477,18 @@ export const ChallengeService = {
         .toUpperCase()
         .slice(0, 2);
 
-      const existingIndex = roster.findIndex(
-        (s) => s.id === "local-user" || s.rollOrHandle.includes(student.rollNo)
-      );
-
       const finishTimeStr = currentState.lastCompletedAt
         ? `Finished · ${new Date(currentState.lastCompletedAt).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           })} IST`
-        : "In Progress";
+        : currentState.completedDays.length > 0
+        ? "In Progress"
+        : "Registered";
 
       const totalAttempts = Object.values(currentState.triesByDay).reduce((a, b) => a + b, 0);
 
-      const localEntry: LeaderboardStudent = {
+      roster.push({
         id: "local-user",
         name: `${student.name} (You)`,
         rollOrHandle: `${student.rollNo} (${student.branch})`,
@@ -421,61 +503,7 @@ export const ChallengeService = {
         completedAt: currentState.lastCompletedAt || undefined,
         finishTimeStr,
         attemptsCount: totalAttempts,
-      };
-
-      if (existingIndex >= 0) {
-        roster[existingIndex] = localEntry;
-      } else {
-        roster.push(localEntry);
-      }
-    }
-
-    // Try fetching external registrations from Firestore
-    if (db) {
-      const firestore = db;
-      try {
-        const q = query(collection(firestore, "challengeRegistrations"), limit(50));
-        const snapshot = await Promise.race([
-          getDocs(q),
-          new Promise<never>((_, reject) => setTimeout(() => reject(new Error("firestore_timeout")), 1500)),
-        ]);
-        snapshot.forEach((docSnap) => {
-          const d = docSnap.data();
-          // Immediately purge test candidate entries
-          if (isTestCandidate(d.name, d.rollNo, d.email)) {
-            try {
-              deleteDoc(doc(firestore, "challengeRegistrations", docSnap.id)).catch(() => {});
-            } catch {}
-            return;
-          }
-
-          if (d.name && d.email && !roster.some((r) => r.rollOrHandle.includes(d.rollNo || d.email))) {
-            const monogram = d.name
-              .split(" ")
-              .map((p: string) => p[0])
-              .join("")
-              .toUpperCase()
-              .slice(0, 2);
-            roster.push({
-              id: docSnap.id,
-              name: d.name,
-              rollOrHandle: `${d.rollNo || "HBTU"} (${d.branch || "Engg"})`,
-              branch: d.branch || "Engineering",
-              year: d.year || "Student",
-              targetCert: d.targetCert || "AWS Cloud Practitioner",
-              points: d.totalPoints || 0,
-              streakDays: d.streakDays || 0,
-              completedDays: d.completedDays || [],
-              badge: "Priority Member",
-              avatarMonogram: monogram,
-              completedAt: d.completedAt ? d.completedAt.toMillis() : undefined,
-              finishTimeStr: d.completedAt ? "Verified Entry" : undefined,
-            });
-          }
-        });
-      } catch {
-        // Fallback to in-memory roster
-      }
+      });
     }
 
     // Strict Filter: remove any test candidates from the final roster
