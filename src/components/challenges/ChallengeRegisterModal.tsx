@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { ChallengeService, StudentRegistrationInput } from "@/lib/services/challenges";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import { toast } from "sonner";
+import { ChallengeService, StudentRegistrationInput, isTestCandidate } from "@/lib/services/challenges";
 
 interface ChallengeRegisterModalProps {
   isOpen: boolean;
@@ -44,6 +46,7 @@ export function ChallengeRegisterModal({
   onClose,
   onRegistered,
 }: ChallengeRegisterModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState<StudentRegistrationInput>({
     name: "",
     email: "",
@@ -55,7 +58,26 @@ export function ChallengeRegisterModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      const local = ChallengeService.getLocalState();
+      if (local.student) {
+        setFormData(local.student);
+      }
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  if (!isOpen || !mounted) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,10 +86,16 @@ export function ChallengeRegisterModal({
       return;
     }
 
+    if (isTestCandidate(formData.name, formData.rollNo, formData.email)) {
+      setErrorMsg("Please enter your actual full name and HBTU roll number. Test entries are not allowed.");
+      return;
+    }
+
     try {
       setIsSubmitting(true);
       setErrorMsg("");
       await ChallengeService.registerStudent(formData);
+      toast.success("Successfully registered for the 14-Day AWS Challenge!");
       onRegistered();
       onClose();
     } catch {
@@ -77,11 +105,11 @@ export function ChallengeRegisterModal({
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
+        className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"
         onClick={onClose}
       />
 
@@ -90,7 +118,7 @@ export function ChallengeRegisterModal({
         role="dialog"
         aria-modal="true"
         aria-label="Register for 14-Day AWS Challenge"
-        className="relative z-10 w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl bg-surface-lowest border border-outline shadow-2xl p-6 sm:p-8"
+        className="relative z-10 w-full max-w-xl max-h-[90vh] my-auto overflow-y-auto rounded-3xl bg-surface-lowest border border-outline shadow-2xl p-6 sm:p-8 no-scrollbar"
       >
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-outline">
@@ -248,6 +276,7 @@ export function ChallengeRegisterModal({
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

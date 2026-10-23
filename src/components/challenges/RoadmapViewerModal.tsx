@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { CertificationRoadmapGuide } from "./CertificationRoadmapGuide";
 
 interface RoadmapViewerModalProps {
@@ -7,10 +8,27 @@ interface RoadmapViewerModalProps {
 }
 
 export function RoadmapViewerModal({ isOpen, onClose }: RoadmapViewerModalProps) {
-  if (!isOpen) return null;
+  const [mounted, setMounted] = useState(false);
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6">
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/90 backdrop-blur-md transition-opacity"
@@ -22,7 +40,7 @@ export function RoadmapViewerModal({ isOpen, onClose }: RoadmapViewerModalProps)
         role="dialog"
         aria-modal="true"
         aria-label="AWS Certification Journey Roadmap"
-        className="relative z-10 w-full max-w-6xl h-[94vh] flex flex-col rounded-3xl bg-surface-lowest border border-outline shadow-2xl overflow-hidden"
+        className="relative z-10 w-full max-w-6xl h-[94vh] my-auto flex flex-col rounded-3xl bg-surface-lowest border border-outline shadow-2xl overflow-hidden"
       >
         {/* Header Bar */}
         <div className="flex items-center justify-between p-4 sm:p-6 border-b border-outline shrink-0 bg-surface-lowest">
@@ -74,6 +92,7 @@ export function RoadmapViewerModal({ isOpen, onClose }: RoadmapViewerModalProps)
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

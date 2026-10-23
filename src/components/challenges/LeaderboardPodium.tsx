@@ -7,9 +7,16 @@ import { LeaderboardStudent } from "@/data/challenges";
 interface LeaderboardPodiumProps {
   students: LeaderboardStudent[];
   currentUserId?: string;
+  onRegisterClick?: () => void;
+  isRegistered?: boolean;
 }
 
-export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodiumProps) {
+export function LeaderboardPodium({
+  students,
+  currentUserId,
+  onRegisterClick,
+  isRegistered = false,
+}: LeaderboardPodiumProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBranch, setSelectedBranch] = useState("ALL");
 
@@ -39,7 +46,7 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
     <div className="space-y-12 max-w-full overflow-hidden">
       {/* ── Executive Honors & Rewards Allocation Grid ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {/* Tier 1: Ranks 01-03 */}
+        {/* Tier 1: Rank 1 */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -51,21 +58,21 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
           <div className="flex items-center justify-between pb-3.5 border-b border-outline">
             <span className="text-[11px] font-mono font-black text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
               <span className="material-symbols-outlined text-base">workspace_premium</span>
-              <span>Ranks 01 to 03 · Top Podium</span>
+              <span>Rank 01 · Champion</span>
             </span>
             <span className="px-2.5 py-0.5 rounded-full bg-amber-400/15 text-amber-400 font-mono text-[10px] font-bold border border-amber-400/30">
-              Executive Honors
+              AWS Backpack
             </span>
           </div>
           <h3 className="mt-3.5 font-black text-base text-on-background">
-            LinkedIn Spotlight & AWS Swag Kit
+            AWS Backpack & Official Shoutout
           </h3>
           <p className="mt-2 text-xs text-on-surface-variant font-mono leading-relaxed">
-            Executive LinkedIn shoutout feature across AWS SBG chapter leadership channels, exclusive AWS & SBG Swag Goodies kits, core team recognition, and 1-on-1 industry mentorship.
+            Exclusive AWS Backpack for the Rank 1 winner, accompanied by an official executive Shoutout feature across chapter leadership and LinkedIn channels.
           </p>
         </motion.div>
 
-        {/* Tier 2: Ranks 04-05 */}
+        {/* Tier 2: Ranks 2 & 3 */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,21 +85,21 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
           <div className="flex items-center justify-between pb-3.5 border-b border-outline">
             <span className="text-[11px] font-mono font-black text-primary-accent uppercase tracking-wider flex items-center gap-1.5">
               <span className="material-symbols-outlined text-base">military_tech</span>
-              <span>Ranks 04 & 05 · Finalists</span>
+              <span>Ranks 02 & 03 · Podium</span>
             </span>
             <span className="px-2.5 py-0.5 rounded-full bg-primary-accent/15 text-primary-accent font-mono text-[10px] font-bold border border-primary-accent/30">
-              Merit Finalists
+              AWS Goodies
             </span>
           </div>
           <h3 className="mt-3.5 font-black text-base text-on-background">
-            Merit Cloud Commendations
+            Goodies for Rank 2 & 3 + Shoutout
           </h3>
           <p className="mt-2 text-xs text-on-surface-variant font-mono leading-relaxed">
-            AWS Student Builder Group Chapter Recognition Certificates, builder stickers & swag packs, and fast-track invitations to regional hackathon project teams.
+            Official executive Shoutout feature for Rank 2 and Rank 3 winners, plus exclusive AWS & SBG Goodies packs and chapter leadership recognition.
           </p>
         </motion.div>
 
-        {/* Tier 3: All Completers */}
+        {/* Tier 3: Left ranks */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -105,17 +112,17 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
           <div className="flex items-center justify-between pb-3.5 border-b border-outline">
             <span className="text-[11px] font-mono font-black text-secondary-accent uppercase tracking-wider flex items-center gap-1.5">
               <span className="material-symbols-outlined text-base">verified</span>
-              <span>All 15-Day Completers</span>
+              <span>Left Ranks · All Participants</span>
             </span>
             <span className="px-2.5 py-0.5 rounded-full bg-secondary-accent/15 text-secondary-accent font-mono text-[10px] font-bold border border-secondary-accent/30">
-              Priority Tier
+              Certificate & Swag
             </span>
           </div>
           <h3 className="mt-3.5 font-black text-base text-on-background">
-            Priority Community Membership
+            Official Certificate, Stickers & Pens
           </h3>
           <p className="mt-2 text-xs text-on-surface-variant font-mono leading-relaxed">
-            Direct connection building with alumni & certified AWS architects, priority cloud workshop admission, and official chapter membership credentials.
+            Official Certificate of Participation from AWS Student Builder Group HBTU Kanpur, plus exclusive AWS stickers and pens for all verified contestants.
           </p>
         </motion.div>
       </div>
@@ -463,6 +470,18 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
                           ? "The challenge sprint is currently in registration mode. Verify curriculum module assessments to claim the #1 spot on the leaderboard!"
                           : "No verified builders matched your query. Try adjusting your search term or department filter."}
                       </p>
+                      {onRegisterClick && !isRegistered && (
+                        <div className="pt-3">
+                          <button
+                            type="button"
+                            onClick={onRegisterClick}
+                            className="btn-3d-aws px-6 py-2.5 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-2"
+                          >
+                            <span className="material-symbols-outlined text-base">how_to_reg</span>
+                            <span>Register for Challenge</span>
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -470,7 +489,10 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
               {filteredRoster.map((student, idx) => {
                 const actualRank = students.findIndex((s) => s.id === student.id) + 1;
                 const isLocal =
-                  student.id === "local-user" || (Boolean(currentUserId) && student.id === currentUserId);
+                  student.id === "local-user" ||
+                  student.name.includes("(You)") ||
+                  (Boolean(currentUserId) &&
+                    (student.id === currentUserId || student.rollOrHandle.includes(currentUserId)));
                 return (
                   <tr
                     key={student.id}
@@ -496,7 +518,9 @@ export function LeaderboardPodium({ students, currentUserId }: LeaderboardPodium
                           03
                         </span>
                       ) : (
-                        <span className="text-on-surface-variant">0{actualRank}</span>
+                        <span className="text-on-surface-variant">
+                          {actualRank < 10 ? `0${actualRank}` : actualRank}
+                        </span>
                       )}
                     </td>
                     <td className="py-3.5 px-4">

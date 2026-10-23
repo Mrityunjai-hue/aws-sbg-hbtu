@@ -17,6 +17,8 @@ import { LeaderboardPodium } from "@/components/challenges/LeaderboardPodium";
 import { DayModuleCard } from "@/components/challenges/DayModuleCard";
 import { CertificationRoadmapGuide } from "@/components/challenges/CertificationRoadmapGuide";
 
+const EASE_CURVE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 export default function ChallengesPage() {
   const [activeTab, setActiveTab] = useState<"modules" | "leaderboard" | "roadmap" | "rules">("modules");
   const [curriculumFilter, setCurriculumFilter] = useState<"all" | "core" | "data" | "security" | "arch">("all");
@@ -85,7 +87,13 @@ export default function ChallengesPage() {
     return true;
   });
 
-  const currentRank = leaderboard.findIndex((s) => s.id === "local-user") + 1;
+  const currentRank =
+    leaderboard.findIndex(
+      (s) =>
+        s.id === "local-user" ||
+        s.name.includes("(You)") ||
+        (Boolean(studentState.student?.rollNo) && s.rollOrHandle.includes(studentState.student!.rollNo))
+    ) + 1;
   const progressPercent = Math.round((studentState.completedDays.length / 15) * 100);
 
   const tabs = [
@@ -152,16 +160,25 @@ export default function ChallengesPage() {
               <span>Register for Challenge</span>
             </motion.button>
           ) : (
-            <div className="flex items-center gap-2">
-              <div className="p-3 px-4 rounded-2xl bg-surface-low border border-primary-accent/40 flex items-center gap-3 shadow-md">
-                <div className="h-9 w-9 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center justify-center font-mono font-bold text-xs">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <div className="p-2.5 px-3.5 rounded-2xl bg-surface-low border border-primary-accent/40 flex items-center gap-3 shadow-md">
+                <div className="h-8 w-8 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center justify-center font-mono font-bold text-xs">
                   {studentState.currentStreak}d
                 </div>
                 <div className="font-mono text-xs">
-                  <span className="text-on-surface-variant block">Active Streak</span>
+                  <span className="text-on-surface-variant block text-[10px]">Active Streak</span>
                   <span className="text-on-background font-bold">{studentState.totalPoints} PTS</span>
                 </div>
               </div>
+              <button
+                type="button"
+                onClick={() => setIsRegisterModalOpen(true)}
+                className="px-3.5 py-2.5 rounded-xl bg-surface-low border border-outline hover:border-primary-accent text-on-surface-variant hover:text-on-background font-mono text-xs font-bold transition-colors flex items-center gap-1.5"
+                title="View or update your registered student details"
+              >
+                <span className="material-symbols-outlined text-sm">edit_note</span>
+                <span>Registration</span>
+              </button>
             </div>
           )}
         </div>
@@ -307,7 +324,7 @@ export default function ChallengesPage() {
             initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.28, ease: EASE_CURVE }}
             className="space-y-6"
           >
             {/* Domain Filters (Flex Wrap, Zero Horizontal Scrollbars) */}
@@ -370,11 +387,13 @@ export default function ChallengesPage() {
             initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.28, ease: EASE_CURVE }}
           >
             <LeaderboardPodium
               students={leaderboard}
               currentUserId={studentState.student?.rollNo}
+              onRegisterClick={() => setIsRegisterModalOpen(true)}
+              isRegistered={studentState.isRegistered}
             />
           </motion.div>
         )}
@@ -386,7 +405,7 @@ export default function ChallengesPage() {
             initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.28, ease: EASE_CURVE }}
             className="space-y-6"
           >
             <CertificationRoadmapGuide
@@ -408,7 +427,7 @@ export default function ChallengesPage() {
             initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.28, ease: EASE_CURVE }}
             className="space-y-6 max-w-4xl"
           >
             <div className="p-6 sm:p-8 rounded-3xl bg-surface-low border border-outline space-y-6 shadow-md">
@@ -455,10 +474,10 @@ export default function ChallengesPage() {
                 <div className="p-5 rounded-2xl bg-surface-lowest border border-outline space-y-2">
                   <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
                     <span className="material-symbols-outlined text-base">workspace_premium</span>
-                    <span>LinkedIn Spotlight & Goodies Protocol</span>
+                    <span>Prizes & Chapter Recognition Protocol</span>
                   </div>
                   <p className="text-xs text-on-surface-variant leading-relaxed">
-                    The top 3 validated candidates upon sprint completion receive official LinkedIn executive features, exclusive AWS & SBG Swag & Goodies kits, chapter core team recognition, and 1-on-1 industry mentorship.
+                    Rank 1 winner receives an official executive Shoutout and an exclusive AWS Backpack. Ranks 2 and 3 receive executive Shoutouts and exclusive AWS/SBG Goodies packages. All remaining participating ranks receive an official Certificate of Participation from AWS Student Builder Group HBTU Kanpur, plus exclusive AWS stickers and pens.
                   </p>
                 </div>
               </div>

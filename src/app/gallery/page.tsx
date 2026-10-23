@@ -27,12 +27,12 @@ export default function GalleryPage() {
 
         <div className="shrink-0">
           <a
-            href={SOCIAL_LINKS.instagram.url}
+            href={SOCIAL_LINKS.linkedin.url}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-3d-secondary inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold"
           >
-            <span>Follow on Instagram</span>
+            <span>Follow on LinkedIn</span>
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
@@ -43,10 +43,10 @@ export default function GalleryPage() {
       {GALLERY_DATA.length === 0 ? (
         <EmptyStatePanel
           title="Community Photos Archive Coming Soon"
-          description="High-resolution event albums from our inaugural workshops and hackathons are currently being curated. Check our Instagram spotlights for behind-the-scenes stories."
+          description="High-resolution event albums from our inaugural workshops and hackathons are currently being curated. Check our official LinkedIn page for behind-the-scenes stories and member spotlights."
           badge="MEDIA ARCHIVE"
-          actionLabel="View Instagram Spotlights"
-          actionHref={SOCIAL_LINKS.instagram.url}
+          actionLabel="View LinkedIn Spotlights"
+          actionHref={SOCIAL_LINKS.linkedin.url}
         />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

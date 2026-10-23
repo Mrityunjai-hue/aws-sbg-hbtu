@@ -10,38 +10,24 @@ export interface SocialLink {
 export const SOCIAL_LINKS = {
   meetup: {
     name: "Meetup",
-    url: "https://www.meetup.com/aws-student-builder-group-hbtu/",
+    url: "https://www.meetup.com/aws-sbg-at-harcourt-butler-technical-university/",
     description: "Join our official Meetup group for upcoming events, workshops & tech talks.",
-    handle: "@aws-sbg-hbtu",
+    handle: "@aws-sbg-at-harcourt-butler-technical-university",
     color: "#ED1C40",
   },
   linkedin: {
     name: "LinkedIn",
     url: "https://www.linkedin.com/company/awssbghbtu/",
     description: "Follow our professional network for community updates, achievements & news.",
-    handle: "aws-sbg-hbtu",
+    handle: "awssbghbtu",
     color: "#0A66C2",
   },
   whatsapp: {
     name: "WhatsApp Community",
-    url: "https://chat.whatsapp.com/Ks9kB05Odpt8nE2TpjLE4l?s=sw&p=a&mlu=0&amv=1",
+    url: "https://chat.whatsapp.com/E1wkp2qSHtPHzk5bv1Nhub",
     description: "Connect directly with fellow builders in our active WhatsApp group.",
-    handle: "AWS SBG HBTU Chat",
+    handle: "AWS SBG HBTU Community",
     color: "#25D366",
-  },
-  instagram: {
-    name: "Instagram",
-    url: "https://www.instagram.com/aws_sbg_hbtu/",
-    description: "See event highlights, behind-the-scenes, student spotlights & stories.",
-    handle: "@aws_sbg_hbtu",
-    color: "#E4405F",
-  },
-  github: {
-    name: "GitHub",
-    url: "https://github.com/aws-sbg-hbtu",
-    description: "Explore open-source cloud projects and repositories built by HBTU students.",
-    handle: "aws-sbg-hbtu",
-    color: "#181717",
   },
   twitter: {
     name: "X (Twitter)",
@@ -63,8 +49,6 @@ export const SOCIAL_LINKS_ARRAY = [
   SOCIAL_LINKS.meetup,
   SOCIAL_LINKS.linkedin,
   SOCIAL_LINKS.whatsapp,
-  SOCIAL_LINKS.instagram,
-  SOCIAL_LINKS.github,
   SOCIAL_LINKS.twitter,
   SOCIAL_LINKS.email,
 ];

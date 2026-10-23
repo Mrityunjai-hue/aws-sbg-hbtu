@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { useChatNotification } from "@/lib/contexts/ChatNotificationContext";
 import { SOCIAL_LINKS } from "@/lib/constants/socials";
-import { MeetupIcon, LinkedInIcon, WhatsAppIcon, GitHubIcon } from "@/components/ui/SocialIcons";
+import { MeetupIcon, LinkedInIcon, WhatsAppIcon, TwitterIcon } from "@/components/ui/SocialIcons";
 
 interface NavItem {
   label: string;
@@ -172,13 +172,13 @@ export function Sidebar() {
             <WhatsAppIcon className="w-4 h-4" />
           </a>
           <a
-            href={SOCIAL_LINKS.github.url}
+            href={SOCIAL_LINKS.twitter.url}
             target="_blank"
             rel="noopener noreferrer"
-            title="GitHub Org"
-            className="flex h-9 w-9 items-center justify-center rounded border border-border-hairline bg-bg text-text-muted hover:text-text hover:bg-white/10 hover:border-white transition-colors"
+            title="X (Twitter)"
+            className="flex h-9 w-9 items-center justify-center rounded border border-border-hairline bg-bg text-[#1DA1F2] hover:bg-[#1DA1F2]/10 hover:border-[#1DA1F2] transition-colors"
           >
-            <GitHubIcon className="w-4 h-4" />
+            <TwitterIcon className="w-4 h-4" />
           </a>
         </div>
       </div>

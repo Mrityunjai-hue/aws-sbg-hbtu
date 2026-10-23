@@ -32,7 +32,7 @@ export default function StyleGuidePage() {
     time: "10:00 AM IST",
     description:
       "Deep dive into AWS core services: IAM policies, Amazon S3 storage classes, AWS Lambda serverless handlers, and DynamoDB single-table design.",
-    linkUrl: "https://www.meetup.com/aws-student-builder-group-hbtu/",
+    linkUrl: "https://www.meetup.com/aws-sbg-at-harcourt-butler-technical-university/",
     linkText: "RSVP on Meetup",
   };
 
@@ -195,11 +195,10 @@ export default function StyleGuidePage() {
         <h2 className="font-mono text-sm uppercase tracking-wider text-accent font-bold">
           08. Platform Cards
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <PlatformCard platform="meetup" />
           <PlatformCard platform="linkedin" />
           <PlatformCard platform="whatsapp" />
-          <PlatformCard platform="instagram" />
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChallengeDayModule } from "@/data/challenges";
 import { ChallengeService, calculateAttemptPoints } from "@/lib/services/challenges";
@@ -18,6 +19,7 @@ export function ModuleQuizModal({
   onClose,
   onVerifiedSuccess,
 }: ModuleQuizModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [notes, setNotes] = useState("");
   const [currentTries, setCurrentTries] = useState(0);
@@ -32,6 +34,21 @@ export function ModuleQuizModal({
     points: 0,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && module) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, module]);
 
   useEffect(() => {
     if (module) {
@@ -96,15 +113,17 @@ export function ModuleQuizModal({
     setFeedback({ status: "idle", message: "", points: 0 });
   };
 
-  return (
+  if (!isOpen || !module || !mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
+          className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"
           onClick={onClose}
         />
 
@@ -117,7 +136,7 @@ export function ModuleQuizModal({
           role="dialog"
           aria-modal="true"
           aria-label={`Verify Module Day ${module.day}`}
-          className="relative z-10 w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl liquid-glass bg-surface-lowest border border-outline shadow-2xl p-5 sm:p-8"
+          className="relative z-10 w-full max-w-2xl max-h-[92vh] my-auto overflow-y-auto rounded-3xl liquid-glass bg-surface-lowest border border-outline shadow-2xl p-5 sm:p-8 no-scrollbar"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-outline">
@@ -329,6 +348,7 @@ export function ModuleQuizModal({
           </div>
         </motion.div>
       </div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

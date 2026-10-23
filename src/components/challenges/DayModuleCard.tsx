@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
@@ -56,7 +56,7 @@ export function DayModuleCard({
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-20px" }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -64,7 +64,7 @@ export function DayModuleCard({
         transition: "transform 0.35s cubic-bezier(0.23,1,0.32,1), box-shadow 0.35s ease",
         willChange: "transform, box-shadow",
       }}
-      className={`group relative rounded-3xl flex flex-col justify-between border overflow-hidden ${
+      className={`group relative rounded-3xl flex flex-col justify-between border overflow-hidden no-scrollbar ${
         isCompleted
           ? "bg-gradient-to-br from-primary-accent/20 via-surface-low to-surface-lowest border-primary-accent/50 shadow-[0_8px_32px_rgba(16,185,129,0.15)]"
           : "liquid-glass bg-surface-low/90 border-outline shadow-md"
@@ -165,7 +165,7 @@ export function DayModuleCard({
             </button>
 
             {showSections && (
-              <ul className="mt-2 space-y-1 pl-2 border-l border-outline text-[11px] font-mono text-on-surface-variant">
+              <ul className="mt-2 space-y-1 pl-2 border-l border-outline text-[11px] font-mono text-on-surface-variant overflow-hidden no-scrollbar">
                 {module.sections.map((sec, sIdx) => (
                   <li key={sIdx} className="flex items-start gap-1.5 py-0.5">
                     <span className="text-primary-accent font-bold shrink-0">{sIdx + 1}.</span>
@@ -199,6 +199,16 @@ export function DayModuleCard({
             className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-surface-lowest border border-outline hover:border-emerald-500/50 text-emerald-400 font-mono text-xs font-bold transition-colors"
           >
             Review
+          </motion.button>
+        ) : !isRegistered ? (
+          <motion.button
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97, y: 2 }}
+            onClick={handleVerifyClick}
+            className="btn-3d-aws px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-1.5"
+          >
+            <span>Register to Verify</span>
+            <span className="material-symbols-outlined text-sm">how_to_reg</span>
           </motion.button>
         ) : (
           <motion.button
