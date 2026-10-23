@@ -20,10 +20,12 @@ export function LeaderboardPodium({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBranch, setSelectedBranch] = useState("ALL");
 
-  const top1 = students[0];
-  const top2 = students[1];
-  const top3 = students[2];
-  const top4and5 = students.slice(3, 5);
+  // Only contestants with verified points (> 0) qualify for podium slots
+  const verifiedScorers = students.filter((s) => s.points > 0);
+  const top1 = verifiedScorers[0];
+  const top2 = verifiedScorers[1];
+  const top3 = verifiedScorers[2];
+  const top4and5 = verifiedScorers.slice(3, 5);
 
   const filteredRoster = students.filter((s) => {
     const matchesSearch =
@@ -487,7 +489,9 @@ export function LeaderboardPodium({
                 </tr>
               )}
               {filteredRoster.map((student, idx) => {
-                const actualRank = students.findIndex((s) => s.id === student.id) + 1;
+                const rankIndex = verifiedScorers.findIndex((s) => s.id === student.id);
+                const isRanked = rankIndex !== -1 && student.points > 0;
+                const actualRank = isRanked ? rankIndex + 1 : null;
                 const isLocal =
                   student.id === "local-user" ||
                   student.name.includes("(You)") ||
@@ -517,9 +521,13 @@ export function LeaderboardPodium({
                         <span className="px-2 py-0.5 rounded-md bg-amber-700 text-amber-100 font-black text-[11px] shadow-sm">
                           03
                         </span>
-                      ) : (
-                        <span className="text-on-surface-variant">
+                      ) : actualRank !== null ? (
+                        <span className="text-on-surface-variant font-mono">
                           {actualRank < 10 ? `0${actualRank}` : actualRank}
+                        </span>
+                      ) : (
+                        <span className="text-on-surface-variant/60 font-mono text-[11px]" title="Registered · Complete Module 1 to rank">
+                          —
                         </span>
                       )}
                     </td>
@@ -527,7 +535,7 @@ export function LeaderboardPodium({
                       <div className="flex items-center gap-2.5">
                         <div
                           className={`h-7 w-7 rounded-lg flex items-center justify-center font-black text-[10px] ${
-                            actualRank <= 3
+                            isRanked && actualRank !== null && actualRank <= 3
                               ? "bg-amber-400/20 text-amber-400 border border-amber-400/40"
                               : "bg-surface-lowest text-on-surface-variant border border-outline"
                           }`}
@@ -563,13 +571,13 @@ export function LeaderboardPodium({
                     <td className="py-3.5 px-4 text-center">
                       <span
                         className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-bold ${
-                          actualRank === 1
+                          isRanked && actualRank === 1
                             ? "bg-amber-400/20 text-amber-400 border border-amber-400/40 shadow-sm"
-                            : actualRank === 2
+                            : isRanked && actualRank === 2
                             ? "bg-slate-300/20 text-on-background border border-slate-300/40"
-                            : actualRank === 3
+                            : isRanked && actualRank === 3
                             ? "bg-amber-700/20 text-amber-500 border border-amber-700/40"
-                            : actualRank <= 5
+                            : isRanked && actualRank !== null && actualRank <= 5
                             ? "bg-primary-accent/15 text-primary-accent border border-primary-accent/30"
                             : "bg-surface-lowest text-on-surface-variant border border-outline"
                         }`}

@@ -245,6 +245,34 @@ export const ChallengeService = {
   },
 
   /**
+   * Sync local student progress to shared backend
+   */
+  async syncLocalStateToServer(): Promise<void> {
+    const currentState = this.getLocalState();
+    if (!currentState.isRegistered || !currentState.student) return;
+    if (isTestCandidate(currentState.student.name, currentState.student.rollNo, currentState.student.email)) return;
+
+    try {
+      const totalAttempts = Object.values(currentState.triesByDay).reduce((a, b) => a + b, 0);
+      await fetch("/api/challenges", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "sync",
+          student: currentState.student,
+          points: currentState.totalPoints,
+          streakDays: currentState.currentStreak,
+          completedDays: currentState.completedDays,
+          lastCompletedAt: currentState.lastCompletedAt,
+          attemptsCount: totalAttempts,
+        }),
+      });
+    } catch (err) {
+      console.warn("Background challenge sync error:", err);
+    }
+  },
+
+  /**
    * Verify and complete a daily module
    * Dynamic scoring: 1st attempt full points, subsequent attempts penalized proportionally
    */
@@ -527,13 +555,23 @@ export const ChallengeService = {
       return b.streakDays - a.streakDays;
     });
 
-    // Re-assign badges based on new ranking
-    return cleanRoster.map((student, idx) => {
+    // Re-assign badges based on new ranking:
+    // Only contestants with points > 0 qualify for Rank 1, 2, 3...
+    // Zero-point contestants are designated as registered awaiting first verification
+    let rankCounter = 1;
+    return cleanRoster.map((student) => {
+      if (student.points === 0) {
+        return {
+          ...student,
+          badge: "Registered · Awaiting M1",
+        };
+      }
+      const rank = rankCounter++;
       let badge: LeaderboardStudent["badge"] = "Certificate & Swag";
-      if (idx === 0) badge = "Rank 1 · AWS Backpack & Shoutout";
-      else if (idx === 1) badge = "Rank 2 · Goodies & Shoutout";
-      else if (idx === 2) badge = "Rank 3 · Goodies & Shoutout";
-      else if (idx < 5) badge = "Top 5 · Certificate & Swag";
+      if (rank === 1) badge = "Rank 1 · AWS Backpack & Shoutout";
+      else if (rank === 2) badge = "Rank 2 · Goodies & Shoutout";
+      else if (rank === 3) badge = "Rank 3 · Goodies & Shoutout";
+      else if (rank <= 5) badge = "Top 5 · Certificate & Swag";
 
       return {
         ...student,

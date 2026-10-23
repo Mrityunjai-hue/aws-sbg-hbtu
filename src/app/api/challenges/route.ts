@@ -139,6 +139,43 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, participant: updated });
     }
 
+    if (action === "sync") {
+      const { student, points, streakDays, completedDays, lastCompletedAt, attemptsCount } = body;
+      if (!student || !student.name || !student.rollNo) {
+        return NextResponse.json({ error: "Student details required" }, { status: 400 });
+      }
+
+      if (isTest(student.name) || isTest(student.rollNo) || isTest(student.email)) {
+        return NextResponse.json({ error: "Test registrations are not allowed." }, { status: 400 });
+      }
+
+      const key = sanitizeKey(student.rollNo);
+      const existing = currentParticipants[key];
+
+      const mergedCompletedDays = Array.from(
+        new Set([...(existing?.completedDays || []), ...(completedDays || [])])
+      ).sort((a: number, b: number) => a - b);
+
+      const updated = {
+        id: key,
+        name: student.name.trim(),
+        email: (student.email || existing?.email || "").trim(),
+        rollNo: student.rollNo.trim(),
+        branch: student.branch?.trim() || existing?.branch || "Engineering",
+        year: student.year?.trim() || existing?.year || "Student",
+        targetCert: student.targetCert?.trim() || existing?.targetCert || "AWS Cloud Practitioner (CLF-C02)",
+        points: Math.max(existing?.points || 0, Number(points) || 0),
+        streakDays: Math.max(existing?.streakDays || 0, Number(streakDays) || 0),
+        completedDays: mergedCompletedDays,
+        lastCompletedAt: lastCompletedAt || existing?.lastCompletedAt || null,
+        attemptsCount: Math.max(existing?.attemptsCount || 0, Number(attemptsCount) || 0),
+        registeredAt: existing?.registeredAt || Date.now(),
+      };
+
+      await setDoc(docRef, { participants: { [key]: updated } }, { merge: true });
+      return NextResponse.json({ success: true, participant: updated });
+    }
+
     return NextResponse.json({ error: "Unknown action" }, { status: 400 });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "Internal server error";
