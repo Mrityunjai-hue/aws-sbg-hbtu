@@ -87,7 +87,13 @@ export default function ChallengesPage() {
     return true;
   });
 
-  const currentRank = leaderboard.findIndex((s) => s.id === "local-user") + 1;
+  const currentRank =
+    leaderboard.findIndex(
+      (s) =>
+        s.id === "local-user" ||
+        s.name.includes("(You)") ||
+        (Boolean(studentState.student?.rollNo) && s.rollOrHandle.includes(studentState.student!.rollNo))
+    ) + 1;
   const progressPercent = Math.round((studentState.completedDays.length / 15) * 100);
 
   const tabs = [

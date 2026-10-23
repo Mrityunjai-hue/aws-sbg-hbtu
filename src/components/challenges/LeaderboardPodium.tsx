@@ -489,7 +489,10 @@ export function LeaderboardPodium({
               {filteredRoster.map((student, idx) => {
                 const actualRank = students.findIndex((s) => s.id === student.id) + 1;
                 const isLocal =
-                  student.id === "local-user" || (Boolean(currentUserId) && student.id === currentUserId);
+                  student.id === "local-user" ||
+                  student.name.includes("(You)") ||
+                  (Boolean(currentUserId) &&
+                    (student.id === currentUserId || student.rollOrHandle.includes(currentUserId)));
                 return (
                   <tr
                     key={student.id}
@@ -515,7 +518,9 @@ export function LeaderboardPodium({
                           03
                         </span>
                       ) : (
-                        <span className="text-on-surface-variant">0{actualRank}</span>
+                        <span className="text-on-surface-variant">
+                          {actualRank < 10 ? `0${actualRank}` : actualRank}
+                        </span>
                       )}
                     </td>
                     <td className="py-3.5 px-4">
