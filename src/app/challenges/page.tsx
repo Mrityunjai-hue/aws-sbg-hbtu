@@ -44,6 +44,10 @@ export default function ChallengesPage() {
   const refreshState = async () => {
     const local = ChallengeService.getLocalState();
     setStudentState(local);
+    // Auto-sync local registration & completed points to shared server
+    if (local.isRegistered && local.student) {
+      ChallengeService.syncLocalStateToServer().catch(() => {});
+    }
     const lb = await ChallengeService.getLeaderboard();
     setLeaderboard(lb);
   };
@@ -57,6 +61,19 @@ export default function ChallengesPage() {
       }
     }
     refreshState();
+
+    const handleFocus = () => {
+      refreshState();
+    };
+    window.addEventListener("focus", handleFocus);
+    // 15-second live scoreboard polling so participants see live updates automatically
+    const interval = setInterval(() => {
+      refreshState();
+    }, 15000);
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+      clearInterval(interval);
+    };
   }, []);
 
   const handleOpenQuiz = (module: ChallengeDayModule) => {
@@ -87,13 +104,14 @@ export default function ChallengesPage() {
     return true;
   });
 
-  const currentRank =
-    leaderboard.findIndex(
-      (s) =>
-        s.id === "local-user" ||
-        s.name.includes("(You)") ||
-        (Boolean(studentState.student?.rollNo) && s.rollOrHandle.includes(studentState.student!.rollNo))
-    ) + 1;
+  const verifiedScorers = leaderboard.filter((s) => s.points > 0);
+  const currentRankIndex = verifiedScorers.findIndex(
+    (s) =>
+      s.id === "local-user" ||
+      s.name.includes("(You)") ||
+      (Boolean(studentState.student?.rollNo) && s.rollOrHandle.includes(studentState.student!.rollNo))
+  );
+  const currentRank = currentRankIndex !== -1 ? currentRankIndex + 1 : null;
   const progressPercent = Math.round((studentState.completedDays.length / 15) * 100);
 
   const tabs = [
@@ -240,14 +258,17 @@ export default function ChallengesPage() {
                 </div>
               </div>
 
-              {currentRank > 0 && (
-                <div className="text-center">
-                  <div className="text-[10px] text-on-surface-variant uppercase">Current Standing</div>
-                  <div className="text-lg font-black text-emerald-400">
-                    Rank #{currentRank}
-                  </div>
+              <div className="text-center">
+                <div className="text-[10px] text-on-surface-variant uppercase">Current Standing</div>
+                <div className="text-lg font-black text-emerald-400">
+                  {currentRank !== null ? `Rank #${currentRank}` : "Unranked"}
                 </div>
-              )}
+                {currentRank === null && (
+                  <span className="text-[9px] text-on-surface-variant block font-mono">
+                    Verify M1 to rank
+                  </span>
+                )}
+              </div>
 
               {/* Reset Registration Button for Test Cleanup */}
               <div className="text-center sm:pl-2">
