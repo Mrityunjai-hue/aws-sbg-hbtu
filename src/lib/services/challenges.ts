@@ -222,6 +222,9 @@ export const ChallengeService = {
    * Register student for the 14-day challenge
    */
   async registerStudent(input: StudentRegistrationInput): Promise<boolean> {
+    if (ACTIVE_14DAY_CHALLENGE.status === "COMPLETED") {
+      throw new Error("Challenge registration is closed as the challenge has concluded.");
+    }
     if (isTestCandidate(input.name, input.rollNo, input.email)) {
       throw new Error("Test registration cannot be submitted. Please use genuine student details.");
     }
@@ -248,6 +251,7 @@ export const ChallengeService = {
    * Sync local student progress to shared backend
    */
   async syncLocalStateToServer(): Promise<void> {
+    if (ACTIVE_14DAY_CHALLENGE.status === "COMPLETED") return;
     const currentState = this.getLocalState();
     if (!currentState.isRegistered || !currentState.student) return;
     if (isTestCandidate(currentState.student.name, currentState.student.rollNo, currentState.student.email)) return;
@@ -281,6 +285,13 @@ export const ChallengeService = {
     selectedOptionIndex: number,
     notes: string
   ): Promise<VerificationResult> {
+    if (ACTIVE_14DAY_CHALLENGE.status === "COMPLETED") {
+      return {
+        success: false,
+        pointsAwarded: 0,
+        explanation: "The 14-Day Challenge is officially completed and locked. Standings are final.",
+      };
+    }
     const targetModule = ACTIVE_14DAY_CHALLENGE.modules.find((m) => m.day === dayNumber);
     if (!targetModule) {
       return { success: false, pointsAwarded: 0, explanation: "Invalid module day." };
@@ -398,16 +409,16 @@ export const ChallengeService = {
     const currentState = this.getLocalState();
     let participantsMap: Record<string, any> = {};
 
-    // 1. Fetch shared participants from Next.js server route (HTTP GET is fastest and avoids gRPC websocket drops)
+    // 1. Fetch shared participants from Next.js server route (HTTP GET with cache: no-store)
     if (typeof window !== "undefined") {
       try {
         const res = await Promise.race([
-          fetch("/api/challenges"),
-          new Promise<Response>((_, reject) => setTimeout(() => reject(new Error("api_timeout")), 2500)),
+          fetch("/api/challenges", { cache: "no-store" }),
+          new Promise<Response>((_, reject) => setTimeout(() => reject(new Error("api_timeout")), 10000)),
         ]);
         if (res.ok) {
           const data = await res.json();
-          if (data && data.participants) {
+          if (data && data.participants && Object.keys(data.participants).length > 0) {
             participantsMap = data.participants;
           }
         }
@@ -421,23 +432,48 @@ export const ChallengeService = {
       try {
         const snap = await Promise.race([
           getDoc(doc(db, "users", CHALLENGE_SYSTEM_DOC_ID)),
-          new Promise<never>((_, reject) => setTimeout(() => reject(new Error("firestore_timeout")), 2000)),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error("firestore_timeout")), 8000)),
         ]);
         if (snap && snap.exists()) {
           participantsMap = snap.data()?.participants || {};
         }
       } catch (err) {
-        // Fallback to local roster
+        // Fallback to initial baseline roster
       }
     }
 
-    const roster: LeaderboardStudent[] = [...INITIAL_LEADERBOARD_DATA];
     const localRoll = currentState.student?.rollNo?.trim().toLowerCase();
+    const localEmail = currentState.student?.email?.trim().toLowerCase();
 
-    // Map all shared participants
+    // Map to deduplicate between INITIAL_LEADERBOARD_DATA and live server participants
+    const rosterMap = new Map<string, LeaderboardStudent>();
+
+    // 1. Seed with baseline verified roster
+    INITIAL_LEADERBOARD_DATA.forEach((initStudent) => {
+      if (!isTestCandidate(initStudent.name, initStudent.rollOrHandle, initStudent.targetCert)) {
+        const rollMatch = initStudent.rollOrHandle.match(/\d+/);
+        const key = rollMatch ? rollMatch[0].toLowerCase() : initStudent.id.toLowerCase();
+        const isCurrentLocal = Boolean(
+          (localRoll && (key.includes(localRoll) || initStudent.rollOrHandle.toLowerCase().includes(localRoll)))
+        );
+        rosterMap.set(key, {
+          ...initStudent,
+          id: isCurrentLocal ? "local-user" : initStudent.id,
+          name: isCurrentLocal && !initStudent.name.includes("(You)") ? `${initStudent.name} (You)` : initStudent.name,
+        });
+      }
+    });
+
+    // 2. Overlay live server participants
     Object.values(participantsMap).forEach((p: any) => {
       if (!p || !p.name || isTestCandidate(p.name, p.rollNo, p.email)) return;
-      const isCurrentLocal = Boolean(localRoll && p.rollNo && p.rollNo.trim().toLowerCase() === localRoll);
+      const pRoll = (p.rollNo || "").trim().toLowerCase();
+      const pEmail = (p.email || "").trim().toLowerCase();
+      const isCurrentLocal = Boolean(
+        (localRoll && pRoll === localRoll) ||
+        (localEmail && pEmail === localEmail)
+      );
+
       const monogram = p.name
         .split(" ")
         .map((part: string) => part[0])
@@ -445,19 +481,38 @@ export const ChallengeService = {
         .toUpperCase()
         .slice(0, 2);
 
+      const serverPoints = Number(p.points) || 0;
+      // Server verified points take precedence to rectify local duplicate attempts; cap at 2475
       const effectivePoints = isCurrentLocal
-        ? Math.max(Number(p.points) || 0, currentState.totalPoints)
-        : Number(p.points) || 0;
+        ? (serverPoints > 0 ? serverPoints : Math.min(2475, currentState.totalPoints))
+        : Math.min(2475, serverPoints);
       const effectiveStreak = isCurrentLocal
-        ? Math.max(Number(p.streakDays) || 0, currentState.currentStreak)
-        : Number(p.streakDays) || 0;
+        ? Math.min(15, serverPoints > 0 ? (Number(p.streakDays) || 15) : Math.max(Number(p.streakDays) || 0, currentState.currentStreak))
+        : Math.min(15, Number(p.streakDays) || 0);
       const effectiveCompletedDays =
         isCurrentLocal && currentState.completedDays.length > (p.completedDays?.length || 0)
           ? currentState.completedDays
           : p.completedDays || [];
-      const effectiveLastCompletedAt = isCurrentLocal
-        ? currentState.lastCompletedAt || p.lastCompletedAt
-        : p.lastCompletedAt;
+      // Keep earliest genuine completion timestamp
+      const effectiveLastCompletedAt = p.lastCompletedAt || (isCurrentLocal ? currentState.lastCompletedAt : undefined);
+
+      // Rectify and sync back to local storage if local is bloated or out-of-sync
+      if (isCurrentLocal && typeof window !== "undefined") {
+        try {
+          const storedProg = localStorage.getItem("aws_sbg_14day_progress");
+          const parsed = storedProg ? JSON.parse(storedProg) : {};
+          if (parsed.totalPoints !== effectivePoints || parsed.totalPoints > 2475) {
+            const synced = {
+              ...parsed,
+              totalPoints: effectivePoints,
+              currentStreak: effectiveStreak,
+              completedDays: Array.from(new Set([...(parsed.completedDays || []), ...(p.completedDays || [])])),
+              lastCompletedAt: effectiveLastCompletedAt,
+            };
+            localStorage.setItem("aws_sbg_14day_progress", JSON.stringify(synced));
+          }
+        } catch {}
+      }
 
       const finishTimeStr = effectiveLastCompletedAt
         ? `Finished · ${new Date(effectiveLastCompletedAt).toLocaleTimeString([], {
@@ -468,7 +523,8 @@ export const ChallengeService = {
         ? "In Progress"
         : "Registered";
 
-      roster.push({
+      const key = pRoll || p.id || `student_${p.rollNo}`;
+      rosterMap.set(key, {
         id: isCurrentLocal ? "local-user" : p.id || `student_${p.rollNo}`,
         name: isCurrentLocal ? `${p.name} (You)` : p.name,
         rollOrHandle: `${p.rollNo} (${p.branch || "Engineering"})`,
@@ -486,7 +542,7 @@ export const ChallengeService = {
       });
     });
 
-    // If local user is registered and NOT a test candidate and not yet in the mapped roster, inject them
+    // 3. If local user is registered and not yet in the map, inject them
     if (
       currentState.isRegistered &&
       currentState.student &&
@@ -495,7 +551,7 @@ export const ChallengeService = {
         currentState.student.rollNo,
         currentState.student.email
       ) &&
-      !roster.some((r) => r.id === "local-user" || (localRoll && r.rollOrHandle.toLowerCase().includes(localRoll)))
+      !Array.from(rosterMap.values()).some((r) => r.id === "local-user" || (localRoll && r.rollOrHandle.toLowerCase().includes(localRoll)))
     ) {
       const student = currentState.student;
       const monogram = student.name
@@ -516,7 +572,7 @@ export const ChallengeService = {
 
       const totalAttempts = Object.values(currentState.triesByDay).reduce((a, b) => a + b, 0);
 
-      roster.push({
+      rosterMap.set(localRoll || "local-user", {
         id: "local-user",
         name: `${student.name} (You)`,
         rollOrHandle: `${student.rollNo} (${student.branch})`,
@@ -533,6 +589,8 @@ export const ChallengeService = {
         attemptsCount: totalAttempts,
       });
     }
+
+    const roster = Array.from(rosterMap.values());
 
     // Strict Filter: remove any test candidates from the final roster
     const cleanRoster = roster.filter(

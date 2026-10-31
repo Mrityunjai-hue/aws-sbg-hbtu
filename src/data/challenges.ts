@@ -65,8 +65,8 @@ export interface ChallengeSprintDetails {
 export const ACTIVE_14DAY_CHALLENGE: ChallengeSprintDetails = {
   id: "aws-14day-cloud-practitioner-2026",
   title: "14-Day AWS Cloud Practitioner Challenge",
-  subtitle: "Master Cloud Computing Fundamentals, Build a 14-Day Learning Streak, and Earn Executive Shoutouts, AWS Backpack for Rank 1, Goodies for Ranks 2-3, and Official Certificates, Stickers & Pens for All Participants",
-  status: "ACTIVE",
+  subtitle: "Challenge Concluded & Official Standings Locked · Mastered Cloud Computing Fundamentals Across 15 Modules with Executive Shoutouts, AWS Backpack for Rank 1, Goodies for Ranks 2-3, and Certificates & Swag for All Participants",
+  status: "COMPLETED",
   startDate: "Wednesday, 14 October 2026",
   totalModules: 15,
   officialSkillBuilderUrl: "https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/8D79F3AVR7",
@@ -74,22 +74,22 @@ export const ACTIVE_14DAY_CHALLENGE: ChallengeSprintDetails = {
     author: "AWS SBG Chapter Leadership",
     authorRole: "AWS Student Builder Group HBTU Kanpur",
     avatarMonogram: "SBG",
-    updatedDate: "October 12, 2026",
-    rawMessage: `Update on Our 14-Day AWS Learning Challenge!
+    updatedDate: "October 31, 2026",
+    rawMessage: `Official Conclusion & Final Honors Allocation · 14-Day AWS Challenge!
 
 Hey everyone!
 
-Due to some technical issues with the website, we will be starting our learning challenge this Wednesday, 14 October, instead of Monday. Thank you for your patience and understanding!
+The 14-Day AWS Learning Challenge has officially concluded! A huge congratulations to all our participants who dedicated their time, mastered the AWS Cloud Practitioner curriculum, and completed the assessments.
 
-Meanwhile, let's prepare!
+All completion records have been verified against genuine first-completion logs. Standings are now officially locked and final.
 
-Before diving into cloud computing and AWS fundamentals, it's important to understand which AWS certification you should aim for and what each certification offers.
+🏆 Official Podium Honors:
+• Rank 1 Champion: Tanmay Goel (2,475 PTS) — Exclusive AWS Backpack & Chapter Leadership Feature!
+• Rank 2 Podium: Arpit Pal (2,475 PTS) — AWS Goodies & Chapter Leadership Feature!
+• Rank 3 Podium: Arnav Agarwal (2,438 PTS) — AWS Goodies & Chapter Leadership Feature!
+• Top Finalists & All Participants: Official Certificates of Participation from AWS SBG HBTU Kanpur, plus exclusive AWS stickers and pens.
 
-I'm sharing a PDF to help you explore the different AWS certifications and choose the right learning path for yourself.
-
-Please go through the PDF before we begin so we can start our journey with clarity and the right goals!
-
-Let's learn and grow together!`,
+Thank you to everyone who made this sprint unforgettable! Keep building on the cloud!`,
   },
   prizes: [
     {
@@ -622,7 +622,150 @@ Let's learn and grow together!`,
   ]
 };
 
-export const INITIAL_LEADERBOARD_DATA: LeaderboardStudent[] = [];
+export const INITIAL_LEADERBOARD_DATA: LeaderboardStudent[] = [
+  {
+    id: "s_250137056",
+    name: "Tanmay Goel",
+    rollOrHandle: "250137056 (BS-MS Mathematics and Data Science (MDS))",
+    branch: "BS-MS Mathematics and Data Science (MDS)",
+    year: "2nd Year",
+    targetCert: "AWS Certified Data Engineer - Associate (DEA-C01)",
+    points: 2475,
+    streakDays: 15,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    badge: "Rank 1 · AWS Backpack & Shoutout",
+    avatarMonogram: "TG",
+    completedAt: 1792851025785,
+    finishTimeStr: "Finished · 19:40 IST",
+    attemptsCount: 15,
+  },
+  {
+    id: "s_250137010",
+    name: "Arpit Pal",
+    rollOrHandle: "250137010 (BS-MS Mathematics and Data Science (MDS))",
+    branch: "BS-MS Mathematics and Data Science (MDS)",
+    year: "2nd Year",
+    targetCert: "AWS Certified Cloud Practitioner (CLF-C02)",
+    points: 2475,
+    streakDays: 15,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    badge: "Rank 2 · Goodies & Shoutout",
+    avatarMonogram: "AP",
+    completedAt: 1793391902360,
+    finishTimeStr: "Finished · 01:55 IST",
+    attemptsCount: 15,
+  },
+  {
+    id: "s_260107019",
+    name: "Arnav Agarwal",
+    rollOrHandle: "260107019 (Food Technology (FT))",
+    branch: "Food Technology (FT)",
+    year: "1st Year",
+    targetCert: "AWS Certified DevOps Engineer - Professional (DOP-C02)",
+    points: 2438,
+    streakDays: 15,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    badge: "Rank 3 · Goodies & Shoutout",
+    avatarMonogram: "AA",
+    completedAt: 1792765169117,
+    finishTimeStr: "Finished · 19:49 IST",
+    attemptsCount: 16,
+  },
+  {
+    id: "s_260104057",
+    name: "Sahil Yadav",
+    rollOrHandle: "260104057 (Computer Science & Engineering (CSE))",
+    branch: "Computer Science & Engineering (CSE)",
+    year: "1st Year",
+    targetCert: "AWS Certified Developer - Associate (DVA-C02)",
+    points: 2438,
+    streakDays: 15,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    badge: "Top 5 · Certificate & Swag",
+    avatarMonogram: "SY",
+    completedAt: 1793293596314,
+    finishTimeStr: "Finished · 22:36 IST",
+    attemptsCount: 16,
+  },
+  {
+    id: "s_260149016",
+    name: "Arnav Pushkar Joshi",
+    rollOrHandle: "260149016 (Computer Science & Engineering (CSE))",
+    branch: "Computer Science & Engineering (CSE)",
+    year: "1st Year",
+    targetCert: "AWS Certified Cloud Practitioner (CLF-C02)",
+    points: 2438,
+    streakDays: 15,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    badge: "Top 5 · Certificate & Swag",
+    avatarMonogram: "AJ",
+    completedAt: 1793386632365,
+    finishTimeStr: "Finished · 00:27 IST",
+    attemptsCount: 16,
+  },
+  {
+    id: "s_260149074",
+    name: "Utkarsh Upadhyay",
+    rollOrHandle: "260149074 (Computer Science & Engineering (CSE))",
+    branch: "Computer Science & Engineering (CSE)",
+    year: "1st Year",
+    targetCert: "AWS Certified Cloud Practitioner (CLF-C02)",
+    points: 2438,
+    streakDays: 15,
+    completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    badge: "Certificate & Swag",
+    avatarMonogram: "UU",
+    completedAt: 1793427800092,
+    finishTimeStr: "Finished · 11:53 IST",
+    attemptsCount: 16,
+  },
+  {
+    id: "s_220101001",
+    name: "Aarav Sharma",
+    rollOrHandle: "220101001 (Computer Science)",
+    branch: "Computer Science",
+    year: "3rd Year",
+    targetCert: "AWS Cloud Practitioner",
+    points: 150,
+    streakDays: 1,
+    completedDays: [1],
+    badge: "Certificate & Swag",
+    avatarMonogram: "AS",
+    completedAt: 1792747407383,
+    finishTimeStr: "Finished · 14:53 IST",
+    attemptsCount: 1,
+  },
+  {
+    id: "s_220102045",
+    name: "Priya Verma",
+    rollOrHandle: "220102045 (BS-MS Mathematics and Data Science)",
+    branch: "BS-MS Mathematics and Data Science",
+    year: "2nd Year",
+    targetCert: "AWS Cloud Practitioner",
+    points: 150,
+    streakDays: 1,
+    completedDays: [1],
+    badge: "Certificate & Swag",
+    avatarMonogram: "PV",
+    completedAt: 1792747500000,
+    finishTimeStr: "Finished · 14:55 IST",
+    attemptsCount: 1,
+  },
+  {
+    id: "s_260107031",
+    name: "Harshit Dubey",
+    rollOrHandle: "260107031 (Food Technology (FT))",
+    branch: "Food Technology (FT)",
+    year: "1st Year",
+    targetCert: "AWS Certified Cloud Practitioner (CLF-C02)",
+    points: 0,
+    streakDays: 0,
+    completedDays: [],
+    badge: "Registered · Awaiting M1",
+    avatarMonogram: "HD",
+    attemptsCount: 0,
+  },
+];
 
 export interface ChallengeItem {
   id: string;

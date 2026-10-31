@@ -45,10 +45,17 @@ export function LeaderAnnouncementBanner({
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-300 border border-amber-500/30 flex items-center gap-1.5">
-            <span className="material-symbols-outlined text-sm">event_repeat</span>
-            <span>Starts Wed, 14 Oct</span>
-          </span>
+          {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? (
+            <span className="text-xs font-mono px-3 py-1.5 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-500/40 flex items-center gap-1.5 font-bold">
+              <span className="material-symbols-outlined text-sm">lock</span>
+              <span>Challenge Concluded · Standings Final</span>
+            </span>
+          ) : (
+            <span className="text-xs font-mono px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-300 border border-amber-500/30 flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-sm">event_repeat</span>
+              <span>Starts Wed, 14 Oct</span>
+            </span>
+          )}
           <span className="text-xs font-mono px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
             <span className="material-symbols-outlined text-sm">workspace_premium</span>
             <span>Backpack, Goodies & Certificates</span>
@@ -91,13 +98,20 @@ export function LeaderAnnouncementBanner({
         {/* Register or Status */}
         <div>
           {!isRegistered ? (
-            <button
-              onClick={onRegisterClick}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl btn-3d-aws font-mono text-xs sm:text-sm font-extrabold text-black"
-            >
-              <span className="material-symbols-outlined text-base">how_to_reg</span>
-              <span>Register for 14-Day Challenge</span>
-            </button>
+            ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? (
+              <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-low border border-amber-400/40 text-amber-400 font-mono text-xs font-bold">
+                <span className="material-symbols-outlined text-sm">lock</span>
+                <span>Standings Locked</span>
+              </div>
+            ) : (
+              <button
+                onClick={onRegisterClick}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl btn-3d-aws font-mono text-xs sm:text-sm font-extrabold text-black"
+              >
+                <span className="material-symbols-outlined text-base">how_to_reg</span>
+                <span>Register for 14-Day Challenge</span>
+              </button>
+            )
           ) : (
             <div className="flex items-center gap-2">
               <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold">

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChallengeDayModule } from "@/data/challenges";
+import { ChallengeDayModule, ACTIVE_14DAY_CHALLENGE } from "@/data/challenges";
 import { ChallengeService, calculateAttemptPoints } from "@/lib/services/challenges";
 
 interface ModuleQuizModalProps {
@@ -172,23 +172,33 @@ export function ModuleQuizModal({
             <div className="space-y-0.5">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-on-surface-variant">
-                  Current Attempt Status:
+                  Current Status:
                 </span>
-                <span
-                  className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-black border ${
-                    nextAttemptNum === 1
-                      ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/40"
-                      : nextAttemptNum === 2
-                      ? "bg-amber-500/20 text-amber-400 border-amber-500/40"
-                      : "bg-red-500/20 text-red-400 border-red-500/40"
-                  }`}
-                >
-                  ATTEMPT #{nextAttemptNum} · {currentPotential.percentage}% REWARD
-                </span>
+                {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? (
+                  <span className="px-2 py-0.5 rounded-full font-mono text-[10px] font-black border bg-amber-500/20 text-amber-400 border-amber-500/40 inline-flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs">lock</span>
+                    CHALLENGE CONCLUDED · SCORES LOCKED
+                  </span>
+                ) : (
+                  <span
+                    className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-black border ${
+                      nextAttemptNum === 1
+                        ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/40"
+                        : nextAttemptNum === 2
+                        ? "bg-amber-500/20 text-amber-400 border-amber-500/40"
+                        : "bg-red-500/20 text-red-400 border-red-500/40"
+                    }`}
+                  >
+                    ATTEMPT #{nextAttemptNum} · {currentPotential.percentage}% REWARD
+                  </span>
+                )}
               </div>
               <p className="text-[11px] font-mono text-on-surface-variant">
-                {currentPotential.penaltyExplanation} Correct submission earns{" "}
-                <strong className="text-primary-accent font-bold">+{currentPotential.awardedPoints} PTS</strong>.
+                {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? (
+                  "Standings are officially final. Assessment submissions are locked in review mode."
+                ) : (
+                  <>{currentPotential.penaltyExplanation} Correct submission earns <strong className="text-primary-accent font-bold">+{currentPotential.awardedPoints} PTS</strong>.</>
+                )}
               </p>
             </div>
 
@@ -326,7 +336,16 @@ export function ModuleQuizModal({
               >
                 Close
               </button>
-              {feedback.status !== "correct" ? (
+              {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? (
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-5 py-2.5 rounded-xl bg-surface-low border border-amber-400/40 text-amber-400 font-mono text-xs font-bold flex items-center gap-1.5 hover:bg-amber-400/10 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-sm">lock</span>
+                  <span>Standings Locked · Close</span>
+                </button>
+              ) : feedback.status !== "correct" ? (
                 <button
                   type="button"
                   disabled={isSubmitting || selectedOption === null}

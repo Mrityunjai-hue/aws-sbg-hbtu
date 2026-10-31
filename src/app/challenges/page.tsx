@@ -16,10 +16,12 @@ import { RoadmapViewerModal } from "@/components/challenges/RoadmapViewerModal";
 import { LeaderboardPodium } from "@/components/challenges/LeaderboardPodium";
 import { DayModuleCard } from "@/components/challenges/DayModuleCard";
 import { CertificationRoadmapGuide } from "@/components/challenges/CertificationRoadmapGuide";
+import { useAuth } from "@/lib/contexts/AuthContext";
 
 const EASE_CURVE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function ChallengesPage() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<"modules" | "leaderboard" | "roadmap" | "rules">("modules");
   const [curriculumFilter, setCurriculumFilter] = useState<"all" | "core" | "data" | "security" | "arch">("all");
 
@@ -42,13 +44,39 @@ export default function ChallengesPage() {
   const [activeQuizModule, setActiveQuizModule] = useState<ChallengeDayModule | null>(null);
 
   const refreshState = async () => {
-    const local = ChallengeService.getLocalState();
+    let local = ChallengeService.getLocalState();
+    const lb = await ChallengeService.getLeaderboard();
+
+    // If local storage is empty but user is signed in with Firebase, auto-link to matching student in leaderboard
+    if ((!local.isRegistered || !local.student) && user?.email && typeof window !== "undefined") {
+      const userEmail = user.email.trim().toLowerCase();
+      const matched = lb.find(
+        (s) =>
+          s.id.toLowerCase().includes(userEmail) ||
+          s.rollOrHandle.toLowerCase().includes(userEmail)
+      );
+      if (matched) {
+        const rollMatch = matched.rollOrHandle.match(/^\d+/);
+        const restoredStudent = {
+          name: matched.name.replace(" (You)", ""),
+          email: user.email,
+          rollNo: rollMatch ? rollMatch[0] : matched.id.replace("s_", ""),
+          branch: matched.branch,
+          year: matched.year,
+          targetCert: matched.targetCert,
+        };
+        try {
+          localStorage.setItem("aws_sbg_14day_student", JSON.stringify(restoredStudent));
+          local = ChallengeService.getLocalState();
+        } catch {}
+      }
+    }
+
     setStudentState(local);
     // Auto-sync local registration & completed points to shared server
     if (local.isRegistered && local.student) {
       ChallengeService.syncLocalStateToServer().catch(() => {});
     }
-    const lb = await ChallengeService.getLeaderboard();
     setLeaderboard(lb);
   };
 
@@ -74,7 +102,7 @@ export default function ChallengesPage() {
       window.removeEventListener("focus", handleFocus);
       clearInterval(interval);
     };
-  }, []);
+  }, [user]);
 
   const handleOpenQuiz = (module: ChallengeDayModule) => {
     setActiveQuizModule(module);
@@ -105,13 +133,20 @@ export default function ChallengesPage() {
   });
 
   const verifiedScorers = leaderboard.filter((s) => s.points > 0);
+  const userRoll = studentState.student?.rollNo?.trim().toLowerCase();
+  const userEmail = (studentState.student?.email || user?.email)?.trim().toLowerCase();
+
   const currentRankIndex = verifiedScorers.findIndex(
     (s) =>
       s.id === "local-user" ||
       s.name.includes("(You)") ||
-      (Boolean(studentState.student?.rollNo) && s.rollOrHandle.includes(studentState.student!.rollNo))
+      (Boolean(userRoll) && s.rollOrHandle.toLowerCase().includes(userRoll!)) ||
+      (Boolean(userEmail) && (s.rollOrHandle.toLowerCase().includes(userEmail!) || s.id.toLowerCase().includes(userEmail!)))
   );
-  const currentRank = currentRankIndex !== -1 ? currentRankIndex + 1 : null;
+
+  // A student ONLY gets a numerical rank if they have earned verified points > 0
+  const hasVerifiedPoints = studentState.totalPoints > 0 || (currentRankIndex !== -1 && (verifiedScorers[currentRankIndex]?.points || 0) > 0);
+  const currentRank = (currentRankIndex !== -1 && hasVerifiedPoints) ? currentRankIndex + 1 : null;
   const progressPercent = Math.round((studentState.completedDays.length / 15) * 100);
 
   const tabs = [
@@ -168,15 +203,22 @@ export default function ChallengesPage() {
 
         <div className="shrink-0 flex flex-wrap items-center gap-3">
           {!studentState.isRegistered ? (
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setIsRegisterModalOpen(true)}
-              className="btn-3d-aws px-6 py-3.5 rounded-xl font-mono text-xs sm:text-sm font-extrabold text-black uppercase tracking-wider flex items-center gap-2"
-            >
-              <span className="material-symbols-outlined text-base">how_to_reg</span>
-              <span>Register for Challenge</span>
-            </motion.button>
+            ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? (
+              <div className="px-5 py-3 rounded-xl bg-surface-low border border-amber-400/40 text-amber-400 font-mono text-xs font-bold flex items-center gap-2 shadow-sm">
+                <span className="material-symbols-outlined text-sm">lock</span>
+                <span>Challenge Concluded · Standings Locked</span>
+              </div>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setIsRegisterModalOpen(true)}
+                className="btn-3d-aws px-6 py-3.5 rounded-xl font-mono text-xs sm:text-sm font-extrabold text-black uppercase tracking-wider flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-base">how_to_reg</span>
+                <span>Register for Challenge</span>
+              </motion.button>
+            )
           ) : (
             <div className="flex flex-wrap items-center gap-2.5">
               <div className="p-2.5 px-3.5 rounded-2xl bg-surface-low border border-primary-accent/40 flex items-center gap-3 shadow-md">
@@ -201,6 +243,19 @@ export default function ChallengesPage() {
           )}
         </div>
       </div>
+
+      {/* Official Concluded & Locked Status Alert */}
+      {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" && (
+        <div className="p-5 sm:p-6 rounded-3xl liquid-glass bg-gradient-to-r from-amber-500/15 via-surface-low to-primary-accent/15 border border-amber-400/50 shadow-xl space-y-2">
+          <div className="flex items-center gap-2.5 text-amber-400 font-mono font-bold text-xs sm:text-sm">
+            <span className="material-symbols-outlined text-xl">lock</span>
+            <span>OFFICIAL CONCLUSION & STANDINGS LOCKED</span>
+          </div>
+          <p className="text-xs sm:text-sm text-on-surface-variant font-mono leading-relaxed">
+            The 14-Day AWS Learning Challenge has officially concluded! Standings have been audited, all duplicate and restart attempts have been rectified to preserve genuine first-completion scores and timestamps, and the official podium is locked. Huge congratulations to our champions and all participants!
+          </p>
+        </div>
+      )}
 
       {/* Leader Announcement Banner (Executive Leadership Dispatch) */}
       <LeaderAnnouncementBanner
@@ -412,7 +467,7 @@ export default function ChallengesPage() {
           >
             <LeaderboardPodium
               students={leaderboard}
-              currentUserId={studentState.student?.rollNo}
+              currentUserId={studentState.student?.rollNo || user?.email || undefined}
               onRegisterClick={() => setIsRegisterModalOpen(true)}
               isRegistered={studentState.isRegistered}
             />
