@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { ChallengeDayModule } from "@/data/challenges";
+import { ChallengeDayModule, ACTIVE_14DAY_CHALLENGE } from "@/data/challenges";
 
 interface DayModuleCardProps {
   module: ChallengeDayModule;
@@ -199,6 +199,16 @@ export function DayModuleCard({
             className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-surface-lowest border border-outline hover:border-emerald-500/50 text-emerald-400 font-mono text-xs font-bold transition-colors"
           >
             Review
+          </motion.button>
+        ) : ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? (
+          <motion.button
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97, y: 1 }}
+            onClick={() => onOpenQuiz(module)}
+            className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-surface-lowest border border-outline hover:border-amber-400/50 text-on-surface-variant hover:text-amber-400 font-mono text-xs font-bold transition-colors flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-xs">lock</span>
+            <span>Review</span>
           </motion.button>
         ) : !isRegistered ? (
           <motion.button

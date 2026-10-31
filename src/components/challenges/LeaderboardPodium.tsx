@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { LeaderboardStudent } from "@/data/challenges";
+import { LeaderboardStudent, ACTIVE_14DAY_CHALLENGE } from "@/data/challenges";
 
 interface LeaderboardPodiumProps {
   students: LeaderboardStudent[];
@@ -133,8 +133,14 @@ export function LeaderboardPodium({
       <div className="space-y-6">
         <div className="text-center space-y-1.5">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 font-mono text-xs font-bold">
-            <span className="material-symbols-outlined text-sm">leaderboard</span>
-            <span>OFFICIAL QUALIFICATION STANDINGS</span>
+            <span className="material-symbols-outlined text-sm">
+              {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? "lock" : "leaderboard"}
+            </span>
+            <span>
+              {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED"
+                ? "OFFICIAL FINAL STANDINGS · LOCKED"
+                : "OFFICIAL QUALIFICATION STANDINGS"}
+            </span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-on-background tracking-tight">
             Top Contestant Honor Podium
@@ -404,9 +410,16 @@ export function LeaderboardPodium({
         {/* Controls Bar */}
         <div className="p-5 sm:p-6 border-b border-outline flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h3 className="font-extrabold text-base text-on-background">
-              Complete Verified Standings
-            </h3>
+            <div className="flex items-center gap-2">
+              <h3 className="font-extrabold text-base text-on-background">
+                Complete Verified Standings
+              </h3>
+              {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" && (
+                <span className="px-2 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-400 font-mono text-[10px] font-bold">
+                  LOCKED & FINAL
+                </span>
+              )}
+            </div>
             <p className="text-xs font-mono text-on-surface-variant">
               Displaying {filteredRoster.length} of {students.length} verified builders · Tie-breaks resolved by earliest finish timestamp
             </p>
@@ -489,14 +502,20 @@ export function LeaderboardPodium({
                 </tr>
               )}
               {filteredRoster.map((student, idx) => {
-                const rankIndex = verifiedScorers.findIndex((s) => s.id === student.id);
+                const rankIndex = verifiedScorers.findIndex(
+                  (s) => s.id === student.id || (student.rollOrHandle && s.rollOrHandle === student.rollOrHandle)
+                );
                 const isRanked = rankIndex !== -1 && student.points > 0;
                 const actualRank = isRanked ? rankIndex + 1 : null;
+                const uid = currentUserId?.toLowerCase();
                 const isLocal =
                   student.id === "local-user" ||
                   student.name.includes("(You)") ||
-                  (Boolean(currentUserId) &&
-                    (student.id === currentUserId || student.rollOrHandle.includes(currentUserId)));
+                  Boolean(
+                    uid &&
+                      (student.id.toLowerCase() === uid ||
+                        student.rollOrHandle.toLowerCase().includes(uid))
+                  );
                 return (
                   <tr
                     key={student.id}

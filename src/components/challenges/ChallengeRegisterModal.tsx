@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { toast } from "sonner";
 import { ChallengeService, StudentRegistrationInput, isTestCandidate } from "@/lib/services/challenges";
+import { ACTIVE_14DAY_CHALLENGE } from "@/data/challenges";
 
 interface ChallengeRegisterModalProps {
   isOpen: boolean;
@@ -150,6 +151,16 @@ export function ChallengeRegisterModal({
           </div>
         )}
 
+        {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" && (
+          <div className="mt-4 p-3.5 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-xs flex items-center gap-2.5">
+            <span className="material-symbols-outlined text-base text-amber-400 shrink-0">lock</span>
+            <div>
+              <strong className="block text-amber-400 font-bold">Challenge Concluded & Registration Closed</strong>
+              <span>The 14-Day AWS Learning Challenge has concluded. Standings are final and registrations are locked.</span>
+            </div>
+          </div>
+        )}
+
         {/* Form */}
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
@@ -266,13 +277,24 @@ export function ChallengeRegisterModal({
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn-3d-aws px-6 py-2.5 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-2 disabled:opacity-50"
-            >
-              {isSubmitting ? "Registering..." : "Confirm Registration"}
-            </button>
+            {ACTIVE_14DAY_CHALLENGE.status === "COMPLETED" ? (
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-6 py-2.5 rounded-xl bg-surface-low border border-amber-400/40 text-amber-400 font-mono text-xs font-bold flex items-center gap-1.5"
+              >
+                <span className="material-symbols-outlined text-sm">lock</span>
+                <span>Registration Closed</span>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn-3d-aws px-6 py-2.5 rounded-xl font-mono text-xs font-extrabold text-black uppercase tracking-wider flex items-center gap-2 disabled:opacity-50"
+              >
+                {isSubmitting ? "Registering..." : "Confirm Registration"}
+              </button>
+            )}
           </div>
         </form>
       </div>

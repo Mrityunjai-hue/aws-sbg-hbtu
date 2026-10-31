@@ -70,14 +70,23 @@ export function FlashNotificationBanner() {
           }
         }
 
-        // 3. Active Challenge Fallback if no imminent event
-        if (!latestAlert && ACTIVE_14DAY_CHALLENGE.status === "ACTIVE") {
-          latestAlert = {
-            id: `chal-${ACTIVE_14DAY_CHALLENGE.id}`,
-            title: `Active Sprint: 14-Day AWS Challenge is Live · Verify Modules Daily!`,
-            type: "challenge",
-            link: "/challenges",
-          };
+        // 3. Challenge Fallback if no imminent event
+        if (!latestAlert) {
+          if (ACTIVE_14DAY_CHALLENGE.status === "ACTIVE") {
+            latestAlert = {
+              id: `chal-${ACTIVE_14DAY_CHALLENGE.id}`,
+              title: `Active Sprint: 14-Day AWS Challenge is Live · Verify Modules Daily!`,
+              type: "challenge",
+              link: "/challenges",
+            };
+          } else if (ACTIVE_14DAY_CHALLENGE.status === "COMPLETED") {
+            latestAlert = {
+              id: `chal-${ACTIVE_14DAY_CHALLENGE.id}-concluded`,
+              title: `14-Day AWS Challenge Concluded: Official Standings Locked & Podium Winners Finalized!`,
+              type: "challenge",
+              link: "/challenges",
+            };
+          }
         }
 
         if (latestAlert) {
